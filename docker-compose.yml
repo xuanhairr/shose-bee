@@ -1,0 +1,36 @@
+version: '3.8'
+services:
+  # Container cho MySQL
+  # mysql:
+  #   image: mysql:latest
+  #   container_name: mysql-container
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: root
+  #   ports:
+  #     - "3307:3306"
+  #   volumes:
+  #     - ./mysql-data:/var/lib/mysql
+
+  # Container cho ứng dụng Spring Boot
+  springboot-app:
+    image: vinhnv06/server_shose:shose_version_1
+    container_name: springboot-container
+    # build:
+    #   context: ./BE
+    # depends_on:
+    #   - mysql
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://103.169.35.190:3306/database_shose
+      SPRING_DATASOURCE_USERNAME: shose
+      SPRING_DATASOURCE_PASSWORD: ^0Y3H?1%nbG(
+
+  # Container cho ứng dụng ReactJS
+  react-app:
+    image: vinhnv06/client_shose:shose_version_fe_1
+    # build:
+    #   context: ./FE
+    container_name: react-container
+    ports:
+      - "3000:80"
