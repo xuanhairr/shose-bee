@@ -1,0 +1,702 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <!-- Required Meta Tags Always Come First -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Title -->
+    <title>LightBee | Order Details</title>
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="favicon.ico">
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/assets/cms/css/sweetalert2.min.css">
+
+    <!-- CSS Implementing Plugins -->
+    <link rel="stylesheet" href="/assets/cms/css/vendor.min.css">
+    <link rel="stylesheet" href="/assets/cms/vendor/icon-set/style.css">
+    <!-- CSS Front Template -->
+    <link rel="stylesheet" href="/assets/cms/css/theme.min.css?v=1.0">
+    <!-- CSS Timeline -->
+    <link rel="stylesheet" href="/assets/cms/css/timeline.css">
+    <style>
+        .swal2-timer-progress-bar {
+            background-color: #a5dc86;
+        }
+    </style>
+</head>
+<body class="   footer-offset">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.1/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+<script src="/assets/cms/vendor/hs-navbar-vertical-aside/hs-navbar-vertical-aside-mini-cache.js"></script>
+<!-- ========== HEADER ========== -->
+<div th:replace="~{cms/pages/_header.html}"></div>
+<!-- ========== END HEADER ========== -->
+
+<!-- ========== SIDEBAR ========== -->
+<div th:replace="~{cms/pages/_sidebar.html}"></div>
+<!-- ========== END SIDEBAR ========== -->
+<script src="/assets/cms/js/demo.js"></script>
+
+<!-- ========== MAIN CONTENT ========== -->
+
+<main id="content" role="main" class="main">
+    <!-- Content -->
+    <div class="content container-fluid">
+        <!-- Page Header -->
+        <div class="page-header d-print-none">
+            <div class="row align-items-center">
+                <div class="col-sm mb-2 mb-sm-0">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb breadcrumb-no-gutter">
+                            <li class="breadcrumb-item"><a class="breadcrumb-link" th:href="@{/cms/hoa-don}">Hóa Đơn</a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">Chi Tiết</li>
+                        </ol>
+                    </nav>
+
+                    <div class="d-sm-flex align-items-sm-center">
+                        <h1 id="id-for-attribute" th:attr="id-for-call-api=${hoaDon.id}" class="page-header-title"
+                            th:text="'Đơn Hàng #' + ${hoaDon.maHoaDon}"></h1>
+                        <div class="trangThaiHeader ml-sm-3">
+                            <span th:class="${hoaDon.trangThai == 'Thành Công' ? 'badge badge-soft-success' :
+                    (hoaDon.trangThai == 'Chờ Giao' ? 'badge badge-soft-warning' : 'badge badge-soft-danger')}"
+                                  th:text="'Trạng thái: ' + ${hoaDon.trangThai}">
+                  <span class="legend-indicator bg-success"></span>
+                </span>
+                        </div>
+                        <span class="badge badge-soft-success ml-2 ml-sm-3" th:text="'Ngày Tạo: ' + ${hoaDon.ngayTao}">
+                  <i class="tio-date-range"></i>
+                </span>
+                    </div>
+
+                    <div class="mt-2">
+                        <a class="text-body mr-3" href="javascript:;" onclick="window.print(); return false;">
+                            <i class="tio-print mr-1"></i> Print order
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-sm-auto">
+                    <a class="btn btn-icon btn-sm btn-ghost-secondary rounded-circle mr-1" href="#"
+                       data-toggle="tooltip" data-placement="top" title="Previous order">
+                        <i class="tio-arrow-backward"></i>
+                    </a>
+                    <a class="btn btn-icon btn-sm btn-ghost-secondary rounded-circle" href="#" data-toggle="tooltip"
+                       data-placement="top" title="Next order">
+                        <i class="tio-arrow-forward"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- End Page Header -->
+
+        <div class="row col-12" th:insert="~{cms/pages/orders/_timeline.html}"></div>
+
+        <div class="row mt-2 mb-2">
+            <div th:attr="id-hoa-don=${hoaDon.id}" class="col-6 justify-content-start" id="myButton">
+                <button th:if="${hoaDon.trangThai != 'Hủy' && hoaDon.trangThai != 'Thành Công' && hoaDon.trangThai != 'Hoàn Trả'}"
+                        class="btn btn-sm btn-outline-success mr-1" id="xacNhanFromDetail">
+                    <i class="tio-checkmark-circle-outlined"></i> Xác Nhận
+                </button>
+                <button th:if="${hoaDon.trangThai == 'Chờ Xác Nhận' || hoaDon.trangThai == 'Chuẩn Bị Hàng'}"
+                        id="getAttrToHuyFromDetail" type="button" class="btn btn-sm btn-outline-danger mr-1"
+                        data-toggle="modal" data-target="#staticBackdrop">
+                    <i class="tio-delete-outlined"></i> Hủy
+                </button>
+                <button th:class="'btn btn-sm btn-outline-primary ' + ${hoaDon.trangThai != 'Chuẩn Bị Hàng' ? 'd-none' : ''}"
+                        id="hoanTacFromDetail">
+                    <i class="tio-history"></i> Hoàn Tác
+                </button>
+            </div>
+            <div class="col-6 d-flex justify-content-end">
+                <button th:class="'btn btn-sm btn-outline-dark mr-1 ' + ${hoaDon.trangThai == 'Chờ Xác Nhận' || hoaDon.trangThai == 'Hủy' ? 'd-none' : ''}"
+                        id="printOrder">
+                    <i class="tio-print"></i> In hóa đơn
+                </button>
+                <button class="btn btn-sm btn-outline-dark mr-1" data-toggle="modal" data-target="#history">
+                    <i class="tio-timer"></i> Lịch Sử
+                </button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-8 mb-3 mb-lg-0">
+                <!-- Card -->
+                <div class="card mb-3 mb-lg-5">
+                    <!-- Header -->
+                    <div class="card-header">
+                        <h4 class="card-header-title">Chi tiết đơn hàng <span
+                                class="badge badge-soft-dark rounded-circle ml-1"
+                                th:text="${hoaDonChiTietList.size()}"></span></h4>
+                        <div>
+                            <button th:if="${hoaDon.getTrangThai() == 'Chờ Xác Nhận' && hinhThuc != 'VNPAY'}" id="btn-add-product" data-toggle="modal" data-target="#select_product"
+                                    class="btn btn-outline-primary d-none">Thêm Sản Phẩm
+                            </button>
+                            <span class="d-none" id="isShowBtnRefund" th:text="${hoaDon.hasCODTransaction()}"></span>
+                            <button th:attr="data-id-hd=${hoaDon.getId()}" id="btn-refund" type="button" th:class="'btn btn-info ' + ${!hoaDon.hasCODTransaction() and hoaDon.getTrangThai() == 'Hủy' ? '' : 'd-none'}">Hoàn Tiền</button>
+                            <button th:if="${hoaDon.getTrangThai() == 'Chờ Xác Nhận' && hinhThuc != 'VNPAY'}" id="btn-edit-product" class="btn btn-outline-primary">Chỉnh sửa</button>
+                        </div>
+                    </div>
+                    <!-- End Header -->
+
+                    <!-- Body -->
+                    <div id="show-list-data" class="card-body">
+                        <!-- Media -->
+                        <div class="media mb-1 wrapper_product_detail product"
+                             th:each="hdct, productInfo : ${hoaDonChiTietList}"
+                             th:data-productId="${productInfo.index}" th:attr="data-id-hdct=${hdct.getId()}">
+                            <div class="avatar avatar-xl mr-3">
+                                <img class="img-fluid" style="max-height: 78.75px; max-width: 78.75px"
+                                     th:src="${hdct.chiTietSanPham.anh.url}" alt="Image Description">
+                            </div>
+                            <div class="media-body">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3 mb-md-0">
+                                        <a class="h5 d-block productName"
+                                           th:href="@{|/cms/view-product?id=${hdct.chiTietSanPham.sanPham.id}|}"
+                                           th:text="${hdct.chiTietSanPham.sanPham.ten}"></a>
+                                        <div class="font-size-sm text-body">
+                                            <span>Color:</span>
+                                            <span class="font-weight-bold productColor"
+                                                  th:text="${hdct.chiTietSanPham.mauSac.ten}"></span>
+                                        </div>
+                                        <div class="font-size-sm text-body">
+                                            <span>Size:</span>
+                                            <span class="font-weight-bold productSize"
+                                                  th:text="${hdct.chiTietSanPham.kichCo.ten}"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col col-md-2 align-self-center">
+                                        <h6 class="productPrice"
+                                            th:text="${#numbers.formatInteger(hdct.chiTietSanPham.giaBan.intValue(), 0, 'COMMA')}"></h6>
+                                    </div>
+
+                                    <div class="wrapper-quantity col col-md-2 align-self-center p-0">
+                                        <h6 class="productQuantity text-center" th:text="${hdct.getSoLuong()}"></h6>
+                                        <div class="js-quantity-counter form-edit-quantity input-group-quantity-counter d-none"
+                                             th:attr="data-id=${hdct.getId()}">
+                                            <input type="number" th:attr="data-previous-value=${hdct.getSoLuong()}"
+                                                   class="js-result form-quantity form-control input-group-quantity-counter-control"
+                                                   th:value="${hdct.getSoLuong()}">
+                                            <div class="input-group-quantity-counter-toggle">
+                                                <a class="js-minus minus btn-quantity input-group-quantity-counter-btn"
+                                                   href="javascript:;">
+                                                    <i class="tio-remove"></i>
+                                                </a>
+                                                <a class="js-plus plus btn-quantity input-group-quantity-counter-btn"
+                                                   href="javascript:;">
+                                                    <i class="tio-add"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col col-md-2 align-self-center text-left position-relative">
+                                        <h6 class="text-quantity-product"
+                                            th:text="${#numbers.formatInteger(hdct.chiTietSanPham.giaBan.intValue() * hdct.getSoLuong(), 0, 'COMMA')}"></h6>
+                                        <div class="wrapper-btn-delete d-none">
+                                            <button th:attr="data-id=${hdct.getId()},data-id-hd=${hoaDon.getId()}"
+                                                    class="btn pointer btn-delete-product"><i class="tio-delete"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="row mb-3">
+                            <div class="col-md-4 col-lg-5 justify-content-md-start">
+                                <th:block th:if="${hoaDon.diaChiNhan != 'Tại Quầy'}">
+                                    <h5>Đơn vị vận chuyển</h5>
+                                    <img src="https://api.ghn.vn/themes/angulr/img/logo-ghn-new.png" alt="">
+                                </th:block>
+                            </div>
+                            <div class="align-items-end justify-content-md-end col-lg-7">
+                                <dl class="row text-sm-right">
+                                    <dt class="col-sm-6">Tổng tiền:</dt>
+                                    <dd class="col-sm-6" id="total-money"
+                                        th:text="${#numbers.formatInteger(hoaDon.tongTien.intValue(), 0, 'COMMA')}"></dd>
+                                    <th:block th:if="${hoaDon.voucher != null}">
+                                        <dt class="col-sm-6">Giảm giá:</dt>
+                                        <dd class="col-sm-6" id="discount-money"
+                                            th:text="${#numbers.formatInteger(hoaDon.giamGia.intValue(), 0, 'COMMA')}"></dd>
+                                    </th:block>
+                                    <dt class="col-sm-6">Phí ship:</dt>
+                                    <dd class="col-sm-6"
+                                        id="shippingFee"
+                                        th:text="${hoaDon.phiShip == 0 ? 'Miễn phí' : #numbers.formatInteger(hoaDon.phiShip.intValue(), 0, 'COMMA')}"></dd>
+                                    <dt class="col-sm-6">Thực thu:</dt>
+                                    <dd class="col-sm-6" id="payment-money"
+                                        th:text="${#numbers.formatInteger(hoaDon.thucThu.intValue(), 0, 'COMMA')}"></dd>
+                                    <dt class="col-sm-6">Phương thức thanh toán:</dt>
+                                    <dd th:text="${#strings.listJoin(hinhThucs, ', ')}" class="col-sm-6 payment-method">
+                                    </dd>
+                                </dl>
+                                <!-- End Row -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Body -->
+                </div>
+                <!-- End Card -->
+
+                <!-- Modal History -->
+                <div class="modal fade overflow-auto" id="history" tabindex="-1" role="dialog"
+                     aria-labelledby="historyTitle"
+                     aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="historyTitle">Lịch Sử Đơn Hàng </h5>
+                                <div class="trangThaiHeader ml-sm-1">
+                                    <span th:class="${hoaDon.trangThai == 'Thành Công' ? 'badge badge-soft-success' :
+                      (hoaDon.trangThai == 'Chờ Giao' ? 'badge badge-soft-warning' : 'badge badge-soft-danger')}"
+                                          th:text="'Trạng thái: ' + ${hoaDon.trangThai}"></span>
+                                </div>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <!-- Step -->
+                                <ul class="step step-icon-xs" id="myHistory">
+                                    <li class="step-item" th:each="lshd : ${lichSuHoaDonList}">
+                                        <div class="step-content-wrapper">
+                                            <span class="step-icon step-icon-soft-dark step-icon-pseudo"></span>
+
+                                            <div class="step-content">
+                                                <h5 class="mb-1">
+                                                    <a class="text-dark" href="#" th:text="${lshd.hanhDong}"></a>
+                                                </h5>
+
+                                                <p class="font-size-sm mb-0" th:utext="'Thực hiện bởi: <h6>' + ${lshd.nguoiThucHien != null ? (lshd.nguoiThucHien.nhanVien != null ? lshd.nguoiThucHien.nhanVien.hoTen : (lshd.nguoiThucHien.khachHang != null ? lshd.nguoiThucHien.khachHang.hoTen : 'Anonymous')) : 'Anonymous'} +
+                                                '</h6> Thời gian thực hiện: <h6>' + ${lshd.thoiGian} + '</h6>'"></p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <!-- End Step Item -->
+                                </ul>
+                                <!-- End Step -->
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Modal History -->
+            </div>
+
+            <div class="col-lg-4">
+                <!-- Card -->
+                <div th:if="${hoaDon.khachHang != null}" class="card">
+                    <!-- Header -->
+                    <div class="card-header">
+                        <h4 class="card-header-title">Thông tin nhận hàng</h4>
+                        <button id="btn-edit-address"
+                                th:if="${hoaDon.trangThai == 'Chờ Xác Nhận' && hinhThuc != 'VNPAY'}"
+                                class="btn btn-outline-primary fixInvoice">Chỉnh sửa
+                        </button>
+                    </div>
+                    <!-- End Header -->
+
+                    <!-- Body -->
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5>Khách hàng</h5>
+                        </div>
+                        <a class="media align-items-center"
+                           th:href="@{|/cms/khach-hang/detail/${hoaDon.khachHang.id}|}">
+                            <div class="avatar avatar-circle mr-3">
+                                <img class="avatar-img" src="/assets/cms/img/160x160/img10.jpg" alt="Image Description">
+                            </div>
+                            <div class="media-body">
+                                <span id=""
+                                      class="customerName text-body d-inline-block text-hover-primary"
+                                      th:text="${hoaDon.khachHang.hoTen}"></span>
+                            </div>
+                            <div class="media-body text-right">
+                                <i class="tio-chevron-right text-body"></i>
+                            </div>
+                        </a>
+                        <hr>
+                        <a class="media align-items-center" href="/cms/customer-detail">
+                            <div class="icon icon-soft-info icon-circle mr-3">
+                                <i class="tio-shopping-basket-outlined"></i>
+                            </div>
+                            <div class="media-body">
+                                <span class="text-body text-hover-primary"
+                                      th:text="${countHoaDonCuaKhachHang} + ' đơn đã mua'"></span>
+                            </div>
+                            <div class="media-body text-right">
+                                <i class="tio-chevron-right text-body"></i>
+                            </div>
+                        </a>
+                        <hr>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5>Tên người nhận</h5>
+                        </div>
+                        <div class="media">
+                            <div class="media-body">
+                                <span class="nameCusNonLog customerName" th:text="${hoaDon.tenNguoiNhan}"></span>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5>Số điện thoại</h5>
+                        </div>
+                        <ul class="list-unstyled list-unstyled-py-2">
+                            <li class="customerPhone phoneCusNonLog" id="phoneCusLogged"
+                                th:text="${hoaDon.khachHang.sdt}">
+                                <i class="tio-online mr-2"></i>
+                            </li>
+                        </ul>
+                        <hr>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5>Địa chỉ nhận hàng</h5>
+                        </div>
+
+                        <span class="d-block receiveAddress"
+                              th:utext="${hoaDon.diaChiNhan != null ? hoaDon.diaChiNhan : ''}">
+                </span>
+                    </div>
+                    <!-- End Body -->
+                </div>
+                <div th:if="${hoaDon.khachHang == null}" class="card">
+                    <div class="card-header">
+                        <h4>Thông tin người nhận</h4>
+                        <button th:if="${hoaDon.getTrangThai() == 'Chờ Xác Nhận' && hinhThuc != 'VNPAY'}"
+                                class="btn btn-outline-primary justify-content-end fixInvoice">Chỉnh sửa
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5>Tên người nhận</h5>
+                        </div>
+                        <div class="media">
+                            <div class="media-body">
+                                <span class="nameCusNonLog customerName" th:text="${hoaDon.tenNguoiNhan}"></span>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5>Số điện thoại</h5>
+                        </div>
+                        <ul class="list-unstyled list-unstyled-py-2">
+                            <li class="customerPhone phoneCusNonLog"
+                                th:text="${hoaDon.sdtNhan}">
+                                <i class="tio-online mr-2"></i>
+                            </li>
+                        </ul>
+                        <hr>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5>Địa chỉ nhận hàng</h5>
+                        </div>
+                        <span class="receiveAddress customerAddress"
+                              th:text="${hoaDon.diaChiNhan}"></span></p>
+                    </div>
+                    <!-- End Card -->
+                </div>
+            </div>
+            <!-- End Row -->
+        </div>
+        <!-- End Content -->
+
+        <!-- Footer -->
+        <div class="d-print-none">
+
+            <div class="footer">
+                <div class="row justify-content-between align-items-center">
+                    <div class="col">
+                        <p class="font-size-sm mb-0">&copy; Front. <span
+                                class="d-none d-sm-inline-block">2020 Htmlstream.</span></p>
+                    </div>
+                    <div class="col-auto">
+                        <div class="d-flex justify-content-end">
+                            <!-- List Dot -->
+                            <ul class="list-inline list-separator">
+                                <li class="list-inline-item">
+                                    <a class="list-separator-link" href="#">FAQ</a>
+                                </li>
+
+                                <li class="list-inline-item">
+                                    <a class="list-separator-link" href="#">License</a>
+                                </li>
+
+                                <li class="list-inline-item">
+                                    <!-- Keyboard Shortcuts Toggle -->
+                                    <div class="hs-unfold">
+                                        <a class="js-hs-unfold-invoker btn btn-icon btn-ghost-secondary rounded-circle"
+                                           href="javascript:;" data-hs-unfold-options='{
+                                "target": "#keyboardShortcutsSidebar",
+                                "type": "css-animation",
+                                "animationIn": "fadeInRight",
+                                "animationOut": "fadeOutRight",
+                                "hasOverlay": true,
+                                "smartPositionOff": true
+                               }'>
+                                            <i class="tio-command-key"></i>
+                                        </a>
+                                    </div>
+                                    <!-- End Keyboard Shortcuts Toggle -->
+                                </li>
+                            </ul>
+                            <!-- End List Dot -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <!-- End Footer -->
+</main>
+<!-- ========== END MAIN CONTENT ========== -->
+
+<!-- ========== SECONDARY CONTENTS ========== -->
+
+<!-- Export Orders Modal -->
+<div class="modal fade" id="exportOrdersModal" tabindex="-1" role="dialog" aria-labelledby="exportOrdersModalTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <!-- Header -->
+            <div class="modal-header">
+                <h4 id="exportOrdersModalTitle" class="modal-title">Export orders</h4>
+
+                <button type="button" class="btn btn-icon btn-sm btn-ghost-secondary" data-dismiss="modal"
+                        aria-label="Close">
+                    <i class="tio-clear tio-lg"></i>
+                </button>
+            </div>
+            <!-- End Header -->
+
+            <!-- Body -->
+            <div class="modal-body">
+                <!-- Form Group -->
+                <div class="form-group">
+                    <!-- Custom Checkbox -->
+                    <div class="custom-control custom-radio mb-2">
+                        <input type="radio" id="ordersRadio1" name="ordersRadio" class="custom-control-input"
+                               checked="">
+                        <label class="custom-control-label" for="ordersRadio1">Current page</label>
+                    </div>
+                    <div class="custom-control custom-radio mb-2">
+                        <input type="radio" id="ordersRadio2" name="ordersRadio" class="custom-control-input">
+                        <label class="custom-control-label" for="ordersRadio2">All orders</label>
+                    </div>
+                    <div class="custom-control custom-radio mb-2">
+                        <input type="radio" id="ordersRadio3" name="ordersRadio" class="custom-control-input"
+                               disabled="">
+                        <label class="custom-control-label" for="ordersRadio3">Selected: 20 orders</label>
+                    </div>
+                    <div class="custom-control custom-radio">
+                        <input type="radio" id="ordersRadio4" name="ordersRadio" class="custom-control-input">
+                        <label class="custom-control-label" for="ordersRadio4">Order by date</label>
+                    </div>
+                    <!-- End Custom Checkbox -->
+                </div>
+                <!-- End Form Group -->
+
+                <label class="input-label">Export as</label>
+
+                <!-- Custom Checkbox -->
+                <div class="custom-control custom-radio mb-2">
+                    <input type="radio" id="orderAsRadio1" name="orderAsRadio" class="custom-control-input" checked="">
+                    <label class="custom-control-label" for="orderAsRadio1">CSV for Excel, Numbers, or other spreadsheet
+                        programs</label>
+                </div>
+                <div class="custom-control custom-radio">
+                    <input type="radio" id="orderAsRadio2" name="orderAsRadio" class="custom-control-input">
+                    <label class="custom-control-label" for="orderAsRadio2">Plain CSV file</label>
+                </div>
+                <!-- End Custom Checkbox -->
+            </div>
+            <!-- End Body -->
+
+            <!-- Footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-white mr-2" data-dismiss="modal" aria-label="Close">Cancel</button>
+                <button type="button" class="btn btn-primary">Export orders</button>
+            </div>
+            <!-- End Footer -->
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="width: 420px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Lý Do Hủy Đơn</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body pl-5">
+                <input type="text" hidden="hidden" id="id_oders_cancel">
+                <div class="w-100">
+                    <input id="lg1" type="radio" name="cancel" value="Tôi muốn cập nhật địa chỉ/sđt nhận hàng.">
+                    <label class="pointer" for="lg1">Tôi muốn cập nhật địa chỉ/sđt nhận hàng.</label>
+                </div>
+                <div class="w-100">
+                    <input id="lg2" type="radio" name="cancel" value="Tôi muốn thêm/thay đổi Mã giảm giá.">
+                    <label class="pointer" for="lg2">Tôi muốn thêm/thay đổi Mã giảm giá.</label>
+                </div>
+                <div class="w-100">
+                    <input id="lg3" type="radio" name="cancel" value="Tôi muốn thay đổi sản phẩm.">
+                    <label class="pointer" for="lg3">Tôi muốn thay đổi sản phẩm.</label>
+                </div>
+                <div class="w-100">
+                    <input id="lg4" type="radio" name="cancel" value="Tôi không có nhu cầu mua nữa.">
+                    <label class="pointer" for="lg4">Tôi không có nhu cầu mua nữa.</label>
+                </div>
+                <div class="w-100">
+                    <input id="lg5" type="radio" name="cancel" value="#">
+                    <label class="pointer" for="lg5">Khác</label>
+                </div>
+                <div class="w-100">
+                    <textarea class="w-75 d-none " id="lydo_cancel" rows="2"></textarea>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-outline-dark" data-dismiss="modal">Đóng</button>
+                <button id="huyFromDetail" type="button" class="btn btn-sm btn-outline-danger">Hủy Đơn</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="updateReceiveAddress" data-backdrop="static" data-keyboard="false" tabindex="-1"
+     aria-labelledby="updateAddressLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="width: 420px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Thông tin nhận hàng</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+
+            </div>
+            <div class="modal-body p-4">
+                <input type="text" hidden="hidden" id="id_address">
+                <div class="w-100">
+                    <label for="updatedCusName" class="pointer mb-0 w-100">Họ Tên:</label>
+                    <input class="w-100 mb-3 form-control" type="text" id="updatedCusName">
+                    <label for="updatedCusPhone" class="pointer mb-0 w-100">Số Điện Thoại:</label>
+                    <input class="w-100 mb-3 form-control" type="text" id="updatedCusPhone">
+                    <label for="updatedCusHouseNumber" class="pointer mb-0 w-100">Số Nhà:</label>
+                    <input class="w-100 mb-3 form-control" type="text" id="updatedCusHouseNumber">
+                    <label for="updatedCusProvince" class="pointer mb-0 w-100">Tỉnh/TP:</label>
+                    <select class="w-100 mb-3 form-control" type="text" id="updatedCusProvince">
+                        <option value="" selected>Tỉnh/Thành Phố</option>
+                    </select>
+                    <label for="updatedCusDistrict" class="pointer mb-0 w-100">Quận Huyện:</label>
+                    <select class="w-100 mb-3 form-control" type="text" id="updatedCusDistrict">
+                        <option value="" selected>Quận/Huyện</option>
+                    </select>
+                    <label for="updatedCusWard" class="pointer mb-0 w-100">Phường Xã:</label>
+                    <select class="w-100 form-control" type="text" id="updatedCusWard">
+                        <option value="" selected>Phường/Xã</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn info-btn" data-dismiss="modal">Đóng</button>
+
+                <button id="updateReceiveAddressBtn" type="button" class="btn primary-btn">Cập nhật</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Export Orders Modal -->
+<!-- ========== END SECONDARY CONTENTS ========== -->
+
+<div class="modal fade" id="select_product" data-backdrop="static" data-keyboard="false" tabindex="-1"
+     aria-labelledby="select_productLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="select_productLabel">Chọn Sản Phẩm</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+
+            </div>
+            <div class="modal-body p-4">
+                <div class="w-100 mb-3">
+                    <input id="oder-id-update" type="text" hidden="hidden" th:value="${hoaDon.getId()}">
+                    <label for="tenSanPham" class="pointer mb-0 w-100">Sản Phẩm :</label>
+                    <select class="custom-select js-select2-custom" id="tenSanPham"
+                            size="1"
+                            data-hs-select2-options='{
+                                            "placeholder": "Sản Phẩm...",
+                                            "searchInputPlaceholder": "Tìm Sản Phẩm..."}'>
+                        <option value="#" selected>Chọn Sản Phẩm</option>
+                    </select>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <img id="preview-img" class="img-product-preview" width="250" height="250"
+                             src="/assets/customer/img/icon/user.png" alt="">
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="mauSac" class="pointer mb-0 w-100">Màu Sắc :</label>
+                            <select class="custom-select js-select2-custom mb-3" id="mauSac"
+                                    size="1"
+                                    style="opacity: 0;"
+                                    data-hs-select2-options='{
+                                            "placeholder": "Màu Sắc...",
+                                            "searchInputPlaceholder": "Tìm Màu Sắc..."}'>
+                                <option value="#" selected>Chọn Màu Sắc</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="kichCo" class="pointer mb-0 w-100">Kích Cỡ:</label>
+                            <select class="custom-select mb-3 js-select2-custom" id="kichCo"
+                                    size="1"
+                                    style="opacity: 0;"
+                                    data-hs-select2-options='{
+                                            "placeholder": "Kích Cỡ...",
+                                            "searchInputPlaceholder": "Tìm Kích Cỡ..."}'>
+                                <option value="#" selected>Chọn Kích Cỡ</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="soLuong" class="pointer mb-0 w-100">Số Lượng:</label>
+                            <input class="w-100  form-control" type="number" id="soLuong">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-info" data-dismiss="modal">Đóng</button>
+                <button id="btn-select" type="button" class="btn btn-primary">Chọn</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- JS Implementing Plugins -->
+<script src="/assets/cms/js/vendor.min.js"></script>
+
+
+<!-- JS Front -->
+<script src="/assets/cms/js/theme.min.js"></script>
+
+<!-- JS Plugins Init. -->
+
+<script src="/assets/cms/js/sweetalert2.all.min.js"></script>
+<script src="/assets/cms/js/hoa-don/oder-details.js"></script>
+<!-- IE Support -->
+<script src="/assets/socket/socket-config.js"></script>
+<script src="/assets/cms/js/header/_header.js"></script>
+<div th:replace="~{cms/pages/_IE-suport.html}"></div>
+</body>
+</html>

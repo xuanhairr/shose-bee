@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required Meta Tags Always Come First -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Title -->
+    <title>LightBee | Thêm khách hàng</title>
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <!-- CSS Implementing Plugins -->
+    <link rel="stylesheet" href="/assets/cms/css/vendor.min.css">
+    <link rel="stylesheet" href="/assets/cms/vendor/icon-set/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.4/dist/sweetalert2.min.css" rel="stylesheet">
+    <!-- CSS Front Template -->
+    <link rel="stylesheet" href="/assets/cms/css/theme.min.css?v=1.0">
+</head>
+<body class="footer-offset">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.1/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+<script src="/assets/cms/vendor/hs-navbar-vertical-aside/hs-navbar-vertical-aside-mini-cache.js"></script>
+
+<!-- ========== HEADER ========== -->
+<div th:replace="~{cms/pages/_header.html}"></div>
+<!-- ========== END HEADER ========== -->
+
+<!-- ========== SIDEBAR ========== -->
+<div th:replace="~{cms/pages/_sidebar.html}"></div>
+<!-- ========== END SIDEBAR ========== -->
+<script src="/assets/cms/js/demo.js"></script>
+
+<!-- ========== MAIN CONTENT ========== -->
+<main id="content" role="main" class="main">
+    <!-- Content -->
+    <div class="content container-fluid">
+        <div class="page-header">
+            <div class="row align-items-end">
+                <div class="col-sm mb-2 mb-sm-0">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb breadcrumb-no-gutter">
+                            <li class="breadcrumb-item"><a class="breadcrumb-link" href="javascript:;">Tài Khoản</a></li>
+                            <li class="breadcrumb-item"><a class="breadcrumb-link" href="javascript:;">Khách Hàng</a>
+                            </li>
+                        </ol>
+                    </nav>
+
+                    <h1 class="page-header-title">Thêm Khách Hàng</h1>
+                </div>
+
+                <div class="col-sm-auto">
+                </div>
+            </div>
+            <!-- End Row -->
+        </div>
+        <!-- Step Form -->
+        <form th:action="@{/cms/khach-hang/add}" method="post" th:object="${khachHang}"
+              id="btn-submit-khach-hang"
+              class="js-step-form py-md-1"
+              data-hs-step-form-options='{
+                "progressSelector": "#addUserStepFormProgress",
+                "stepsSelector": "#addUserStepFormContent",
+                "endSelector": "#addUserFinishBtn",
+                "isValidate": false
+              }'>
+            <div class="col">
+                <!-- Step -->
+                <ul id="addUserStepFormProgress"
+                    class="js-step-progress step step-sm step-icon-sm step step-inline step-item-between mb-3 mb-md-5">
+                    <li class="step-item">
+                        <a class="step-content-wrapper" href="javascript:;" data-hs-step-form-next-options='{
+                      "targetSelector": "#addUserStepProfile"
+                    }'>
+                            <div class="step-content">
+                                <span class="step-title">Thông tin</span>
+                            </div>
+                        </a>
+                    </li>
+
+                    <!--                        <li class="step-item">-->
+                    <!--                            <a class="step-content-wrapper" href="javascript:;" data-hs-step-form-next-options='{-->
+                    <!--                      "targetSelector": "#addUserStepBillingAddress"-->
+                    <!--                    }'>-->
+                    <!--                                <span class="step-icon step-icon-soft-dark">2</span>-->
+                    <!--                                <div class="step-content">-->
+                    <!--                                    <span class="step-title">Địa chỉ</span>-->
+                    <!--                                </div>-->
+                    <!--                            </a>-->
+                    <!--                        </li>-->
+                </ul>
+                <!-- End Step -->
+
+                <!-- Content Step Form -->
+                <div id="addUserStepFormContent">
+                    <!-- Card -->
+                    <div id="addUserStepProfile" class="card card-lg active">
+                        <!-- Body -->
+                        <div class="card-body row">
+                            <div class="col-sm-6">
+                                <!-- Form Group -->
+                                <div class="form-group">
+                                    <label for="hoTen" class="col- col-form-label input-label">Họ tên
+                                        <i
+                                                class="tio-help-outlined text-body ml-1" data-toggle="tooltip"
+                                                data-placement="top"
+                                                title="Displayed on public forums, such as Front."></i></label>
+
+                                    <div class="col">
+                                        <div class="input-group input-group-sm-down-break">
+                                            <input type="text" class="form-control" name="hoTen"
+                                                   id="hoTen"
+                                                   placeholder="Vui lòng nhập Họ tên" aria-label="Nguyễn"
+                                                   th:field="*{hoTen}">
+                                        </div>
+                                        <i id="hoTen_emty" style="color: red;display: none">Vui lòng nhập tên</i>
+                                        <i th:if="${errorHoTen!=null}" style="color: red;"
+                                           th:text="${errorHoTen}"></i>
+                                    </div>
+                                </div>
+                                <!-- End Form Group -->
+
+                                <!-- Form Group -->
+                                <div class="form-group">
+                                    <label for="sdt" class="col col-form-label input-label">Số điện
+                                        thoại</label>
+
+                                    <div class="col">
+                                        <div class="input-group input-group-sm-down-break align-items-center">
+                                            <input type="text" class="js-masked-input form-control" name="phone"
+                                                   id="sdt" placeholder="0359xxxxxx" aria-label="0359xxxxxx"
+                                                   data-hs-mask-options='{"template": "0000000000"}'
+                                                   th:field="*{sdt}">
+                                        </div>
+                                        <i id="sdt_emty" style="color: red;"></i>
+                                        <i th:if="${errorSdt!=null}" style="color: red;" th:text="${errorSdt}"></i>
+                                        <i th:if="${trungSdt!=null}" style="color: red;" th:text="${trungSdt}"></i>
+                                    </div>
+                                </div>
+
+                                <!-- Form Group -->
+                                <div class="form-group">
+                                    <label for="email" class="col col-form-label input-label">Email</label>
+
+                                    <div class="col">
+                                        <div class="input-group input-group-sm-down-break align-items-center">
+                                            <input type="email" class="js-masked-input form-control" name="email"
+                                                   id="email" placeholder="Vui lòng nhập Email" th:field="*{email}">
+                                        </div>
+                                        <i id="email_emty" style="color: red;"></i>
+                                        <i th:if="${errorEmail!=null}" style="color: red;"
+                                           th:text="${errorEmail}"></i>
+                                        <i th:if="${trungEmail!=null}" style="color: red;"
+                                           th:text="${trungEmail}"></i>
+                                    </div>
+                                </div>
+
+                                <!-- Form Group -->
+                                <div class="form-group">
+                                    <label for="ngaySinh" class="col col-form-label input-label">Ngày
+                                        sinh</label>
+
+                                    <div class="col">
+                                        <input type="date" class="form-control" name="ngaySinh"
+                                               id="ngaySinh" pattern="\d{2}-\d{2}-\d{4}\"
+                                               aria-label="Htmlstream" th:field="*{ngaySinh}">
+                                        <i id="ngaySinh_emty" style="color: red;"></i>
+                                    </div>
+                                </div>
+                                <!-- End Form Group -->
+
+                                <!-- Form Group -->
+                                <div class="form-group">
+                                    <label class="col- col-form-label input-label">Giới tính</label>
+                                    <div class="col">
+                                        <div class="input-group input-group-sm-down-break">
+                                            <!-- Custom Radio -->
+                                            <div class="form-control">
+                                                <div class="custom-control custom-radio">
+                                                    <input type="radio" class="custom-control-input"
+                                                           name="userAccountTypeRadio"
+                                                           id="gioi_tinh_nam" th:field="*{gioiTinh}"
+                                                           th:value="true">
+                                                    <label class="custom-control-label"
+                                                           for="gioi_tinh_nam">Nam</label>
+                                                </div>
+                                            </div>
+                                            <!-- End Custom Radio -->
+
+                                            <!-- Custom Radio -->
+                                            <div class="form-control">
+                                                <div class="custom-control custom-radio">
+                                                    <input type="radio" class="custom-control-input"
+                                                           name="userAccountTypeRadio"
+                                                           id="gioi_tinh_nu" th:field="*{gioiTinh}"
+                                                           th:value="false">
+                                                    <label class="custom-control-label"
+                                                           for="gioi_tinh_nu">Nữ</label>
+                                                </div>
+                                            </div>
+                                            <!-- End Custom Radio -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Form Group -->
+                            </div>
+                            <!-- End Body -->
+
+                            <div class="col-sm-6">
+                                <!-- Form Group -->
+                                <div class="form-group">
+                                    <label for="soNha" class="col col-form-label input-label">Số nhà</label>
+
+                                    <div class="col">
+                                        <input type="text" class="form-control" name="soNha"
+                                               id="soNha" placeholder="Your address"
+                                               aria-label="Your address" th:field="*{soNha}">
+                                    </div>
+                                    <i id="soNha_emty" style="color: red;display: none">Vui lòng nhập vào số nhà</i>
+                                    <i th:if="${errorSoNha!=null}" style="color: red;" th:text="${errorSoNha}"></i>
+                                </div>
+                                <!-- End Form Group -->
+
+                                <!-- Form Group -->
+                                <div class="form-group">
+                                    <label for="tinhTP" class="col col-form-label input-label">Tỉnh/Thành
+                                        phố</label>
+
+                                    <div class="col">
+                                        <select id="tinhTP" class="js-select2-custom custom-select"
+                                                data-hs-select2-options='{"placeholder": "Chọn Tỉnh Thành...",
+                                                                                "searchInputPlaceholder": "Tìm Tỉnh Thành..."}'
+                                                th:field="*{tinhThanhPho}">
+                                            <option value="">Chọn Tỉnh Thành</option>
+                                        </select>
+                                    </div>
+                                    <i id="tinhTP_emty" style="color: red;display: none">Vui lòng nhập vào tỉnh
+                                        thành phố</i>
+                                    <i th:if="${errorTinhTP!=null}" style="color: red;"
+                                       th:text="${errorTinhTP}"></i>
+                                </div>
+                                <!-- End Form Group -->
+
+                                <!-- Form Group -->
+                                <div class="form-group">
+                                    <label for="quanHuyen"
+                                           class="col col-form-label input-label">Quận/Huyện</label>
+
+                                    <div class="col">
+                                        <select id="quanHuyen" class="js-select2-custom custom-select"
+                                                data-hs-select2-options='{"placeholder": "Chọn Quận Huyện...",
+                                                                                "searchInputPlaceholder": "Tìm Quận Huyện..."}'
+                                                th:field="*{quanHuyen}">
+                                            <option value="">Chọn Quận Huyện</option>
+                                        </select>
+                                    </div>
+                                    <i id="quanHuyen_emty" style="color: red;display: none">Vui lòng nhập vào quận
+                                        huyện</i>
+                                    <i th:if="${errorQuanHuyen!=null}" style="color: red;"
+                                       th:text="${errorQuanHuyen}"></i>
+                                </div>
+                                <!-- End Form Group -->
+
+                                <!-- Form Group -->
+                                <div class="form-group">
+                                    <label for="phuongXa"
+                                           class="col col-form-label input-label">Phường/Xã</label>
+
+                                    <div class="col">
+                                        <select id="phuongXa" class="js-select2-custom custom-select"
+                                                data-hs-select2-options='{"placeholder": "Chọn Phường Xã...",
+                                                                               "searchInputPlaceholder": "Tìm Phường Xã..."}'
+                                                th:field="*{phuongXa}">
+                                            <option value="">Chọn Phường Xã</option>
+                                        </select>
+                                    </div>
+                                    <i id="phuongXa_emty" style="color: red;display: none">Vui lòng nhập vào phường
+                                        xã</i>
+                                    <i th:if="${errorPhuongXa!=null}" style="color: red;"
+                                       th:text="${errorPhuongXa}"></i>
+                                </div>
+                                <!-- End Form Group -->
+                            </div>
+                            <!-- End Body -->
+
+                            <!-- Footer -->
+                            <!--                            <div class="card-footer d-flex align-items-center">-->
+                            <!--                                <button type="button" class="btn btn-ghost-secondary" data-hs-step-form-prev-options='{-->
+                            <!--                         "targetSelector": "#addUserStepProfile"-->
+                            <!--                       }'>-->
+                            <!--                                    <i class="tio-chevron-left"></i> Previous step-->
+                            <!--                                </button>-->
+                            <!--                            </div>-->
+                            <!-- End Footer -->
+                            <!-- End Content Step Form -->
+
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <div class="card-footer d-sm-flex align-items-sm-center">
+                                <button id="submitBtn" type="button" class="btn btn-primary">Thêm khách hàng</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Row -->
+        </form>
+        <!-- End Step Form -->
+    </div>
+    <!-- End Content -->
+
+    <!-- Footer -->
+
+    <div class="footer">
+        <div class="row justify-content-between align-items-center">
+            <div class="col">
+                <p class="font-size-sm mb-0">&copy; Front. <span
+                        class="d-none d-sm-inline-block">2020 Htmlstream.</span></p>
+            </div>
+            <div class="col-auto">
+                <div class="d-flex justify-content-end">
+                    <!-- List Dot -->
+                    <ul class="list-inline list-separator">
+                        <li class="list-inline-item">
+                            <a class="list-separator-link" href="#">FAQ</a>
+                        </li>
+
+                        <li class="list-inline-item">
+                            <a class="list-separator-link" href="#">License</a>
+                        </li>
+
+                        <li class="list-inline-item">
+                            <!-- Keyboard Shortcuts Toggle -->
+                            <div class="hs-unfold">
+                                <a class="js-hs-unfold-invoker btn btn-icon btn-ghost-secondary rounded-circle"
+                                   href="javascript:;" data-hs-unfold-options='{
+                              "target": "#keyboardShortcutsSidebar",
+                              "type": "css-animation",
+                              "animationIn": "fadeInRight",
+                              "animationOut": "fadeOutRight",
+                              "hasOverlay": true,
+                              "smartPositionOff": true
+                             }'>
+                                    <i class="tio-command-key"></i>
+                                </a>
+                            </div>
+                            <!-- End Keyboard Shortcuts Toggle -->
+                        </li>
+                    </ul>
+                    <!-- End List Dot -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- End Footer -->
+</main>
+<!-- ========== END MAIN CONTENT ========== -->
+<!-- ========== SECONDARY CONTENTS ========== -->
+<!-- Keyboard Shortcuts -->
+<div id="keyboardShortcutsSidebar" class="hs-unfold-content sidebar sidebar-bordered sidebar-box-shadow">
+    <div class="card card-lg sidebar-card">
+        <div class="card-header">
+            <h4 class="card-header-title">Keyboard shortcuts</h4>
+
+            <!-- Toggle Button -->
+            <a class="js-hs-unfold-invoker btn btn-icon btn-xs btn-ghost-dark ml-2" href="javascript:;"
+               data-hs-unfold-options='{
+                "target": "#keyboardShortcutsSidebar",
+                "type": "css-animation",
+                "animationIn": "fadeInRight",
+                "animationOut": "fadeOutRight",
+                "hasOverlay": true,
+                "smartPositionOff": true
+               }'>
+                <i class="tio-clear tio-lg"></i>
+            </a>
+            <!-- End Toggle Button -->
+        </div>
+
+        <!-- Body -->
+        <div class="card-body sidebar-body sidebar-scrollbar">
+            <div class="list-group list-group-sm list-group-flush list-group-no-gutters mb-5">
+                <div class="list-group-item">
+                    <h5 class="mb-1">Formatting</h5>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span class="font-weight-bold">Bold</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Ctrl</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">b</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <em>italic</em>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Ctrl</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">i</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <u>Underline</u>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Ctrl</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">u</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <s>Strikethrough</s>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Ctrl</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">Alt</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">s</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span class="small">Small text</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Ctrl</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">s</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <mark>Highlight</mark>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Ctrl</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">e</kbd>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="list-group list-group-sm list-group-flush list-group-no-gutters mb-5">
+                <div class="list-group-item">
+                    <h5 class="mb-1">Insert</h5>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Mention person <a href="#">(@Brian)</a></span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">@</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Link to doc <a href="#">(+Meeting notes)</a></span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">+</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <a href="#">#hashtag</a>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">#hashtag</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Date</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">/date</kbd>
+                            <kbd class="d-inline-block mb-1">Space</kbd>
+                            <kbd class="d-inline-block mb-1">/datetime</kbd>
+                            <kbd class="d-inline-block mb-1">/datetime</kbd>
+                            <kbd class="d-inline-block mb-1">Space</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Time</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">/time</kbd>
+                            <kbd class="d-inline-block mb-1">Space</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Note box</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">/note</kbd>
+                            <kbd class="d-inline-block mb-1">Enter</kbd>
+                            <kbd class="d-inline-block mb-1">/note red</kbd>
+                            <kbd class="d-inline-block mb-1">/note red</kbd>
+                            <kbd class="d-inline-block mb-1">Enter</kbd>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="list-group list-group-sm list-group-flush list-group-no-gutters mb-5">
+                <div class="list-group-item">
+                    <h5 class="mb-1">Editing</h5>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Find and replace</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Ctrl</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">r</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Find next</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Ctrl</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">n</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Find previous</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Ctrl</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">p</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Indent</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Tab</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Un-indent</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Shift</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">Tab</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Move line up</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Ctrl</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">Shift</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1"><i class="tio-arrow-large-upward-outlined"></i></kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Move line down</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Ctrl</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">Shift</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1"><i
+                                class="tio-arrow-large-downward-outlined font-size-sm"></i></kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Add a comment</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Ctrl</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">Alt</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">m</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Undo</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Ctrl</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">z</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Redo</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Ctrl</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">y</kbd>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="list-group list-group-sm list-group-flush list-group-no-gutters">
+                <div class="list-group-item">
+                    <h5 class="mb-1">Application</h5>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Create new doc</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Ctrl</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">Alt</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">n</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Present</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Ctrl</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">Shift</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">p</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Share</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Ctrl</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">Shift</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">s</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Search docs</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Ctrl</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">Shift</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">o</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Keyboard shortcuts</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Ctrl</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">Shift</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">/</kbd>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Body -->
+    </div>
+</div>
+<!-- End Keyboard Shortcuts -->
+
+<!-- ========== END SECONDARY CONTENTS ========== -->
+<script src="/assets/cms/js/sweetalert2.all.min.js"></script>
+<!-- JS Implementing Plugins -->
+<script src="/assets/cms/js/vendor.min.js"></script>
+<!-- JS Front -->
+<script src="/assets/cms/js/theme.min.js"></script>
+<!-- JS Plugins Init. -->
+<script src="/assets/cms/js/khachHangJS/addKH.js"></script>
+<script src="/assets/socket/socket-config.js"></script>
+<script src="/assets/cms/js/header/_header.js"></script>
+<div th:replace="~{cms/pages/_IE-suport.html}"></div>
+</body>
+</html>

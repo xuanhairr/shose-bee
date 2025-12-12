@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required Meta Tags Always Come First -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Title -->
+    <title>LightBee | Khách hàng</title>
+    <!-- Favicon -->
+    <!--    <link rel="shortcut icon" href="favicon.ico">-->
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <!-- CSS Implementing Plugins -->
+    <link rel="stylesheet" href="/assets/cms/css/vendor.min.css">
+    <link rel="stylesheet" href="/assets/cms/vendor/icon-set/style.css">
+    <!-- CSS Front Template -->
+    <link rel="stylesheet" href="/assets/cms/css/theme.min.css?v=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.4/dist/sweetalert2.min.css" rel="stylesheet">
+</head>
+<body class="footer-offset">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.1/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+<script src="/assets/cms/vendor/hs-navbar-vertical-aside/hs-navbar-vertical-aside-mini-cache.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.4/dist/sweetalert2.all.min.js"></script>
+
+<!-- ========== HEADER ========== -->
+<div th:replace="~{cms/pages/_header.html}"></div>
+<!-- ========== END HEADER ========== -->
+
+<!-- ========== SIDEBAR ========== -->
+<div th:replace="~{cms/pages/_sidebar.html}"></div>
+<!-- ========== END SIDEBAR ========== -->
+<script src="/assets/cms/js/demo.js"></script>
+
+<!-- ========== MAIN CONTENT ========== -->
+<main id="content" role="main" class="main">
+    <!-- Content -->
+    <div class="content container-fluid">
+        <div class="page-header">
+            <div class="row align-items-end">
+                <div class="col-sm mb-2 mb-sm-0">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb breadcrumb-no-gutter">
+                            <li class="breadcrumb-item"><a class="breadcrumb-link" href="javascript:;">Tài Khoản</a>
+                            </li>
+                            <li class="breadcrumb-item"><a class="breadcrumb-link" href="javascript:;">Khách Hàng</a>
+                            </li>
+                        </ol>
+                    </nav>
+
+                    <h1 class="page-header-title">Cập Nhật Thông Tin</h1>
+                </div>
+
+                <div class="col-sm-auto">
+                </div>
+            </div>
+            <!-- End Row -->
+        </div>
+        <!-- Step Form -->
+        <form id="form-data-cus" th:action="@{/cms/khach-hang/update/{id}(id=${khachHang.id})}" method="post"
+              th:object="${khachHang}"
+              class="js-step-form py-md-1" data-hs-step-form-options='{
+                "progressSelector": "#addUserStepFormProgress",
+                "stepsSelector": "#addUserStepFormContent",
+                "endSelector": "#addUserFinishBtn",
+                "isValidate": false
+              }'>
+            <input type="text" id="idKhachHang" th:value="${khachHang.getId()}" hidden>
+            <div class="row m-0 justify-content-lg-center">
+                <!-- Content Step Form -->
+                <div id="addUserStepFormContent" class="w-100">
+                    <!-- Card -->
+                    <div id="addUserStepProfile" class="active w-100">
+                        <div class="card">
+                            <div class="card-body">
+                                <!-- Body -->
+                                <div class="row">
+                                    <div class="col-lg-5">
+                                        <!-- Card -->
+                                        <div class="mb-3 mb-lg-5">
+                                            <!-- Header -->
+                                            <div class="header">
+                                                <h4 class="card-header-title">Thông tin</h4>
+                                            </div>
+                                            <!-- End Header -->
+
+                                            <!-- Body -->
+                                            <div class="body">
+                                                <!-- Form Group -->
+                                                <div class="row form-group">
+                                                    <label for="hoTen"
+                                                           class="col-sm-4 col-form-label input-label">Họ tên
+                                                        <i
+                                                                class="tio-help-outlined text-body ml-1"
+                                                                data-toggle="tooltip"
+                                                                data-placement="top"
+                                                                title="Displayed on public forums, such as Front."></i></label>
+
+                                                    <div class="col-sm-8">
+                                                        <div class="input-group input-group-sm-down-break">
+                                                            <input type="text" class="form-control" name="firstName"
+                                                                   id="hoTen"
+                                                                   placeholder="Nguyễn" aria-label="Nguyễn"
+                                                                   th:field="*{hoTen}">
+                                                        </div>
+                                                        <i id="hoTen_emty" style="color: red;display: none">Vui lòng
+                                                            nhập vào tên</i>
+                                                    </div>
+                                                </div>
+                                                <!-- End Form Group -->
+
+                                                <!-- Form Group -->
+                                                <div class="row form-group">
+                                                    <label for="sdt" class="col-sm-4 col-form-label input-label">Số
+                                                        điện thoại</label>
+
+                                                    <div class="col-sm-8">
+                                                        <div class="input-group input-group-sm-down-break align-items-center">
+                                                            <input type="text" class="js-masked-input form-control"
+                                                                   name="phone"
+                                                                   id="sdt" placeholder="0359xxxxxx"
+                                                                   aria-label="0359xxxxxx"
+                                                                   data-hs-mask-options='{"template": "0000000000"}'
+                                                                   th:field="*{sdt}">
+                                                        </div>
+                                                    </div>
+                                                    <i id="sdt_emty" style="color: red;"></i>
+                                                </div>
+
+                                                <div class="row form-group">
+                                                    <label for="sdt"
+                                                           class="col-sm-4 col-form-label input-label">Email</label>
+
+                                                    <div class="col-sm-8">
+                                                        <div class="input-group input-group-sm-down-break align-items-center">
+                                                            <input type="text" class="js-masked-input form-control"
+                                                                   name="phone"
+                                                                   id="email" placeholder="+x-xxx-xxx-xxx"
+                                                                   th:field="*{email}">
+                                                        </div>
+                                                        <i id="email_emty" style="color: red;display: none">Vui lòng
+                                                            nhập email</i>
+                                                        <i id="email_eror_" style="color: red;display: none">Email không
+                                                            hợp lệ</i>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Form Group -->
+                                                <div class="row form-group">
+                                                    <label for="ngaySinh"
+                                                           class="col-sm-4 col-form-label input-label">Ngày
+                                                        sinh</label>
+
+                                                    <div class="col-sm-8">
+                                                        <input type="date" class="form-control" name="ngaySinh"
+                                                               id="ngaySinh" pattern="\d{2}-\d{2}-\d{4}\"
+                                                               aria-label="Htmlstream" th:field="*{ngaySinh}">
+                                                    </div>
+                                                    <i id="ngaySinh_emty" style="color: red;"></i>
+                                                </div>
+                                                <!-- End Form Group -->
+
+                                                <!-- Form Group -->
+                                                <div class="row form-group">
+                                                    <label class="col-sm-4 col-form-label input-label">Giới
+                                                        tính</label>
+
+                                                    <div class="col-sm-8">
+                                                        <div class="input-group input-group-sm-down-break">
+                                                            <!-- Custom Radio -->
+                                                            <div class="form-control">
+                                                                <div class="custom-control custom-radio">
+                                                                    <input type="radio" class="custom-control-input"
+                                                                           name="userAccountTypeRadio"
+                                                                           id="userAccountTypeRadio1"
+                                                                           th:field="*{gioiTinh}"
+                                                                           th:value="true">
+                                                                    <label class="custom-control-label"
+                                                                           for="userAccountTypeRadio1">Nam</label>
+                                                                </div>
+                                                            </div>
+                                                            <!-- End Custom Radio -->
+
+                                                            <!-- Custom Radio -->
+                                                            <div class="form-control">
+                                                                <div class="custom-control custom-radio">
+                                                                    <input type="radio" class="custom-control-input"
+                                                                           name="userAccountTypeRadio"
+                                                                           id="userAccountTypeRadio2"
+                                                                           th:field="*{gioiTinh}"
+                                                                           th:value="false">
+                                                                    <label class="custom-control-label"
+                                                                           for="userAccountTypeRadio2">Nữ</label>
+                                                                </div>
+                                                            </div>
+                                                            <!-- End Custom Radio -->
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- End Form Group -->
+
+                                    <div class="col-lg-7">
+                                        <div class="body">
+                                            <li class="navbar-vertical-aside-has-menu">
+                                                <a class="js-navbar-vertical-aside-menu-link nav-link nav-link-toggle "
+                                                   href="javascript:;"
+                                                   title="Pages">
+                                                    <i class="tio-pages-outlined nav-icon"></i>
+                                                    <span class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">Thêm địa chỉ mới</span>
+                                                </a>
+
+                                                <ul class="js-navbar-vertical-aside-submenu nav nav-sub">
+                                                    <!-- Body -->
+                                                    <div class="card-body">
+
+                                                        <!-- Form Group -->
+                                                        <div class="row form-group">
+                                                            <label for="soNhaMoi"
+                                                                   class="col-sm-3 col-form-label input-label">Số
+                                                                nhà</label>
+                                                            <div class="col-sm-9">
+                                                                <input type="text" class="form-control"
+                                                                       name="soNhaDto"
+                                                                       id="soNhaMoi"
+                                                                       placeholder="Your address"
+                                                                       aria-label="Your address">
+                                                            </div>
+                                                        </div>
+                                                        <!-- End Form Group -->
+
+                                                        <!-- Form Group -->
+                                                        <div class="row form-group">
+                                                            <label for="tinhTPMoi"
+                                                                   class="col-sm-3 col-form-label input-label">Tỉnh
+                                                                Thành</label>
+
+                                                            <div class="col-sm-9">
+                                                                <select name="tinhThanhPhoDto"
+                                                                        id="tinhTPMoi"
+                                                                        class="js-select2-custom custom-select"
+                                                                        data-hs-select2-options='{"placeholder": "Chọn Tỉnh Thành...",
+                                                                                "searchInputPlaceholder": "Tìm Tỉnh Thành..."}'>
+                                                                    <option value="">Chọn Tỉnh Thành</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <!-- End Form Group -->
+
+                                                        <!-- Form Group -->
+                                                        <div class="row form-group">
+                                                            <label for="quanHuyenMoi"
+                                                                   class="col-sm-3 col-form-label input-label">Quận/Huyện</label>
+
+                                                            <div class="col-sm-9">
+                                                                <select name="quanHuyenDto"
+                                                                        id="quanHuyenMoi"
+                                                                        class="js-select2-custom custom-select"
+                                                                        data-hs-select2-options='{"placeholder": "Chọn Quận Huyện...",
+                                                                                "searchInputPlaceholder": "Tìm Quận Huyện..."}'>
+                                                                    <option value="">Chọn Quận Huyện</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <!-- End Form Group -->
+
+                                                        <!-- Form Group -->
+                                                        <div class="row form-group">
+                                                            <label for="phuongXaMoi"
+                                                                   class="col-sm-3 col-form-label input-label">Phường/Xã</label>
+
+                                                            <div class="col-sm-9">
+                                                                <select id="phuongXaMoi" name="phuongXaDto"
+                                                                        class="js-select2-custom custom-select"
+                                                                        data-hs-select2-options='{"placeholder": "Chọn Phường Xã...",
+                                                                               "searchInputPlaceholder": "Tìm Phường Xã..."}'>
+                                                                    <option value="">Chọn Phường Xã</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <!-- End Form Group -->
+
+                                                        <div class="col-sm-6">
+                                                            <button id="addNewAddress" type="button"
+                                                                    class="btn btn-secondary">Thêm địa chỉ mới
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </ul>
+                                            </li>
+
+                                            <!--                                                <li class="navbar-vertical-aside-has-menu ">-->
+                                            <a class="js-navbar-vertical-aside-menu-link nav-link nav-link-toggle "
+                                               href="javascript:;"
+                                               title="Pages">
+                                                <i class="tio-pages-outlined nav-icon"></i>
+                                                <span class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">Địa chỉ</span>
+                                            </a>
+
+                                            <ul id="listAddress"
+                                                class="js-navbar-vertical-aside-submenu nav nav-sub"
+                                                style="min-width: 720px;">
+                                                <div class="card-body form-address row position-relative"
+                                                     th:if="${#lists.size(listDC) > 0}" th:each="dc,iter:${listDC}">
+                                                    <button type="button" th:attr="data-id-address=${dc.getId()}"
+                                                            class="btn btn-primary position-absolute btn_save_address d-none">
+                                                        <i class="tio-save"></i></button>
+                                                    <div class="col-sm-6">
+                                                        <!-- Form Group -->
+                                                        <div class="form-group">
+                                                            <label th:for="'soNha'+${dc.getId()}"
+                                                                   class="col col-form-label input-label">Số
+                                                                nhà</label>
+
+                                                            <div class="col">
+                                                                <input data-attr-sonha="sonha"
+                                                                       class="form-control soNha"
+                                                                       name="addressLine1"
+                                                                       th:id="'soNha'+${dc.getId()}"
+                                                                       placeholder="Your address"
+                                                                       aria-label="Your address"
+                                                                       th:value="${dc.getSoNha() == null ?'':dc.getSoNha()}">
+                                                            </div>
+                                                            <!-- End Form Group -->
+                                                        </div>
+                                                        <!-- Form Group -->
+                                                        <div class="form-group">
+                                                            <label th:for="'phuongXa'+${dc.getId()}"
+                                                                   class="col col-form-label input-label">Phường/Xã</label>
+
+                                                            <div class="col">
+                                                                <select name="phuong_xa"
+                                                                        class="js-select2-custom custom-select phuong_xa"
+                                                                        data-hs-select2-options='{"placeholder": "Chọn Phường Xã...",
+                                                                               "searchInputPlaceholder": "Tìm Phường Xã..."}'>
+                                                                    <option value="">Chọn Phường Xã</option>
+                                                                </select>
+                                                                <input type="text" th:id="'phuongXa'+${dc.getId()}"
+                                                                       th:value="${dc.getPhuongXa()}" hidden>
+                                                            </div>
+                                                        </div>
+                                                        <!-- End Form Group -->
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <!-- Form Group -->
+                                                        <div class="form-group">
+                                                            <label th:for="'quanHuyen'+${dc.getId()}"
+                                                                   class="col col-form-label input-label">Quận/Huyện</label>
+
+                                                            <div class="col">
+                                                                <select name="quanHuyen"
+                                                                        class="js-select2-custom custom-select quanHuyen"
+                                                                        data-hs-select2-options='{"placeholder": "Chọn Quận Huyện...",
+                                                                                "searchInputPlaceholder": "Tìm Quận Huyện..."}'>
+                                                                    <option value="">Chọn Quận Huyện</option>
+                                                                </select>
+                                                                <input type="text" th:id="'quanHuyen'+${dc.getId()}"
+                                                                       th:value="${dc.getQuanHuyen()}" hidden>
+                                                            </div>
+                                                        </div>
+                                                        <!-- End Form Group -->
+
+                                                        <!-- Form Group -->
+                                                        <div class="form-group">
+                                                            <label th:for="'tinhTP'+${dc.getId()}"
+                                                                   class="col col-form-label input-label">Tỉnh/Thành
+                                                                phố</label>
+                                                            <div class="col">
+                                                                <select name="tinhThanhPho"
+                                                                        class="js-select2-custom custom-select tinhTP"
+                                                                        data-hs-select2-options='{"placeholder": "Chọn Tỉnh Thành...",
+                                                                                "searchInputPlaceholder": "Tìm Tỉnh Thành..."}'>
+                                                                    <option value="">Chọn Tỉnh Thành</option>
+                                                                </select>
+                                                                <input type="text" th:id="'tinhTP'+${dc.getId()}"
+                                                                       th:value="${dc.getTinhThanhPho()}" hidden>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div lass="row form-group">
+                                                            <div class="d-flex justify-content-between">
+                                                                <!-- Checkbox Switch -->
+                                                                <label class="toggle-switch toggle-switch col-sm-10"
+                                                                       th:for="'preferencesSwitch'+${dc.getId()}">Địa
+                                                                    chỉ mặc định
+                                                                    <span class="col-sm-2">
+                                                                                <input type="radio"
+                                                                                       name="addressDefault"
+                                                                                       th:checked="${dc.getId() == khachHang.getIdDiaChi()}"
+                                                                                       class="toggle-switch-input addressDefaultSwitch"
+                                                                                       th:id="'preferencesSwitch'+${dc.getId()}"
+                                                                                       th:value="${dc.getId()}">
+                                                                                <span class="toggle-switch-label ml-auto">
+                                                                                    <span class="toggle-switch-indicator"></span>
+                                                                                </span>
+                                                                            </span>
+                                                                    <!-- End Checkbox Switch -->
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </ul>
+                                            <!--                                                </li>-->
+                                        </div>
+                                        <!-- Body -->
+
+                                    </div>
+                                    <div class="d-flex justify-content-center">
+                                        <div class="card-footer d-sm-flex align-items-sm-center">
+                                            <button id="btn-submit" type="button" class="btn btn-primary">Cập nhật
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Form Group -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Body -->
+
+
+            </div>
+            <!-- End Row -->
+        </form>
+        <!-- End Step Form -->
+    </div>
+
+
+    <div class="footer">
+        <div class="row justify-content-between align-items-center">
+            <div class="col">
+                <p class="font-size-sm mb-0">&copy; Front. <span
+                        class="d-none d-sm-inline-block">2020 Htmlstream.</span></p>
+            </div>
+            <div class="col-auto">
+                <div class="d-flex justify-content-end">
+                    <!-- List Dot -->
+                    <ul class="list-inline list-separator">
+                        <li class="list-inline-item">
+                            <a class="list-separator-link" href="#">FAQ</a>
+                        </li>
+
+                        <li class="list-inline-item">
+                            <a class="list-separator-link" href="#">License</a>
+                        </li>
+
+                        <li class="list-inline-item">
+                            <!-- Keyboard Shortcuts Toggle -->
+                            <div class="hs-unfold">
+                                <a class="js-hs-unfold-invoker btn btn-icon btn-ghost-secondary rounded-circle"
+                                   href="javascript:;" data-hs-unfold-options='{
+                              "target": "#keyboardShortcutsSidebar",
+                              "type": "css-animation",
+                              "animationIn": "fadeInRight",
+                              "animationOut": "fadeOutRight",
+                              "hasOverlay": true,
+                              "smartPositionOff": true
+                             }'>
+                                    <i class="tio-command-key"></i>
+                                </a>
+                            </div>
+                            <!-- End Keyboard Shortcuts Toggle -->
+                        </li>
+                    </ul>
+                    <!-- End List Dot -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- End Footer -->
+</main>
+<!-- ========== END MAIN CONTENT ========== -->
+<!-- ========== SECONDARY CONTENTS ========== -->
+<!-- Keyboard Shortcuts -->
+<div id="keyboardShortcutsSidebar" class="hs-unfold-content sidebar sidebar-bordered sidebar-box-shadow">
+    <div class="card card-lg sidebar-card">
+        <div class="card-header">
+            <h4 class="card-header-title">Keyboard shortcuts</h4>
+
+            <!-- Toggle Button -->
+            <a class="js-hs-unfold-invoker btn btn-icon btn-xs btn-ghost-dark ml-2" href="javascript:;"
+               data-hs-unfold-options='{
+                "target": "#keyboardShortcutsSidebar",
+                "type": "css-animation",
+                "animationIn": "fadeInRight",
+                "animationOut": "fadeOutRight",
+                "hasOverlay": true,
+                "smartPositionOff": true
+               }'>
+                <i class="tio-clear tio-lg"></i>
+            </a>
+            <!-- End Toggle Button -->
+        </div>
+
+        <!-- Body -->
+        <div class="card-body sidebar-body sidebar-scrollbar">
+            <div class="list-group list-group-sm list-group-flush list-group-no-gutters mb-5">
+                <div class="list-group-item">
+                    <h5 class="mb-1">Formatting</h5>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span class="font-weight-bold">Bold</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Ctrl</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">b</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <em>italic</em>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Ctrl</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">i</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <u>Underline</u>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Ctrl</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">u</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <s>Strikethrough</s>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Ctrl</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">Alt</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">s</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span class="small">Small text</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Ctrl</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">s</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <mark>Highlight</mark>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Ctrl</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">e</kbd>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="list-group list-group-sm list-group-flush list-group-no-gutters mb-5">
+                <div class="list-group-item">
+                    <h5 class="mb-1">Insert</h5>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Mention person <a href="#">(@Brian)</a></span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">@</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Link to doc <a href="#">(+Meeting notes)</a></span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">+</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <a href="#">#hashtag</a>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">#hashtag</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Date</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">/date</kbd>
+                            <kbd class="d-inline-block mb-1">Space</kbd>
+                            <kbd class="d-inline-block mb-1">/datetime</kbd>
+                            <kbd class="d-inline-block mb-1">/datetime</kbd>
+                            <kbd class="d-inline-block mb-1">Space</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Time</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">/time</kbd>
+                            <kbd class="d-inline-block mb-1">Space</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Note box</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">/note</kbd>
+                            <kbd class="d-inline-block mb-1">Enter</kbd>
+                            <kbd class="d-inline-block mb-1">/note red</kbd>
+                            <kbd class="d-inline-block mb-1">/note red</kbd>
+                            <kbd class="d-inline-block mb-1">Enter</kbd>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="list-group list-group-sm list-group-flush list-group-no-gutters mb-5">
+                <div class="list-group-item">
+                    <h5 class="mb-1">Editing</h5>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Find and replace</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Ctrl</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">r</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Find next</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Ctrl</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">n</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Find previous</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Ctrl</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">p</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Indent</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Tab</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Un-indent</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Shift</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">Tab</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Move line up</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Ctrl</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">Shift</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1"><i class="tio-arrow-large-upward-outlined"></i></kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Move line down</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Ctrl</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">Shift</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1"><i
+                                class="tio-arrow-large-downward-outlined font-size-sm"></i></kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Add a comment</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Ctrl</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">Alt</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">m</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Undo</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Ctrl</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">z</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Redo</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Ctrl</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">y</kbd>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="list-group list-group-sm list-group-flush list-group-no-gutters">
+                <div class="list-group-item">
+                    <h5 class="mb-1">Application</h5>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Create new doc</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Ctrl</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">Alt</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">n</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Present</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Ctrl</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">Shift</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">p</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Share</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Ctrl</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">Shift</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">s</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Search docs</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Ctrl</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">Shift</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">o</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Keyboard shortcuts</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Ctrl</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">Shift</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">/</kbd>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Body -->
+    </div>
+</div>
+<!-- End Keyboard Shortcuts -->
+<!-- ========== END SECONDARY CONTENTS ========== -->
+
+<!-- JS Implementing Plugins -->
+<script src="/assets/cms/js/vendor.min.js"></script>
+<!-- JS Front -->
+<script src="/assets/cms/js/theme.min.js"></script>
+<!-- JS Plugins Init. -->
+<script src="/assets/cms/js/khachHangJS/khachHang.js"></script>
+<script src="/assets/socket/socket-config.js"></script>
+<script src="/assets/cms/js/header/_header.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.4/dist/sweetalert2.all.min.js"></script>
+<div th:replace="~{cms/pages/_IE-suport.html}"></div>
+</body>
+</html>

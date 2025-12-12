@@ -1,0 +1,583 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required Meta Tags Always Come First -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Title -->
+    <title>LigthBee | Product</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/assets/cms/img/icon/favicon.ico">
+
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/cms/css/sweetalert2.min.css">
+
+    <!-- CSS Implementing Plugins -->
+    <link rel="stylesheet" href="/assets/cms/css/vendor.min.css">
+    <link rel="stylesheet" href="/assets/cms/vendor/icon-set/style.css">
+    <!-- CSS Front Template -->
+    <link rel="stylesheet" href="/assets/cms/css/theme.min.css?v=1.0">
+    <link rel="stylesheet" href="/assets/cms/css/custom.css">
+</head>
+
+<body class="   footer-offset">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.1/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+<script src="/assets/cms/vendor/hs-navbar-vertical-aside/hs-navbar-vertical-aside-mini-cache.js"></script>
+<!-- ========== HEADER ========== -->
+<div th:replace="~{cms/pages/_header.html}"></div>
+<!-- ========== END HEADER ========== -->
+
+<!-- ========== SIDEBAR ========== -->
+<div th:replace="~{cms/pages/_sidebar.html}"></div>
+<!-- ========== END SIDEBAR ========== -->
+<script src="/assets/cms/js/demo.js"></script>
+<!-- ========== MAIN CONTENT ========== -->
+<!-- Navbar Vertical -->
+
+
+<!-- End Navbar Vertical -->
+
+<main id="content" role="main" class="main">
+    <!-- Content -->
+    <div class="content container-fluid">
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row align-items-center mb-3">
+                <div class="col-sm mb-2 mb-sm-0">
+                    <h1 class="page-header-title" th:attr="data-product-id=${sanPham.getId()}">
+                        <th:block th:text="${sanPham.getTen()}"></th:block>
+                        <span class="badge badge-soft-dark ml-2"
+                              th:text="${#lists.size(sanPham.getChiTietSanPham())}"></span></h1>
+
+                    <div class="mt-2">
+                        <a class="text-body mr-3" href="javascript:;" data-toggle="modal"
+                           data-target="#exportProductsModal">
+                            <i class="tio-download-to mr-1"></i> Export
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-sm-auto">
+                    <a class="btn btn-primary" th:href="@{/cms/product-detail(id=${sanPham.getId()})}">Chỉnh Sửa</a>
+                </div>
+            </div>
+            <!-- End Row -->
+
+        </div>
+        <!-- End Page Header -->
+        <div class="row gx-2 gx-lg-3">
+            <div class="col-sm-12 col-lg-12 mb-3 mb-lg-12">
+                <!-- Card -->
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <h6 class="card-subtitle mb-2">Thông Tin</h6>
+                            <h6 id="btn-edit-product" class="card-subtitle mb-2 btn"><i class="tio tio-edit"></i></h6>
+                        </div>
+                        <div id="view-thuoc-tinh" class="row justify-content-around align-items-center gx-2">
+                            <div class="hs-unfold form-group col-md-4">
+                                <label class="mb-0" for="nameProduct">Tên Sản Phẩm</label>
+                                <h4 class="form-control border-0 text-big" th:text="${sanPham.getTen()}"></h4>
+                            </div>
+                            <div class="hs-unfold col-md-4">
+                                <label class=" mb-0 col-12 pl-0">Trạng Thái</label>
+                                <h4 class="form-control border-0 text-big"
+                                    th:text="${sanPham.isTrangThai()==true?'Đang Bán':'Ngưng Bán'}"></h4>
+                            </div>
+                            <div class="hs-unfold col-md-4">
+                                <label class=" mb-0 col-12 pl-0">Tag Giảm Giá</label>
+                                <h4 class="form-control border-0 text-big"
+                                    th:text="${#lists.size(sanPham.getChiTietSanPham())>0 and sanPham.getChiTietSanPham().get(0).isSale()?'Đang Bật':'Đang Tắt'}"></h4>
+                            </div>
+                            <div class="hs-unfold  col-md-4">
+                                <label class="mb-0">Thể Loại</label>
+                                <h4 class="form-control border-0 text-big"
+                                    th:text="${sanPham.getTheLoai()!=null ?sanPham.getTheLoai().getTen():'N/A'}"></h4>
+                            </div>
+                            <div class="hs-unfold  col-md-4">
+                                <label class="mb-0">Thương Hiệu</label>
+                                <h4 class="form-control border-0 text-big"
+                                    th:text="${sanPham.getThuongHieu()!=null ? sanPham.getThuongHieu().getTen():'N/A'}"></h4>
+                            </div>
+                            <div class="hs-unfold  col-md-4">
+                                <label class="mb-0">Chất Liệu</label>
+                                <h4 class="form-control border-0 text-big"
+                                    th:text="${#lists.size(sanPham.getChiTietSanPham())>0 ? sanPham.getChiTietSanPham().get(0).getChatLieu().getTen():'N/A'}"></h4>
+                            </div>
+                            <div class="hs-unfold col-md-4">
+                                <label class="mb-0">Đế Giày</label>
+                                <h4 class="form-control border-0 text-big"
+                                    th:text="${#lists.size(sanPham.getChiTietSanPham())>0 ?sanPham.getChiTietSanPham().get(0).getDeGiay().getTen():'N/A'}"></h4>
+                            </div>
+                            <div class="hs-unfold col-md-4">
+                                <label class="mb-0">Mũi Giày</label>
+                                <h4 class="form-control border-0 text-big"
+                                    th:text="${#lists.size(sanPham.getChiTietSanPham())>0 ?sanPham.getChiTietSanPham().get(0).getMuiGiay().getTen():'N/A'}"></h4>
+                            </div>
+                            <div class="hs-unfold col-md-4">
+                                <label class="mb-0">Cổ Giày</label>
+                                <h4 class="form-control border-0 text-big"
+                                    th:text="${#lists.size(sanPham.getChiTietSanPham())>0 ?sanPham.getChiTietSanPham().get(0).getCoGiay().getTen():'N/A'}"></h4>
+                            </div>
+
+                            <div id="mauSacSelectedshow-div" class="hs-unfold form-group col-md-6">
+                                <label>Màu Sắc</label>
+                                <div id="showMauSac"></div>
+                            </div>
+                            <div id="mauSacslt" class="hs-unfold form-group col-md-6 d-none">
+                                <select class="js-select2-custom custom-select d-none" name="mauSacSelectedshow"
+                                        id="mauSacSelectedshow" multiple size="1"
+                                        style="opacity: 0;"
+                                        data-hs-select2-options='{
+                                        "tags": false,
+                                        "placeholder":"Chọn màu"}'>
+                                    <option th:each="th : ${lstmausac}"
+                                            th:value="${th.getMaMauSac()}"
+                                            th:attr="data-name=${th.getTen()}"
+                                            th:selected="${sanPham.getMauSac() != null and sanPham.getMauSac().contains(th)}"
+                                            th:text="${th.getMaMauSac()}"
+                                    >
+                                    </option>
+                                </select>
+                            </div>
+                            <div id="kichCoSelectedshow-div " class="hs-unfold form-group col-md-6">
+                                <label>Kích Cỡ</label>
+                                <div id="showKichCo"></div>
+                            </div>
+                            <div id="kichCoslt" class="hs-unfold form-group col-md-6 d-none">
+                                <select class="js-select2-custom custom-select de d-none" name="kichCoSelectedshow"
+                                        id="kichCoSelectedshow" multiple
+                                        size="1"
+                                        style="opacity: 0;"
+                                        data-hs-select2-options='{
+                                    "tags": false ,
+                                    "placeholder":"Chọn size"
+                                    }'>
+                                    <option th:each="kc:${lstkichco}"
+                                            th:value="${kc.getTen()}"
+                                            th:selected="${kichCo != null and kichCo.contains(kc.getTen())}"
+                                            th:text="${kc.getTen()}"></option>
+                                </select>
+                            </div>
+                            <div class="hs-unfold form-group col-md-12">
+                                <label class="input-label">Giới Thiệu Sản Phẩm <span
+                                        class="input-label-secondary">(Optional)</span></label>
+                                <!-- Quill -->
+                                <div th:utext="${sanPham== null ? '' : sanPham.getMoTa()}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="edit-thuoc-tinh" class="row justify-content-around align-items-center p-4 gx-2 d-none">
+                        <div class="hs-unfold form-group col-md-4">
+                            <label for="nameProduct">Tên Sản Phẩm</label>
+                            <label class="form-control" id="nameProduct" th:text="${sanPham.getTen()}"></label>
+                            <input type="text" id="product-id" th:value="${sanPham.getId()}" hidden="hidden">
+                        </div>
+                        <div class="hs-unfold form-group col-md-4">
+                            <label class="col-12 pl-0">Trạng Thái</label>
+                            <select class="form-control" id="trangThai">
+                                <option value="1" th:selected="${sanPham.isTrangThai()}">Đang Bán</option>
+                                <option value="0" th:selected="${sanPham.isTrangThai()==false}">Ngưng Bán</option>
+                            </select>
+                        </div>
+                        <div class="hs-unfold form-group col-md-4">
+                            <label class="col-12 pl-0">Tag Giảm Giá</label>
+                            <select class="form-control" id="isSales">
+                                <option value="1"
+                                        th:selected="${#lists.size(sanPham.getChiTietSanPham())>0 and sanPham.getChiTietSanPham().get(0).isSale()}">
+                                    Bật
+                                </option>
+                                <option value="0"
+                                        th:selected="${#lists.size(sanPham.getChiTietSanPham())>0 and sanPham.getChiTietSanPham().get(0).isSale()==false}">
+                                    Tắt
+                                </option>
+                            </select>
+                        </div>
+                        <div class="hs-unfold form-group col-md-4">
+                            <label>Thể Loại</label>
+                            <select class="js-select2-custom custom-select" name="theLoai"
+                                    id="theLoai" size="1"
+                                    style="opacity: 0;"
+                                    data-hs-select2-options='{
+                                    "placeholder": "Chọn thể loại...",
+                                    "searchInputPlaceholder": "Tìm thể loại..."
+                                    }'>
+                                <option value="all" selected>Tất Cả</option>
+                                <option th:each="tl:${lsttheloai}"
+                                        th:value="${tl.getId()}"
+                                        th:selected="${sanPham != null and sanPham.getTheLoai() != null and tl.getId()==sanPham.getTheLoai().getId()}"
+                                        th:text="${tl.getTen()}"></option>
+                            </select>
+                        </div>
+                        <div class="hs-unfold form-group col-md-4">
+                            <label>Thương Hiệu</label>
+                            <select class="js-select2-custom custom-select" name="thuongHieu"
+                                    id="thuongHieu" size="1"
+                                    style="opacity: 0;"
+                                    data-hs-select2-options='{
+                                    "placeholder": "Chọn thương hiệu...",
+                                    "searchInputPlaceholder": "Tìm thương hiệu..."
+                                    }'>
+                                <option th:each="th : ${lstthuonghieu}"
+                                        th:value="${th.getId()}"
+                                        th:text="${th.getTen()}"
+                                        th:selected="${sanPham != null and sanPham.getThuongHieu() != null and th.getId()==sanPham.getThuongHieu().getId()}">
+                            </select>
+                        </div>
+                        <div class="hs-unfold form-group col-md-4">
+                            <label>Chất Liệu</label>
+                            <select class="js-select2-custom custom-select" name="chatLieuSelected"
+                                    id="chatLieuSelected" size="1"
+                                    style="opacity: 0;"
+                                    data-hs-select2-options='{
+                                    "placeholder": "Chọn chất liệu...",
+                                    "searchInputPlaceholder": "Tìm chất liệu..."
+                                    }'>
+                                <option th:each="th : ${lstchatlieu}"
+                                        th:value="${th.getId()}"
+                                        th:text="${th.getTen()}"
+                                        th:selected="${sanPham != null and sanPham.getChiTietSanPham() != null and not sanPham.getChiTietSanPham().isEmpty() and th.getId() == sanPham.getChiTietSanPham().get(0).getChatLieu().getId()}"
+                                >
+                            </select>
+                        </div>
+                        <div class="hs-unfold form-group col-md-4">
+                            <label>Đế Giày</label>
+                            <select class="js-select2-custom custom-select" name="deGiaySelect"
+                                    id="deGiaySelect" size="1"
+                                    style="opacity: 0;"
+                                    data-hs-select2-options='{
+                                    "placeholder": "Chọn đế giày...",
+                                    "searchInputPlaceholder": "Tìm đế giày..."
+                                    }'>
+                                <option th:each="th : ${lstdegiay}"
+                                        th:value="${th.getId()}"
+                                        th:text="${th.getTen()}"
+                                        th:selected="${sanPham != null and sanPham.getChiTietSanPham() != null and not sanPham.getChiTietSanPham().isEmpty() and th.getId() == sanPham.getChiTietSanPham().get(0).getDeGiay().getId()}"
+                                >
+                            </select>
+                        </div>
+                        <div class="hs-unfold form-group col-md-4">
+                            <label>Mũi Giày</label>
+                            <select class="js-select2-custom custom-select" name="muiGiaySelect"
+                                    id="muiGiaySelect" size="1"
+                                    style="opacity: 0;"
+                                    data-hs-select2-options='{
+                                    "placeholder": "Chọn mũi giày...",
+                                    "searchInputPlaceholder": "Tìm mũi giày..."
+                                    }'>
+                                <option th:each="th : ${lstmuigiay}"
+                                        th:value="${th.getId()}"
+                                        th:text="${th.getTen()}"
+                                        th:selected="${sanPham != null and sanPham.getChiTietSanPham() != null and not sanPham.getChiTietSanPham().isEmpty() and th.getId() == sanPham.getChiTietSanPham().get(0).getMuiGiay().getId()}"
+                                >
+                            </select>
+                        </div>
+                        <div class="hs-unfold form-group col-md-4">
+                            <label>Cổ Giày</label>
+                            <select class="js-select2-custom custom-select" name="coGiaySelect"
+                                    id="coGiaySelect" size="1"
+                                    style="opacity: 0;"
+                                    data-hs-select2-options='{
+                                    "placeholder": "Chọn cổ giày...",
+                                    "searchInputPlaceholder": "Tìm cổ giày..."
+                                    }'>
+                                <option th:each="th : ${lstcogiay}"
+                                        th:value="${th.getId()}"
+                                        th:text="${th.getTen()}"
+                                        th:selected="${sanPham != null and sanPham.getChiTietSanPham() != null and not sanPham.getChiTietSanPham().isEmpty() and th.getId() == sanPham.getChiTietSanPham().get(0).getCoGiay().getId()}"
+                                >
+                            </select>
+                        </div>
+                        <div id="mauSacSelectedshow-edit" class="hs-unfold form-group col-md-6">
+                            <label>Màu Sắc</label>
+                            <div id="editMauSac"></div>
+                        </div>
+                        <div id="kichCoSelectedshow-edit " class="hs-unfold form-group col-md-6">
+                            <label>Kích Cỡ</label>
+                            <div id="editKichCo"></div>
+                        </div>
+                        <div class="hs-unfold form-group col-md-12">
+                            <div class="quill-custom">
+                                <div class="js-quill" style="min-height: 15rem;" data-hs-quill-options='{
+                            "placeholder": "Hãy viết một bài giới thiệu thật hay nào..."}'
+                                     th:utext="${sanPham== null ? '' : sanPham.getMoTa()}">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Row -->
+    </div>
+
+    <div class="row gx-2 gx-lg-3 m-4">
+        <div class="col-sm-12 col-lg-12 mb-3 mb-lg-12">
+            <!-- Card -->
+            <div class="card h-100">
+                <div class="card-body">
+                    <h6 class="card-subtitle mb-2">Bộ Lọc</h6>
+                    <div class="row align-items-center gx-2">
+                        <div class="row align-items-center flex-grow-1">
+                            <div class="col-sm-6 col-md-4 mb-3 mb-md-0">
+                                <form class="col-12 mb-3">
+                                    <!-- Search -->
+                                    <div class="input-group input-group-merge input-group-flush">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="tio-search"></i>
+                                            </div>
+                                        </div>
+                                        <input id="datatableSearch" type="search" class="form-control"
+                                               placeholder="Tìm kiếm." aria-label="Tìm sản phẩm" autofocus>
+                                    </div>
+                                    <!-- End Search -->
+                                </form>
+                            </div>
+                            <div class="hs-unfold form-group col-sm-6 col-md-4">
+                                <label>Kích Cỡ</label>
+                                <select class="js-select2-custom custom-select" name="kichCo"
+                                        id="kichCoFilter" size="1"
+                                        style="opacity: 0;"
+                                        data-hs-select2-options='{
+                                                                    "placeholder": "Chọn kích cỡ...",
+                                                                    "searchInputPlaceholder": "Tìm kích cỡ..."
+                                                                    }'>
+                                    <option value="all" selected>Tất Cả</option>
+                                    <option th:each="th:${sanPham.getDistinctKichCoList()}" th:value="${th.getTen()}"
+                                            th:text="${th.getTen()}"></option>
+                                </select>
+                            </div>
+
+                            <div class="hs-unfold form-group col-sm-6 col-md-4">
+                                <label>Màu Sắc</label>
+                                <select class="js-select2-custom custom-select" name="mauSac"
+                                        id="mauSacFilter" size="1" style="opacity: 0;"
+                                        data-hs-select2-options='{
+                                                                            "placeholder": "Chọn màu sắc...",
+                                                                            "searchInputPlaceholder": "Tìm màu sắc..."}'>
+                                    <option value="all" selected>Tất Cả</option>
+                                    <option th:each="th:${sanPham.getDistinctMauSacList()}" th:value="${th.getMaMauSac()}"
+                                            th:text="${th.getTen()}"></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Row -->
+            </div>
+        </div>
+        <!-- End Card -->
+    </div>
+    <!-- Card -->
+    <div class="card m-4">
+        <div class="card-header">
+            <div class="row justify-content-between align-items-center flex-grow-1">
+                <div class="col-md-4 mb-3 mb-md-0">
+                    <h3>Phiên Bản</h3>
+                </div>
+                <div class="col-auto">
+                    <a id="btn-save" class="btn btn-primary d-none">Lưu</a>
+                </div>
+            </div>
+            <!-- End Row -->
+        </div>
+        <!-- Header -->
+
+        <!-- End Header -->
+
+        <!-- Table -->
+        <div class="table-responsive datatable-custom" style="overflow-x: auto;overflow-y: hidden;">
+            <table id="datatable"
+                   class="table table-borderless table-thead-bordered table-nowrap table-align-middle card-table"
+                   data-hs-datatables-options='{
+                       "select":true,
+                      "ordering": false,
+                     "columnDefs": [{
+                        "targets": [0, 9],
+                        "width": "5%",
+                        "orderable": false
+                      }],
+                     "order":[[1, "asc"]],
+                     "info": {
+                       "totalQty": "#datatableWithPaginationInfoTotalQty"
+                     },
+                     "search": "#datatableSearch",
+                     "entries": "#datatableEntries",
+                     "pageLength": 10,
+                     "isResponsive": false,
+                     "isShowPaging": false,
+                     "pagination": "datatablePagination"
+                   }'>
+                <thead class="thead-light">
+                <tr>
+                    <th scope="col" class="table-column-pr-0">
+                        <div class="custom-control custom-checkbox">
+                            <input id="datatableCheckAll" type="checkbox" class="custom-control-input">
+                            <label class="custom-control-label" for="datatableCheckAll"></label>
+                        </div>
+                    </th>
+                    <th>Ảnh</th>
+                    <th>Màu Sắc</th>
+                    <th>Mã Sản Phẩm</th>
+                    <th>Kích Cỡ</th>
+                    <th>Giá Gốc(đ)</th>
+                    <th>Giá Bán(đ)</th>
+                    <th>Số Lượng(đôi)</th>
+                    <th>Hiển Thị</th>
+                    <th>Hành Động</th>
+                </tr>
+                </thead>
+                <tbody id="addVariantsContainer">
+
+                </tbody>
+            </table>
+        </div>
+        <!-- End Table -->
+        <!-- Footer -->
+        <div class="card-footer">
+            <!-- Pagination -->
+            <div class="row justify-content-center justify-content-sm-between align-items-sm-center">
+                <div class="col-sm mb-2 mb-sm-0">
+                    <div class="d-flex justify-content-center justify-content-sm-start align-items-center">
+                        <span class="mr-2">Hiển Thị:</span>
+
+                        <!-- Select -->
+                        <select id="datatableEntries" class="js-select2-custom" data-hs-select2-options='{
+                            "minimumResultsForSearch": "Infinity",
+                            "customClass": "custom-select custom-select-sm custom-select-borderless",
+                            "dropdownAutoWidth": true,
+                            "width": true
+                          }'>
+                            <option th:if="${#lists.size(sanPham.getChiTietSanPham()) < 10}"
+                                    th:value="${#lists.size(sanPham.getChiTietSanPham())}"
+                                    selected th:text="${#lists.size(sanPham.getChiTietSanPham())}"></option>
+                            <option th:if="${#lists.size(sanPham.getChiTietSanPham()) >= 10}" th:value="10" selected>10</option>
+                            <option value="20">20</option>
+                            <option value="50">50</option>
+                        </select>
+                        <!-- End Select -->
+
+                        <span class="text-secondary mr-2">/</span>
+
+                        <!-- Pagination Quantity -->
+                        <span id="datatableWithPaginationInfoTotalQty"></span>
+                    </div>
+                </div>
+
+                <div class="col-sm-auto">
+                    <div class="d-flex justify-content-center justify-content-sm-end">
+                        <!-- Pagination -->
+                        <nav id="datatablePagination" aria-label="Activity pagination"></nav>
+                    </div>
+                </div>
+            </div>
+            <!-- End Pagination -->
+        </div>
+        <!-- End Footer -->
+    </div>
+    <div class="card m-4">
+        <!-- Header -->
+        <div class="card-header">
+            <h4 class="card-header-title">Media</h4>
+            <div>
+                <button class="btn btn-primary" id="btn-save-img">Lưu Ảnh</button>
+                <label for="chooseImg" class="btn btn-outline-info mb-0" href="javascript:;">Thêm Ảnh</label>
+                <input id="chooseImg" th:attr="data-num-img=${#lists.size(sanPham.getAnh())}" type="file" hidden=""
+                       multiple>
+            </div>
+        </div>
+        <!-- End Header -->
+
+        <!-- Body -->
+        <div class="card-body">
+            <!-- Gallery -->
+            <div id="fancyboxGallery" class="js-fancybox row justify-content-sm-center gx-2" data-hs-fancybox-options="{
+                       &quot;selector&quot;: &quot;#fancyboxGallery .js-fancybox-item&quot;
+                     }">
+                <div th:each="anh:${sanPham.getAnh()}" class="col-6 col-sm-4 col-md-3 mb-3 mb-lg-5 d-flex justify-content-center" data-index="show-img-in-form">
+                    <!-- Card -->
+                    <div class="card card-sm" style="width: 180px;height: 230px">
+                        <img class="card-img-top" width="179" height="179" th:src="${anh.getUrl()}"
+                             alt="Image Description">
+
+                        <div class="card-body">
+                            <div class="row text-center">
+                                <div class="col-4">
+                                    <a class="js-fancybox-item text-body" href="javascript:;" data-toggle="tooltip"
+                                       data-placement="top" title="" th:attr="data-src=${anh.getUrl()}"
+                                       data-caption="Image #01" data-original-title="View">
+                                        <i class="tio-visible-outlined"></i>
+                                    </a>
+                                </div>
+                                <div class="col-4 column-divider ">
+                                    <input type="radio" class="check-main-radio" th:id="'customRadio' + ${anh.getId()}" data-toggle="tooltip"
+                                           data-placement="top" title="" data-original-title="Main"
+                                           name="main-img"
+                                           th:checked="${anh.isMain()}"
+                                           th:value="${anh.getId()}">
+                                </div>
+                                <div class="col-4 column-divider">
+                                    <a class="text-danger btn-delete-img" href="javascript:;" data-toggle="tooltip"
+                                       data-placement="top" title="" data-original-title="Delete">
+                                        <i class="tio-delete-outlined"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <!-- End Row -->
+                        </div>
+                    </div>
+                    <!-- End Card -->
+                </div>
+            </div>
+            <!-- End Gallery -->
+        </div>
+        <!-- Body -->
+    </div>
+    <!-- End Card -->
+    <!-- End Row -->
+
+    <!-- End Content -->
+
+    <!-- Footer -->
+    <div th:replace="~{cms/pages/_footer.html}"></div>
+    <!-- End Footer -->
+</main>
+<!-- ========== END MAIN CONTENT ========== -->
+<table id="tableData" border="1" class="d-none" style="margin-left: 270px">
+    <tr th:each="ctsp,iter:${sanPham.getChiTietSanPham()}">
+        <td data-name="id" th:text="${ctsp.getId()}"></td>
+        <td data-name="img" th:text="${ctsp.getAnh().getUrl()}" style="max-width: 200px"></td>
+        <td data-name="maSanPham" th:text="${ctsp.getMaSanPham()}"></td>
+        <td data-name="maMauSac" th:text="${ctsp.getMauSac().getMaMauSac()}"></td>
+        <td data-name="kichCo" th:text="${ctsp.getKichCo().getTen()}"></td>
+        <td data-name="giaGoc" th:text="${#numbers.formatDecimal (ctsp.getGiaGoc(), 1, 'DEFAULT', 0, 'DEFAULT')}"></td>
+        <td data-name="giaBan" th:text="${#numbers.formatDecimal (ctsp.getGiaBan(), 1, 'DEFAULT', 0, 'DEFAULT')}"></td>
+        <td data-name="soLuong" th:text="${ctsp.getSoLuongTon()}"></td>
+        <td data-name="trangThai" th:text="${ctsp.getTrangThai()}"></td>
+        <td data-name="ngayTao" th:text="${ctsp.getNgayTao()}"></td>
+    </tr>
+</table>
+<!-- ========== SECONDARY CONTENTS ========== -->
+
+<!-- ========== END SECONDARY CONTENTS ========== -->
+<!-- JS Implementing Plugins -->
+<script src="/assets/cms/js/vendor.min.js"></script>
+<!-- JS Front -->
+<script src="/assets/cms/js/theme.min.js"></script>
+<script src="/assets/cms/js/JsBarcode.all.min.js"></script>
+<script src="/assets/cms/js/sweetalert2.all.min.js"></script>
+<script src="/assets/cms/js/view-product.js"></script>
+<script src="/assets/cms/js/add-img.js" type="module"></script>
+<script src="/assets/socket/socket-config.js"></script>
+<script src="/assets/cms/js/header/_header.js"></script>
+<!-- JS Plugins Init. -->
+<div th:replace="~{cms/pages/_IE-suport.html}"></div>
+</body>
+</html>

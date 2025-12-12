@@ -1,0 +1,317 @@
+[
+  {
+    "Id": 1,
+    "Code": "ha-noi",
+    "Name": "Hà Nội"
+  },
+  {
+    "Id": 2,
+    "Code": "tp-hcm",
+    "Name": "TP HCM"
+  },
+  {
+    "Id": 5,
+    "Code": "hai-phong",
+    "Name": "Hải Phòng"
+  },
+  {
+    "Id": 4,
+    "Code": "da-nang",
+    "Name": "Đà Nẵng"
+  },
+  {
+    "Id": 6,
+    "Code": "an-giang",
+    "Name": "An Giang"
+  },
+  {
+    "Id": 7,
+    "Code": "ba-ria-vung-tau",
+    "Name": "Bà Rịa - Vũng Tàu"
+  },
+  {
+    "Id": 13,
+    "Code": "binh-duong",
+    "Name": "Bình Dương"
+  },
+  {
+    "Id": 15,
+    "Code": "binh-phuoc",
+    "Name": "Bình Phước"
+  },
+  {
+    "Id": 16,
+    "Code": "binh-thuan",
+    "Name": "Bình Thuận"
+  },
+  {
+    "Id": 14,
+    "Code": "binh-dinh",
+    "Name": "Bình Định"
+  },
+  {
+    "Id": 8,
+    "Code": "bac-lieu",
+    "Name": "Bạc Liêu"
+  },
+  {
+    "Id": 10,
+    "Code": "bac-giang",
+    "Name": "Bắc Giang"
+  },
+  {
+    "Id": 9,
+    "Code": "bac-kan",
+    "Name": "Bắc Kạn"
+  },
+  {
+    "Id": 11,
+    "Code": "bac-ninh",
+    "Name": "Bắc Ninh"
+  },
+  {
+    "Id": 12,
+    "Code": "ben-tre",
+    "Name": "Bến Tre"
+  },
+  {
+    "Id": 18,
+    "Code": "cao-bang",
+    "Name": "Cao Bằng"
+  },
+  {
+    "Id": 17,
+    "Code": "ca-mau",
+    "Name": "Cà Mau"
+  },
+  {
+    "Id": 3,
+    "Code": "can-tho",
+    "Name": "Cần Thơ"
+  },
+  {
+    "Id": 24,
+    "Code": "gia-lai",
+    "Name": "Gia Lai"
+  },
+  {
+    "Id": 25,
+    "Code": "ha-giang",
+    "Name": "Hà Giang"
+  },
+  {
+    "Id": 26,
+    "Code": "ha-nam",
+    "Name": "Hà Nam"
+  },
+  {
+    "Id": 27,
+    "Code": "ha-tinh",
+    "Name": "Hà Tĩnh"
+  },
+  {
+    "Id": 30,
+    "Code": "hoa-binh",
+    "Name": "Hòa Bình"
+  },
+  {
+    "Id": 28,
+    "Code": "hai-duong",
+    "Name": "Hải Dương"
+  },
+  {
+    "Id": 29,
+    "Code": "hau-giang",
+    "Name": "Hậu Giang"
+  },
+  {
+    "Id": 31,
+    "Code": "hung-yen",
+    "Name": "Hưng Yên"
+  },
+  {
+    "Id": 32,
+    "Code": "khanh-hoa",
+    "Name": "Khánh Hòa"
+  },
+  {
+    "Id": 33,
+    "Code": "kien-giang",
+    "Name": "Kiên Giang"
+  },
+  {
+    "Id": 34,
+    "Code": "kon-tum",
+    "Name": "Kon Tum"
+  },
+  {
+    "Id": 35,
+    "Code": "lai-chau",
+    "Name": "Lai Châu"
+  },
+  {
+    "Id": 38,
+    "Code": "lao-cai",
+    "Name": "Lào Cai"
+  },
+  {
+    "Id": 36,
+    "Code": "lam-dong",
+    "Name": "Lâm Đồng"
+  },
+  {
+    "Id": 37,
+    "Code": "lang-son",
+    "Name": "Lạng Sơn"
+  },
+  {
+    "Id": 39,
+    "Code": "long-an",
+    "Name": "Long An"
+  },
+  {
+    "Id": 40,
+    "Code": "nam-dinh",
+    "Name": "Nam Định"
+  },
+  {
+    "Id": 41,
+    "Code": "nghe-an",
+    "Name": "Nghệ An"
+  },
+  {
+    "Id": 42,
+    "Code": "ninh-binh",
+    "Name": "Ninh Bình"
+  },
+  {
+    "Id": 43,
+    "Code": "ninh-thuan",
+    "Name": "Ninh Thuận"
+  },
+  {
+    "Id": 44,
+    "Code": "phu-tho",
+    "Name": "Phú Thọ"
+  },
+  {
+    "Id": 45,
+    "Code": "phu-yen",
+    "Name": "Phú Yên"
+  },
+  {
+    "Id": 46,
+    "Code": "quang-binh",
+    "Name": "Quảng Bình"
+  },
+  {
+    "Id": 47,
+    "Code": "quang-nam",
+    "Name": "Quảng Nam"
+  },
+  {
+    "Id": 48,
+    "Code": "quang-ngai",
+    "Name": "Quảng Ngãi"
+  },
+  {
+    "Id": 49,
+    "Code": "quang-ninh",
+    "Name": "Quảng Ninh"
+  },
+  {
+    "Id": 50,
+    "Code": "quang-tri",
+    "Name": "Quảng Trị"
+  },
+  {
+    "Id": 51,
+    "Code": "soc-trang",
+    "Name": "Sóc Trăng"
+  },
+  {
+    "Id": 52,
+    "Code": "son-la",
+    "Name": "Sơn La"
+  },
+  {
+    "Id": 53,
+    "Code": "tay-ninh",
+    "Name": "Tây Ninh"
+  },
+  {
+    "Id": 56,
+    "Code": "thanh-hoa",
+    "Name": "Thanh Hóa"
+  },
+  {
+    "Id": 54,
+    "Code": "thai-binh",
+    "Name": "Thái Bình"
+  },
+  {
+    "Id": 55,
+    "Code": "thai-nguyen",
+    "Name": "Thái Nguyên"
+  },
+  {
+    "Id": 57,
+    "Code": "thua-thien-hue",
+    "Name": "Thừa Thiên Huế"
+  },
+  {
+    "Id": 58,
+    "Code": "tien-giang",
+    "Name": "Tiền Giang"
+  },
+  {
+    "Id": 59,
+    "Code": "tra-vinh",
+    "Name": "Trà Vinh"
+  },
+  {
+    "Id": 60,
+    "Code": "tuyen-quang",
+    "Name": "Tuyên Quang"
+  },
+  {
+    "Id": 61,
+    "Code": "vinh-long",
+    "Name": "Vĩnh Long"
+  },
+  {
+    "Id": 62,
+    "Code": "vinh-phuc",
+    "Name": "Vĩnh Phúc"
+  },
+  {
+    "Id": 63,
+    "Code": "yen-bai",
+    "Name": "Yên Bái"
+  },
+  {
+    "Id": 19,
+    "Code": "dak-lak",
+    "Name": "Đắk Lắk"
+  },
+  {
+    "Id": 22,
+    "Code": "dong-nai",
+    "Name": "Đồng Nai"
+  },
+  {
+    "Id": 23,
+    "Code": "dong-thap",
+    "Name": "Đồng Tháp"
+  },
+  {
+    "Id": 21,
+    "Code": "dien-bien",
+    "Name": "Điện Biên"
+  },
+  {
+    "Id": 20,
+    "Code": "dak-nong",
+    "Name": "Đắk Nông"
+  }
+]

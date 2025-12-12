@@ -1,0 +1,596 @@
+<div xmlns:th="http://www.thymeleaf.org" id="headerMain" class="d-none d-print-none">
+    <header id="header"
+            class="navbar navbar-expand-lg navbar-fixed navbar-height navbar-flush navbar-container navbar-bordered">
+        <div class="navbar-nav-wrap">
+            <div class="navbar-brand-wrapper">
+                <!-- Logo -->
+                <a class="navbar-brand" href="/cms/" aria-label="Front">
+                    <img class="navbar-brand-logo" src="/assets/customer/img/Logo 1.png" alt="Logo">
+                    <img class="navbar-brand-logo-mini" src="/assets/customer/img/Logo 1.png" alt="Logo">
+                </a>
+                <!-- End Logo -->
+            </div>
+
+            <div class="navbar-nav-wrap-content-left">
+                <!-- Navbar Vertical Toggle -->
+                <button type="button" class="js-navbar-vertical-aside-toggle-invoker close mr-3">
+                    <i class="tio-first-page navbar-vertical-aside-toggle-short-align" data-toggle="tooltip"
+                       data-placement="right" title="Collapse"></i>
+                    <i class="tio-last-page navbar-vertical-aside-toggle-full-align"
+                       data-template='<div class="tooltip d-none d-sm-block" role="tooltip"><div class="arrow"></div><div class="tooltip-inner"></div></div>'
+                       data-toggle="tooltip" data-placement="right" title="Expand"></i>
+                </button>
+                <!-- End Navbar Vertical Toggle -->
+
+                <!-- Search Form -->
+                <div class="d-none d-md-block">
+                    <form class="position-relative">
+                        <!-- Input Group -->
+                        <div
+                                class="input-group input-group-merge input-group-borderless input-group-hover-light navbar-input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <i class="tio-search"></i>
+                                </div>
+                            </div>
+                            <input type="search" class="js-form-search form-control" id="form-search-global"
+                                   placeholder="Tìm kiếm trong hệ thống"
+                                   aria-label="Tìm kiếm" data-hs-form-search-options='{
+                     "clearIcon": "#clearSearchResultsIcon",
+                     "dropMenuElement": "#searchDropdownMenu",
+                     "dropMenuOffset": 20,
+                     "toggleIconOnFocus": true,
+                     "activeClass": "focus"
+                   }'>
+                            <a class="input-group-append" href="javascript:;">
+                                <span class="input-group-text">
+                                    <i id="clearSearchResultsIcon" class="tio-clear" style="display: none;"></i>
+                                </span>
+                            </a>
+                        </div>
+                        <!-- End Input Group -->
+
+                        <!-- Card Search Content -->
+                        <div id="searchDropdownMenu"
+                             class="hs-form-search-menu-content card dropdown-menu dropdown-card overflow-hidden">
+                            <!-- Body -->
+                            <div class="card-body-height py-3">
+                                <small class="dropdown-header mb-n2">Tìm kiếm gần đây</small>
+
+                                <div id="recent-searches" class="dropdown-item bg-transparent text-wrap my-2">
+<!--                                    <span class="h4 mr-1">-->
+<!--                                        <a class="btn btn-xs btn-soft-dark btn-pill" href="/admin/">-->
+<!--                                            Gulp <i class="tio-search ml-1"></i>-->
+<!--                                        </a>-->
+<!--                                    </span>-->
+                                </div>
+
+                                <div class="dropdown-divider my-3"></div>
+
+                                <small class="dropdown-header mb-n2">Chức Năng</small>
+                                <div id="list-function">
+                                    <a class="dropdown-item my-2" href="/cms">
+                                        <div class="media align-items-center">
+                                        <span class="icon icon-xs icon-soft-dark icon-circle mr-2">
+                                            <i class="tio-home-vs-1-outlined"></i>
+                                        </span>
+
+                                            <div class="media-body text-truncate">
+                                                <span>Trang Chủ</span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <!-- End Body -->
+                        </div>
+                        <!-- End Card Search Content -->
+                    </form>
+                </div>
+                <!-- End Search Form -->
+            </div>
+
+            <!-- Secondary Content -->
+            <div class="navbar-nav-wrap-content-right">
+                <!-- Navbar -->
+                <ul class="navbar-nav align-items-center flex-row">
+                    <li class="nav-item d-md-none">
+                        <!-- Search Trigger -->
+                        <div class="hs-unfold">
+                            <a class="js-hs-unfold-invoker btn btn-icon btn-ghost-secondary rounded-circle"
+                               href="javascript:;" data-hs-unfold-options='{
+                 "target": "#searchDropdown",
+                 "type": "css-animation",
+                 "animationIn": "fadeIn",
+                 "hasOverlay": "rgba(46, 52, 81, 0.1)",
+                 "closeBreakpoint": "md"
+               }'>
+                                <i class="tio-search"></i>
+                            </a>
+                        </div>
+                        <!-- End Search Trigger -->
+                    </li>
+
+                    <li class="nav-item d-none d-sm-inline-block">
+                        <!-- Notification -->
+                        <div id="notis" class="hs-unfold">
+                            <a class="js-hs-unfold-invoker btn btn-icon btn-ghost-secondary rounded-circle"
+                               href="javascript:;" data-hs-unfold-options='{
+                 "target": "#notificationDropdown",
+                 "type": "css-animation"
+               }'>
+                                <i class="tio-notifications-on-outlined"></i>
+                                <span id="notiItem" class="btn-status btn-sm-status btn-status-danger"></span>
+                            </a>
+
+                            <div id="notificationDropdown"
+                                 class="hs-unfold-content dropdown-unfold dropdown-menu dropdown-menu-right navbar-dropdown-menu"
+                                 style="width: 25rem;">
+                                <!-- Header -->
+                                <div class="card-header">
+                                    <span class="card-title h4">Thông Báo</span>
+                                </div>
+                                <!-- End Header -->
+
+                                <!-- Nav -->
+
+                                <!-- End Nav -->
+
+                                <!-- Body -->
+                                <div class="card-body-height">
+                                    <!-- Tab Content -->
+                                    <div class="tab-content" id="notificationTabContent">
+                                        <div class="tab-pane fade show active" id="notificationNavOne" role="tabpanel"
+                                             aria-labelledby="notificationNavOne-tab">
+                                            <ul id="notiTable"
+                                                class="list-group list-group-flush navbar-card-list-group">
+                                                <!-- Item -->
+                                                <li class="list-group-item custom-checkbox-list-wrapper"
+                                                    th:each="noti : ${notifications}">
+                                                    <div class="row">
+                                                        <div class="col-auto position-static">
+                                                            <div class="d-flex align-items-center">
+                                                                <div
+                                                                        class="custom-control custom-checkbox custom-checkbox-list">
+                                                                    <input type="checkbox" class="custom-control-input"
+                                                                           id="notificationCheck1" checked="">
+                                                                    <label class="custom-control-label"
+                                                                           for="notificationCheck1"></label>
+                                                                    <span
+                                                                            class="custom-checkbox-list-stretched-bg"></span>
+                                                                </div>
+                                                                <div class="avatar avatar-sm avatar-circle">
+                                                                    <img class="avatar-img"
+                                                                         th:src="${noti.creatorAvatarUrl != null ? noti.creatorAvatarUrl : '/assets/cms/img/160x160/img3.jpg'}"
+                                                                         alt="Image Description">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col ml-n3">
+                                                            <span class="card-title h5"
+                                                                  th:text="${noti.createdBy}"></span>
+                                                            <p class="card-text font-size-sm"
+                                                               th:text="${noti.title}"></p>
+                                                            <blockquote th:if="${noti.description != null}"
+                                                                        th:text="${noti.description}"
+                                                                        class="blockquote blockquote-sm"></blockquote>
+                                                        </div>
+                                                        <small class="col-auto text-muted text-cap"
+                                                               th:text="${noti.createdTime}"></small>
+                                                    </div>
+                                                    <a class="stretched-link" href="#"></a>
+                                                </li>
+                                                <!-- End Item -->
+                                            </ul>
+                                        </div>
+                                        <div class="tab-pane fade" id="notificationNavTwo" role="tabpanel"
+                                             aria-labelledby="notificationNavTwo-tab">
+                                            <ul class="list-group list-group-flush navbar-card-list-group">
+                                                <!-- Item -->
+                                                <li class="list-group-item custom-checkbox-list-wrapper">
+                                                    <div class="row">
+                                                        <div class="col-auto position-static">
+                                                            <div class="d-flex align-items-center">
+                                                                <div
+                                                                        class="custom-control custom-checkbox custom-checkbox-list">
+                                                                    <input type="checkbox" class="custom-control-input"
+                                                                           id="notificationCheck7">
+                                                                    <label class="custom-control-label"
+                                                                           for="notificationCheck7"></label>
+                                                                    <span
+                                                                            class="custom-checkbox-list-stretched-bg"></span>
+                                                                </div>
+                                                                <div
+                                                                        class="avatar avatar-sm avatar-soft-dark avatar-circle">
+                                                                    <span class="avatar-initials">A</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col ml-n3">
+                                                            <span class="card-title h5">Anne Richard</span>
+                                                            <p class="card-text font-size-sm">accepted your invitation
+                                                                to join Notion</p>
+                                                        </div>
+                                                        <small class="col-auto text-muted text-cap">1dy</small>
+                                                    </div>
+                                                    <a class="stretched-link" href="#"></a>
+                                                </li>
+                                                <!-- End Item -->
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <!-- End Tab Content -->
+                                </div>
+                                <!-- End Body -->
+                            </div>
+                        </div>
+                        <!-- End Notification -->
+                    </li>
+
+                    <li class="nav-item">
+                        <!-- Account -->
+                        <div class="hs-unfold">
+                            <a class="js-hs-unfold-invoker navbar-dropdown-account-wrapper" href="javascript:;"
+                               data-hs-unfold-options='{
+                 "target": "#accountNavbarDropdown",
+                 "type": "css-animation"
+               }'>
+                                <div class="avatar avatar-sm avatar-circle">
+                                    <img class="avatar-img" width="35" height="35"
+                                         th:src="@{${userCMS != null ? (userCMS.avatar != null ? userCMS.avatar : '/assets/cms/img/160x160/img1.jpg') : '/assets/cms/img/160x160/img1.jpg'}}"
+                                         alt="Image Description" style="object-fit: cover">
+                                    <span class="avatar-status avatar-sm-status avatar-status-success"></span>
+                                </div>
+                            </a>
+
+                            <div id="accountNavbarDropdown"
+                                 class="hs-unfold-content dropdown-unfold dropdown-menu dropdown-menu-right navbar-dropdown-menu navbar-dropdown-account"
+                                 style="width: 16rem;">
+                                <div class="dropdown-item-text">
+                                    <div class="media align-items-center">
+                                        <div class="avatar avatar-sm avatar-circle mr-2">
+                                            <img class="avatar-img" width="35" height="35"
+                                                 th:src="@{${userCMS != null ? (userCMS.avatar != null ? userCMS.avatar : '/assets/cms/img/160x160/img1.jpg') : '/assets/cms/img/160x160/img1.jpg'}}"
+                                                 alt="Image Description" style="object-fit: cover">
+                                        </div>
+                                        <div class="media-body">
+                                            <span class="card-title h5"
+                                                  th:text="${userCMS != null ? (userCMS.nhanVien != null ? userCMS.nhanVien.hoTen : 'N/A') : 'N/A'}"></span>
+                                            <span class="card-text"
+                                                  th:text="${userCMS != null ? (userCMS.email != null ? userCMS.email : 'N/A') : 'N/A'}"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="dropdown-divider"></div>
+
+                                <a class="dropdown-item" href="#">
+                                    <span class="text-truncate pr-2" title="Profile &amp; account">Thông tin &amp;
+                                        tài khoản</span>
+                                </a>
+
+                                <a class="dropdown-item" href="/change-password">
+                                    <span class="text-truncate pr-2" title="Settings">Đổi mật khẩu</span>
+                                </a>
+
+                                <div class="dropdown-divider"></div>
+
+                                <a id="logout" class="dropdown-item">
+                                    <span class="text-truncate pr-2" title="Sign out">Đăng xuất</span>
+                                </a>
+                            </div>
+                        </div>
+                        <!-- End Account -->
+                    </li>
+                </ul>
+                <!-- End Navbar -->
+            </div>
+            <!-- End Secondary Content -->
+        </div>
+    </header>
+</div>
+<div id="headerFluid" class="d-none">
+</div>
+<div id="headerDouble" class="d-none">
+</div>
+<!-- Search Form -->
+<div id="searchDropdown" class="hs-unfold-content dropdown-unfold search-fullwidth d-md-none">
+    <form class="input-group input-group-merge input-group-borderless">
+        <div class="input-group-prepend">
+            <div class="input-group-text">
+                <i class="tio-search"></i>
+            </div>
+        </div>
+
+        <input class="form-control rounded-0" type="search" placeholder="Search in front" aria-label="Search in front">
+
+        <div class="input-group-append">
+            <div class="input-group-text">
+                <div class="hs-unfold">
+                    <a class="js-hs-unfold-invoker" href="javascript:;" data-hs-unfold-options='{
+                   "target": "#searchDropdown",
+                   "type": "css-animation",
+                   "animationIn": "fadeIn",
+                   "hasOverlay": "rgba(46, 52, 81, 0.1)",
+                   "closeBreakpoint": "md"
+                 }'>
+                        <i class="tio-clear tio-lg"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<!-- End Search Form -->
+<div id="activitySidebar" class="hs-unfold-content sidebar sidebar-bordered sidebar-box-shadow">
+    <div class="card card-lg sidebar-card">
+        <div class="card-header">
+            <h4 class="card-header-title">Activity stream</h4>
+
+            <!-- Toggle Button -->
+            <a class="js-hs-unfold-invoker btn btn-icon btn-xs btn-ghost-dark ml-2" href="javascript:;"
+               data-hs-unfold-options='{
+              "target": "#activitySidebar",
+              "type": "css-animation",
+              "animationIn": "fadeInRight",
+              "animationOut": "fadeOutRight",
+              "hasOverlay": true,
+              "smartPositionOff": true
+             }'>
+                <i class="tio-clear tio-lg"></i>
+            </a>
+            <!-- End Toggle Button -->
+        </div>
+
+        <!-- Body -->
+        <div class="card-body sidebar-body sidebar-scrollbar">
+            <!-- Step -->
+            <ul class="step step-icon-sm step-avatar-sm">
+                <!-- Step Item -->
+                <li class="step-item">
+                    <div class="step-content-wrapper">
+                        <div class="step-avatar">
+                            <img class="step-avatar-img" src="/assets/cms/img/160x160/img9.jpg" alt="Image Description">
+                        </div>
+
+                        <div class="step-content">
+                            <h5 class="mb-1">Iana Robinson</h5>
+
+                            <p class="font-size-sm mb-1">Added 2 files to task <a class="text-uppercase" href="#"><i
+                                    class="tio-folder-bookmarked"></i> Fd-7</a></p>
+
+                            <ul class="list-group list-group-sm">
+                                <!-- List Item -->
+                                <li class="list-group-item list-group-item-light">
+                                    <div class="row gx-1">
+                                        <div class="col-6">
+                                            <div class="media">
+                          <span class="mt-1 mr-2">
+                            <img class="avatar avatar-xs" src="/assets/cms/svg/brands/excel.svg"
+                                 alt="Image Description">
+                          </span>
+                                                <div class="media-body text-truncate">
+                            <span class="d-block font-size-sm text-dark text-truncate"
+                                  title="weekly-reports.xls">weekly-reports.xls</span>
+                                                    <small class="d-block text-muted">12kb</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="media">
+                          <span class="mt-1 mr-2">
+                            <img class="avatar avatar-xs" src="/assets/cms/svg/brands/word.svg" alt="Image Description">
+                          </span>
+                                                <div class="media-body text-truncate">
+                            <span class="d-block font-size-sm text-dark text-truncate"
+                                  title="weekly-reports.xls">weekly-reports.xls</span>
+                                                    <small class="d-block text-muted">4kb</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <!-- End List Item -->
+                            </ul>
+
+                            <small class="text-muted text-uppercase">Now</small>
+                        </div>
+                    </div>
+                </li>
+                <!-- End Step Item -->
+
+                <!-- Step Item -->
+                <li class="step-item">
+                    <div class="step-content-wrapper">
+                        <span class="step-icon step-icon-soft-dark">B</span>
+
+                        <div class="step-content">
+                            <h5 class="mb-1">Bob Dean</h5>
+
+                            <p class="font-size-sm mb-1">Marked <a class="text-uppercase" href="#"><i
+                                    class="tio-folder-bookmarked"></i> Fr-6</a> as <span
+                                    class="badge badge-soft-success badge-pill"><span
+                                    class="legend-indicator bg-success"></span>"Completed"</span></p>
+
+                            <small class="text-muted text-uppercase">Today</small>
+                        </div>
+                    </div>
+                </li>
+                <!-- End Step Item -->
+
+                <!-- Step Item -->
+                <li class="step-item">
+                    <div class="step-content-wrapper">
+                        <div class="step-avatar">
+                            <img class="step-avatar-img" src="/assets/cms/img/160x160/img3.jpg" alt="Image Description">
+                        </div>
+
+                        <div class="step-content">
+                            <h5 class="h5 mb-1">Crane</h5>
+
+                            <p class="font-size-sm mb-1">Added 5 card to <a href="#">Payments</a></p>
+
+                            <ul class="list-group list-group-sm">
+                                <li class="list-group-item list-group-item-light">
+                                    <div class="row gx-1">
+                                        <div class="col">
+                                            <img class="img-fluid rounded ie-sidebar-activity-img"
+                                                 src="/assets/cms/svg/illustrations/card-1.svg" alt="Image Description">
+                                        </div>
+                                        <div class="col">
+                                            <img class="img-fluid rounded ie-sidebar-activity-img"
+                                                 src="/assets/cms/svg/illustrations/card-2.svg" alt="Image Description">
+                                        </div>
+                                        <div class="col">
+                                            <img class="img-fluid rounded ie-sidebar-activity-img"
+                                                 src="/assets/cms/svg/illustrations/card-3.svg" alt="Image Description">
+                                        </div>
+                                        <div class="col-auto align-self-center">
+                                            <div class="text-center">
+                                                <a href="#">+2</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+
+                            <small class="text-muted text-uppercase">May 12</small>
+                        </div>
+                    </div>
+                </li>
+                <!-- End Step Item -->
+
+                <!-- Step Item -->
+                <li class="step-item">
+                    <div class="step-content-wrapper">
+                        <span class="step-icon step-icon-soft-info">D</span>
+
+                        <div class="step-content">
+                            <h5 class="mb-1">David Lidell</h5>
+
+                            <p class="font-size-sm mb-1">Added a new member to Front Dashboard</p>
+
+                            <small class="text-muted text-uppercase">May 15</small>
+                        </div>
+                    </div>
+                </li>
+                <!-- End Step Item -->
+
+                <!-- Step Item -->
+                <li class="step-item">
+                    <div class="step-content-wrapper">
+                        <div class="step-avatar">
+                            <img class="step-avatar-img" src="/assets/cms/img/160x160/img7.jpg" alt="Image Description">
+                        </div>
+
+                        <div class="step-content">
+                            <h5 class="mb-1">Rachel King</h5>
+
+                            <p class="font-size-sm mb-1">Marked <a class="text-uppercase" href="#"><i
+                                    class="tio-folder-bookmarked"></i> Fr-3</a> as <span
+                                    class="badge badge-soft-success badge-pill"><span
+                                    class="legend-indicator bg-success"></span>"Completed"</span></p>
+
+                            <small class="text-muted text-uppercase">Apr 29</small>
+                        </div>
+                    </div>
+                </li>
+                <!-- End Step Item -->
+
+                <!-- Step Item -->
+                <li class="step-item">
+                    <div class="step-content-wrapper">
+                        <div class="step-avatar">
+                            <img class="step-avatar-img" src="/assets/cms/img/160x160/img5.jpg" alt="Image Description">
+                        </div>
+
+                        <div class="step-content">
+                            <h5 class="mb-1">Finch Hoot</h5>
+
+                            <p class="font-size-sm mb-1">Earned a "Top endorsed" <i
+                                    class="tio-verified text-primary"></i> badge</p>
+
+                            <small class="text-muted text-uppercase">Apr 06</small>
+                        </div>
+                    </div>
+                </li>
+                <!-- End Step Item -->
+
+                <!-- Step Item -->
+                <li class="step-item">
+                    <div class="step-content-wrapper">
+              <span class="step-icon step-icon-soft-primary">
+                <i class="tio-user"></i>
+              </span>
+
+                        <div class="step-content">
+                            <h5 class="mb-1">Project status updated</h5>
+
+                            <p class="font-size-sm mb-1">Marked <a class="text-uppercase" href="#"><i
+                                    class="tio-folder-bookmarked"></i> Fr-3</a> as <span
+                                    class="badge badge-soft-primary badge-pill"><span
+                                    class="legend-indicator bg-primary"></span>"In
+                    progress"</span></p>
+
+                            <small class="text-muted text-uppercase">Feb 10</small>
+                        </div>
+                    </div>
+                </li>
+                <!-- End Step Item -->
+            </ul>
+            <!-- End Step -->
+
+            <a class="btn btn-block btn-white" href="javascript:;">View all <i class="tio-chevron-right"></i></a>
+        </div>
+        <!-- End Body -->
+    </div>
+</div>
+<script>
+    let listFunction = [];
+    fetch('/assets/cms/json/ListChucNang.json')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            listFunction = data;
+            handleData();
+        })
+        .catch(() => {
+            fetch('/assets/cms/json/ListDuPhong.json')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    listFunction = data;
+                    handleData();
+                })
+                .catch(error => {
+                    console.error('There was a problem with the fetch operation:', error);
+                });
+        });
+
+    function handleData() {
+        if (Array.isArray(listFunction)) {
+            let html = '';
+            listFunction.forEach(item => {
+                html += `<a class="dropdown-item function-item my-2" href="${item.link}">
+                       <div class="media align-items-center">
+                       <span class="icon icon-xs icon-soft-dark icon-circle mr-2">
+                           <i class="${item.icon}"></i>
+                       </span>
+                           <div class="media-body text-truncate">
+                               <span class="funtion-name">${item.name}</span>
+                           </div>
+                       </div>
+                   </a>`;
+            });
+            document.getElementById('list-function').innerHTML = html;
+        }
+    }
+</script>

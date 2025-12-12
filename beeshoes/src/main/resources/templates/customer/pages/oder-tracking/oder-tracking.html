@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>LightBee | Tra Cứu Đơn Hàng</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
+          rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="/assets/customer/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="/assets/customer/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="/assets/customer/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="/assets/customer/css/magnific-popup.css" type="text/css">
+    <link rel="stylesheet" href="/assets/customer/css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="/assets/customer/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="/assets/customer/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="/assets/customer/css/style.css" type="text/css">
+    <link rel="stylesheet" href="/assets/customer/custom.css" type="text/css">
+    <link rel="stylesheet" href="/assets/customer/css/tracking.css?v=1.0" type="text/css">
+    <link rel="stylesheet" href="/assets/customer/css/profile.css?v=2.0" type="text/css">
+</head>
+
+<body>
+<!-- Page Preloder -->
+<div id="preloder">
+    <div class="loader"></div>
+</div>
+
+<!-- Header Section Begin -->
+<div th:replace="~{customer/pages/_header.html}"></div>
+<!-- Header Section End -->
+
+<!-- Breadcrumb Section Begin -->
+<section class="breadcrumb-option">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb__text">
+                    <h4>Tra Cứu Đơn Hàng</h4>
+                    <div class="breadcrumb__links">
+                        <a href="/index">Trang chủ</a>
+                        <span>Tra Cứu</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Section End -->
+
+<!-- About Section Begin -->
+<section class="oder-tracking spad">
+    <th:block th:if="${show==null}">
+        <div class="container">
+            <div class="wraper-tracking">
+                <form id="form-tracking-1" action="/oder-tracking" method="get">
+                    <div class="row w-100-vh">
+                        <div class="row w-100 p-4 wrapper-form">
+                            <div class="col-9 p-0">
+                                <input id="form-value-1" class="w-100 form-search" name="oder"
+                                       placeholder="Nhập mã hóa đơn cần tra cứu">
+                            </div>
+                            <div class="col-3 p-0 pl-1">
+                                <button class="primary-btn" type="submit">Tra Cứu</button>
+                            </div>
+                        </div>
+                        <div class="w-100 mt-3 d-flex justify-content-center">
+                            <img src="/assets/customer/img/tracking/giao-hang.png" alt="Giao Hàng">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </th:block>
+    <th:block th:if="${show!=null}">
+        <div class="container">
+            <div class="wraper-search">
+                <form id="form-tracking-2" action="/oder-tracking" method="get">
+                    <div class="row w-100-vh">
+                        <div class="row w-100 p-4 wrapper-form">
+                            <div class="col-9 p-0">
+                                <input id="form-value-2" class="w-100 form-search" th:value="${show}" name="oder"
+                                       placeholder="Nhập mã hóa đơn cần tra cứu">
+                            </div>
+                            <div class="col-3 p-0 pl-1">
+                                <button class="primary-btn" type="submit">Tra Cứu</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div th:if="${hoadon==null}">
+                <div class="w-100 d-flex flex-column align-items-center">
+                    <img width="300" height="350" src="/assets/cms/svg/illustrations/think.svg" alt="">
+                    <h4 class="text-error">Mã Hóa Đơn Không Đúng !</h4>
+                    <div>Chúng tôi không tìm thấy mã hóa đơn của bạn trong hệ thống.</div>
+                    <div>Vui lòng kiểm tra lại mã hóa đơn.</div>
+                </div>
+
+            </div>
+            <article class="card product-infor" th:if="${hoadon!=null}">
+                <header class="card-header">Mã Hóa Đơn:<strong id="oder-code"
+                                                               th:text="${hoadon.getMaHoaDon()}"></strong></header>
+                <div class="card-body">
+                    <article class="card">
+                        <div class="card-body row">
+                            <div class="col-3"><strong>Ngày Giao Dự Kiến:</strong> <br>29/12/2024</div>
+                            <div class="col-3"><strong>Đơn Vị:</strong> <br>Giao Hàng Nhanh</div>
+                            <div class="col-3"><strong>Trạng Thái:</strong> <br>
+                                <p class="show_trang_thai"
+                                   th:if="${hoadon != null and hoadon.getTrangThai()=='Hủy'}">Đã Hủy
+                                </p>
+                                <p class="show_trang_thai"
+                                   th:if="${hoadon != null and hoadon.getTrangThai()=='Chuẩn Bị Hàng'}">Chuẩn Bị
+                                    Hàng
+                                </p>
+                                <p class="show_trang_thai"
+                                   th:if="${hoadon != null and hoadon.getTrangThai()=='Chờ Xác Nhận'}">Chờ
+                                    Xác Nhận
+                                </p>
+                                <p class="show_trang_thai"
+                                   th:if="${hoadon != null and hoadon.getTrangThai()=='Chờ Giao'}">Chờ
+                                    Giao
+                                </p>
+                                <p class="show_trang_thai"
+                                   th:if="${hoadon != null and hoadon.getTrangThai()=='Đang Giao'}">Đang
+                                    Giao
+                                </p>
+                                <p class="show_trang_thai"
+                                   th:if="${hoadon != null and hoadon.getTrangThai()=='Hoàn Trả'}">Hoàn
+                                    Trả
+                                </p>
+                                <p class="show_trang_thai"
+                                   th:if="${hoadon != null and hoadon.getTrangThai()=='Thành Công'}">Thành
+                                    Công
+                                </p>
+                            </div>
+                            <div class="col-3"><strong>Mã Vận Chuyển:</strong> <br> <a target="_blank"
+                                                                                       th:href="'https://donhang.ghn.vn/?order_code='+${hoadon.getMaVanChuyen()}"
+                                                                                       th:text="${hoadon.getMaVanChuyen()}"></a>
+                            </div>
+                            <div class="col-3">
+                                <strong>Họ Tên Người Nhận:</strong><br>
+                                <div>
+                                    <label class="invCusName" th:text="${hoadon != null and hoadon.getTenNguoiNhan() !=null ? hoadon.getTenNguoiNhan():''}">Tẩn
+                                        Láo Lù</label>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <strong>Số Điện Thoại:</strong><br>
+                                <label class="invCusPhone" id="numberPhone" th:text="${hoadon.getSdtNhan()}"></label>
+                            </div>
+                            <div class="col-6">
+                                <strong>Địa Chỉ:</strong>
+                                <br>
+                                <label id="invAddress" class="invAddress" th:text="${hoadon!= null and hoadon.getDiaChiNhan() !=null ?hoadon.getDiaChiNhan():''}"></label>
+                                <th:block
+                                        th:if="${user != null and user.getKhachHang()!=null and hoadon.getTrangThai()=='Chờ Xác Nhận' and hoadon.getHinhThucThanhToans().get(0).getMaGiaoDich()=='COD'}">
+                                    <button data-toggle="modal" data-target="#updateInformationModal"
+                                            class="btn-edit-tracking"><i class="ml-2 fa fa-pencil"></i></button>
+                                </th:block>
+                            </div>
+                        </div>
+                    </article>
+                    <div class="track">
+                        <th:block th:each="st:${strack}">
+                            <div th:if="${st.getTrangThaiSauUpdate()=='Chờ Xác Nhận'}" class="step active">
+                            <span class="icon">
+                                <i class="fa fa-check"></i> </span>
+                                <span class="text">Chờ Xác Nhận</span>
+                            </div>
+                            <div th:if="${st.getTrangThaiSauUpdate()=='Chuẩn Bị Hàng'}" class="step active">
+                            <span class="icon">
+                                <i class="fa fa-user"></i>
+                            </span>
+                                <span class="text">Chuẩn Bị Hàng</span>
+                            </div>
+
+                            <div th:if="${st.getTrangThaiSauUpdate()=='Chờ Giao'}" class="step active">
+                            <span class="icon">
+                                <i class="fa fa-ambulance" aria-hidden="true"></i>
+                            </span>
+                                <span class="text">Chờ Giao</span>
+                            </div>
+
+                            <div th:if="${st.getTrangThaiSauUpdate()=='Đang Giao'}" class="step active">
+                            <span class="icon">
+                                <i class="fa fa-truck"></i>
+                            </span>
+                                <span class="text">Đang Giao</span>
+                            </div>
+
+                            <div th:if="${st.getTrangThaiSauUpdate()=='Thành Công'}" class="step active">
+                            <span class="icon">
+                                <i class="fa fa-archive"></i>
+                            </span>
+                                <span class="text">Thành Công</span>
+                            </div>
+                            <div th:if="${st.getTrangThaiSauUpdate()=='Hoàn Trả'}" class="step active">
+                            <span class="icon">
+                                <i class="fa fa-undo"></i>
+                            </span>
+                                <span class="text">Hoàn Trả</span>
+                            </div>
+                            <div th:if="${st.getTrangThaiSauUpdate()=='Hủy'}" class="step active">
+                            <span class="icon">
+                                <i class="fa fa-times" aria-hidden="true"></i>
+                            </span>
+                                <span class="text">Thất Bại</span>
+                            </div>
+                        </th:block>
+                        <th:block th:if="${strack.get(#lists.size(strack)-1).getTrangThaiSauUpdate()=='Chờ Xác Nhận'}">
+                            <div class="step ">
+                            <span class="icon">
+                                <i class="fa fa-user"></i>
+                            </span>
+                                <span class="text">Chuẩn Bị Hàng</span>
+                            </div>
+
+                            <div class="step">
+                            <span class="icon">
+                                <i class="fa fa-ambulance" aria-hidden="true"></i>
+                            </span>
+                                <span class="text">Chờ Giao</span>
+                            </div>
+
+                            <div class="step">
+                            <span class="icon">
+                                <i class="fa fa-truck"></i>
+                            </span>
+                                <span class="text">Đang Giao</span>
+                            </div>
+
+                            <div class="step">
+                            <span class="icon">
+                                <i class="fa fa-archive"></i>
+                            </span>
+                                <span class="text">Thành Công</span>
+                            </div>
+                            <div class="step">
+                            <span class="icon">
+                                <i class="fa fa-times" aria-hidden="true"></i>
+                            </span>
+                                <span class="text">Thất Bại</span>
+                            </div>
+                        </th:block>
+                        <th:block th:if="${strack.get(#lists.size(strack)-1).getTrangThaiSauUpdate()=='Chuẩn Bị Hàng'}">
+                            <div class="step">
+                            <span class="icon">
+                                <i class="fa fa-ambulance" aria-hidden="true"></i>
+                            </span>
+                                <span class="text">Chờ Giao</span>
+                            </div>
+                            <div class="step">
+                            <span class="icon">
+                                <i class="fa fa-truck"></i>
+                            </span>
+                                <span class="text">Đang Giao</span>
+                            </div>
+                            <div class="step">
+                            <span class="icon">
+                                <i class="fa fa-archive"></i>
+                            </span>
+                                <span class="text">Thành Công</span>
+                            </div>
+                        </th:block>
+                        <th:block th:if="${strack.get(#lists.size(strack)-1).getTrangThaiSauUpdate()=='Chờ Giao'}">
+                            <div class="step">
+                            <span class="icon">
+                                <i class="fa fa-truck"></i>
+                            </span>
+                                <span class="text">Đang Giao</span>
+                            </div>
+                            <div class="step">
+                            <span class="icon">
+                                <i class="fa fa-archive"></i>
+                            </span>
+                                <span class="text">Thành Công</span>
+                            </div>
+                        </th:block>
+                        <th:block th:if="${strack.get(#lists.size(strack)-1).getTrangThaiSauUpdate()=='Đang Giao'}">
+                            <div class="step">
+                            <span class="icon">
+                                <i class="fa fa-archive"></i>
+                            </span>
+                                <span class="text">Thành Công</span>
+                            </div>
+                        </th:block>
+                    </div>
+                    <hr class="mb-0">
+                    <div class="card-body mt-0">
+                        <div class="card_content">
+                            <ul class="w-100" id="show-all-product">
+                                <li class="row product-information" th:each="sanpham:${hoadon.getHoaDonChiTiets()}" th:attr="data-id-hdct=${sanpham.getId()}">
+                                    <div class="col-2 p-0">
+                                        <img class="product_img"
+                                             th:src="${sanpham.getChiTietSanPham().getAnh().getUrl()}">
+                                    </div>
+                                    <div th:id="'product-detail-'+${sanpham.getId()}"
+                                         class="col-7 content_product p-0">
+                                        <div>
+                                            <h6 class="product_name mb-2"
+                                                th:text="${sanpham.getChiTietSanPham().getSanPham().getTen()}"></h6>
+                                            <div class="w-100">
+                                                Màu :<label
+                                                    th:text="${sanpham.getChiTietSanPham().getMauSac().getTen()}"></label>,
+                                                Kích Cỡ :<label
+                                                    th:text="${sanpham.getChiTietSanPham().getKichCo().getTen()}"></label>
+                                            </div>
+                                            <label class="quantity-product"
+                                                   th:text="'Số Lượng :'+${sanpham.getSoLuong()}"></label>
+                                            <div class="pro-qty d-none"><span class="fa fa-angle-up dec qtybtn"></span>
+                                                <input  class="input-quantity" th:id="'quantity-selected-'+${sanpham.getId()}" type="text" th:value="${sanpham.getSoLuong()}" readonly>
+                                                <span class="fa fa-angle-down inc qtybtn"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-3 d-flex align-items-center">
+                                        <h5 class="product_price_cu"
+                                            th:text="${#numbers.formatDecimal(sanpham.getGiaGoc(), 1, 'DEFAULT', 0, 'DEFAULT')}+'đ'"></h5>
+                                        <h5 class="product_price"
+                                            th:text="${#numbers.formatDecimal(sanpham.getGiaBan(), 1, 'DEFAULT', 0, 'DEFAULT')}+'đ'"></h5>
+                                    </div>
+                                    <div class="col-1 d-none  align-items-center btn-del-group">
+                                        <button class="btn-delete"
+                                                th:attr="data-id-hdct=${sanpham.getId()}"
+                                                data-toggle="tooltip" title="Xóa Sản Phẩm">
+                                            <i class="fa fa-close"></i>
+                                        </button>
+                                    </div>
+                                </li>
+                            </ul>
+                            <button data-toggle="modal" data-target="#select_product" id="btn-add-product"
+                                    class="d-none"><i
+                                    class="fa fa-plus" aria-hidden="true"></i></button>
+                        </div>
+                    </div>
+                    <div class="w-100 d-flex justify-content-end mt-3 pr-3">
+                        <label class="">Tổng :</label><h5 id="total-money" class="show_discount_money ml-2 mb-0"
+                                                          th:text="${#numbers.formatDecimal(hoadon.getTongTien(), 1, 'DEFAULT', 0, 'DEFAULT')}+'đ'"></h5>
+                    </div>
+                    <div th:if="${hoadon.getGiamGia()!=null}" class="w-100 d-flex justify-content-end mt-1 pr-3">
+                        <label class="">Giảm Giá :</label><h6 id="discount-money" class="show_discount_money ml-2 mb-0"
+                                                              th:text="${#numbers.formatDecimal(hoadon.getGiamGia(), 1, 'DEFAULT', 0, 'DEFAULT')}+'đ'"></h6>
+                    </div>
+                    <div class="w-100 d-flex justify-content-end mt-1 pr-3">
+                        <label class="">Phí Ship :</label><h6 id="shipping-money" class="show_discount_money ml-2 mb-0"
+                                                              th:text="${hoadon.getPhiShip()>1?#numbers.formatDecimal(hoadon.getPhiShip(), 1, 'DEFAULT', 0, 'DEFAULT')+'đ':'Miễn Phí'}"></h6>
+                    </div>
+                    <div class="w-100 thanh-tien d-flex justify-content-end align-items-center mt-1 mb-3 pr-3">
+                        <label class="mb-0">Thành Tiền: </label><h4 id="payment-money" class="show_total_money"
+                                                                    th:text="${#numbers.formatDecimal(hoadon.getThucThu(), 1, 'DEFAULT', 0, 'DEFAULT')}+'đ'"></h4>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <a href="/" class="primary-btn" data-abc="true"> <i class="fa fa-chevron-left"></i> Trang
+                                Chủ</a>
+                        </div>
+                        <th:block th:if="${user != null}">
+                            <div th:if="${user.getKhachHang()!= null and hoadon.getKhachHang() != null and  user.getKhachHang().getId()== hoadon.getKhachHang().getId()}">
+                                <a th:if="${hoadon.getTrangThai()=='Chờ Xác Nhận' and hoadon.getHinhThucThanhToans().get(0).getMaGiaoDich()=='COD'}"
+                                   th:attr="data-id=${hoadon.getId()}"
+                                   id="btn-show-update" class="info-btn" data-update="0">Cập Nhật</a>
+                                <a th:if="${hoadon.getTrangThai()=='Chờ Xác Nhận'}"
+                                   th:attr="data-id=${hoadon.getId()}"
+                                   class="info-btn btn-cancel-oders">Hủy Đơn</a>
+                            </div>
+                        </th:block>
+                    </div>
+                </div>
+            </article>
+            <div class="card w-100 mt-4" th:if="${hoadon!=null}">
+                <h4 class="text-center mb-2 mt-2">Lịch Sử Đơn Hàng</h4>
+                <hr>
+                <div id="history-oder" class="w-100 pb-4">
+                    <th:block th:each="lshd:${lstLSHD}">
+                        <div class="w-100 row justify-content-center">
+                            <div class="col-3 times"
+                                 th:text="${#dates.format(lshd.getThoiGian(),'dd/MM/yyyy HH:mm:ss')}"></div>
+                            <div class="col-9 actions" th:text="${lshd.getHanhDong()}"></div>
+                        </div>
+                        <hr>
+                    </th:block>
+                </div>
+            </div>
+        </div>
+    </th:block>
+</section>
+<!-- About Section End -->
+
+
+<!-- Footer Section Begin -->
+<div th:replace="~{customer/pages/_footer.html}"></div>
+<!-- Footer Section End -->
+<div class="modal fade" id="select_product" data-backdrop="static" data-keyboard="false" tabindex="-1"
+     aria-labelledby="select_productLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="select_productLabel">Chọn Sản Phẩm</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+
+            </div>
+            <div class="modal-body p-4">
+                <div class="w-100">
+                    <input id="oder-id-update" type="text" hidden="hidden">
+                    <label for="tenSanPham" class="pointer mb-0 w-100">Sản Phẩm :</label>
+                    <select class="w-100 mb-3" type="text" id="tenSanPham"></select>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <img id="preview-img" class="img-product-preview" width="200" height="200"
+                             src="/assets/customer/img/about/ludeptrai.jpg" alt="">
+                    </div>
+                    <div class="col-6">
+                        <label for="mauSac" class="pointer mb-0 w-100">Màu Sắc :</label>
+                        <select class="w-100 mb-3" id="mauSac"></select>
+                        <label for="kichCo" class="pointer mb-0 w-100">Kích Cỡ:</label>
+                        <select class="w-100 mb-3" id="kichCo"></select>
+                        <label for="soLuong" class="pointer mb-0 w-100">Số Lượng:</label>
+                        <input class="w-100  form-input-custom" type="text" id="soLuong">
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn info-btn" data-dismiss="modal">Đóng</button>
+                <button id="btn-select" type="button" class="btn primary-btn">Chọn</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="width: 420px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Lý Do Hủy Đơn</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body pl-5">
+                <input type="text" hidden="hidden" id="id_oders_cancel">
+                <div class="w-100">
+                    <input id="lg1" type="radio" name="cancel" value="Tôi muốn cập nhật địa chỉ/sđt nhận hàng.">
+                    <label class="pointer" for="lg1">Tôi muốn cập nhật địa chỉ/sđt nhận hàng.</label>
+                </div>
+                <div class="w-100">
+                    <input id="lg2" type="radio" name="cancel" value="Tôi muốn thêm/thay đổi Mã giảm giá.">
+                    <label class="pointer" for="lg2">Tôi muốn thêm/thay đổi Mã giảm giá.</label>
+                </div>
+                <div class="w-100">
+                    <input id="lg3" type="radio" name="cancel" value="Tôi muốn thay đổi sản phẩm.">
+                    <label class="pointer" for="lg3">Tôi muốn thay đổi sản phẩm.</label>
+                </div>
+                <div class="w-100">
+                    <input id="lg4" type="radio" name="cancel" value="Tôi không có nhu cầu mua nữa.">
+                    <label class="pointer" for="lg4">Tôi không có nhu cầu mua nữa.</label>
+                </div>
+                <div class="w-100">
+                    <input id="lg5" type="radio" name="cancel" value="#">
+                    <label class="pointer" for="lg5">Khác</label>
+                </div>
+                <div class="w-100">
+                    <textarea class="w-75 d-none " id="lydo_cancel" rows="2"></textarea>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn info-btn" data-dismiss="modal">Đóng</button>
+                <button id="btn-huy" type="button" class="btn primary-btn">Hủy Đơn</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:if="${user!=null}" class="modal fade" id="updateInformationModal" data-backdrop="static" data-keyboard="false"
+     tabindex="-1"
+     aria-labelledby="updateInformationModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="updateInformationModalLabel">Cập Nhật Thông Tin</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body body-form-update">
+                <label for="hoTen" class="w-100">Họ Tên:</label>
+                <input id="hoTen" type="text" class="w-100 form-input-custom"
+                       th:value="${hoadon!=null and hoadon.getTenNguoiNhan() != null ?hoadon.getTenNguoiNhan():''}"
+                       autofocus>
+                <label for="soDienThoai" class="w-100">Số Điện Thoại:</label>
+                <input id="soDienThoai" type="text" class="w-100 form-input-custom"
+                       th:value="${hoadon!=null and hoadon.getSdtNhan() != null ?hoadon.getSdtNhan():''}">
+                <th:block th:if="${hoadon!=null and hoadon.getKhachHang() !=null}">
+                    <label class="w-100">Địa Chỉ:</label>
+                    <div class="w-100 pl-2"
+                         th:each="dc:${hoadon.getKhachHang().getDiaChi()}">
+                        <input th:id="'diachi_'+${dc.getId()}" type="radio" name="diaChi"
+                               th:value="${dc.getSoNha() +', '+ dc.getPhuongXa()+', '+dc.getQuanHuyen()+', '+dc.getTinhThanhPho()}">
+                        <label th:for="'diachi_'+${dc.getId()}"
+                               th:text="${dc.getSoNha() +', '+ dc.getPhuongXa()+', '+dc.getQuanHuyen()+', '+dc.getTinhThanhPho()}"></label>
+                    </div>
+                    <div class="w-100 pl-2">
+                        <input id="newAddress" type="radio" name="diaChi" value="#">
+                        <label for="newAddress">Khác</label>
+                    </div>
+                </th:block>
+                <div class="w-100 diaChiKhac d-none">
+                    <label for="soNha" class="w-100">Số Nhà:</label>
+                    <input id="soNha" type="text" class="form-input-custom w-100">
+                    <label for="tinhTP" class="w-100">Tỉnh/TP:</label>
+                    <select id="tinhTP" type="text" class="w-100"></select>
+                    <label for="quanHuyen" class="w-100">Quận/Huyện:</label>
+                    <select id="quanHuyen" type="text" class="w-100"></select>
+                    <label for="phuongXa" class="w-100">Phường/Xã:</label>
+                    <select id="phuongXa" type="text" class="w-100"></select>
+                </div>
+                <input type="text" hidden="hidden" id="id-oder" th:value="${hoadon!=null ? hoadon.getId():''}">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn info-btn" data-dismiss="modal">Đóng</button>
+                <button id="btn-save" onclick="" type="button" class="btn primary-btn">Lưu</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Search Begin -->
+<div class="search-model">
+    <div class="h-100 d-flex align-items-center justify-content-center">
+        <div class="search-close-switch">+</div>
+        <form class="search-model-form">
+            <input type="text" id="search-input" placeholder="Tìm kiếm ở đây.....">
+        </form>
+    </div>
+</div>
+<!-- Search End -->
+
+<!-- Js Plugins -->
+<script src="/assets/customer/js/jquery-3.3.1.min.js"></script>
+<script src="/assets/customer/js/bootstrap.min.js"></script>
+<script src="/assets/customer/js/jquery.nice-select.min.js"></script>
+<script src="/assets/customer/js/jquery.nicescroll.min.js"></script>
+<script src="/assets/customer/js/jquery.magnific-popup.min.js"></script>
+<script src="/assets/customer/js/jquery.countdown.min.js"></script>
+<script src="/assets/customer/js/jquery.slicknav.js"></script>
+<script src="/assets/customer/js/mixitup.min.js"></script>
+<script src="/assets/customer/js/owl.carousel.min.js"></script>
+<script src="/assets/customer/js/main.js"></script>
+<script src="/assets/customer/js/tracking/tracking.js?v=1.0"></script>
+</body>
+
+</html>

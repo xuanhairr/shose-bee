@@ -1,0 +1,343 @@
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Bộ lọc</h5>
+        <div class="row">
+            <div class="col-12 mt-2 mb-4">
+                <form>
+                    <!-- Search -->
+                    <div class="input-group input-group-merge input-group-flush">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <i class="tio-search"></i>
+                            </div>
+                        </div>
+                        <input id="datatableSearchDG" type="search" class="form-control" placeholder="Nhập thông tin đơn hàng cần tìm" aria-label="Search orders">
+                    </div>
+                    <!-- End Search -->
+                </form>
+            </div>
+            <div class="col-6">
+                <!-- Unfold -->
+                <div class="hs-unfold d-flex mr-2 form-group">
+                    <select class="js-select2-custom custom-select" name="loaiHoaDonDG"
+                            id="loaiHoaDonDG" size="1"
+                            style="opacity: 0;"
+                            data-hs-select2-options='{
+                                    "placeholder": "loại hóa đơn",
+                                    "searchInputPlaceholder": "Tìm loại hóa đơn"
+                                    }'>
+                        <option value="all" selected>Loại Hóa Đơn</option>
+                        <option value="true">Bán Tại Quầy</option>
+                        <option value="false">Bán Giao Hàng</option>
+                    </select>
+                </div>
+                <!-- End Unfold -->
+            </div>
+            <div class="col-6">
+                <!-- Unfold -->
+                <div class="hs-unfold d-flex mr-2 form-group">
+                    <select class="js-select2-custom custom-select" name="tongTienDG"
+                            id="tongTienDG" size="1"
+                            style="opacity: 0;"
+                            data-hs-select2-options='{
+                                    "placeholder": "Giá Trị",
+                                    "searchInputPlaceholder": "Tìm giá trị"
+                                    }'>
+                        <option value="0-999999999" selected>Giá Trị</option>
+                        <option value="0-999999">Nhỏ hơn 1 triệu</option>
+                        <option value="1000000-4999999">Từ 1 triệu đến 5 triệu</option>
+                        <option value="5000000-9999999">Từ 5 triệu đến 10 triệu</option>
+                        <option value="10000000-999999999">Lớn hơn 10 triệu</option>
+                    </select>
+                </div>
+                <!-- End Unfold -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr class="mt-4 mb-4">
+
+<!-- Card -->
+<div class="card" xmlns:th="http://www.thymeleaf.org">
+    <!-- Header -->
+    <div class="card-header">
+        <div class="row justify-content-end align-items-end flex-grow-1">
+            <div class="col-lg-8">
+                <div class="d-sm-flex justify-content-sm-end justify-content-end">
+                    <!-- Datatable Info -->
+                    <div id="datatableCounterInfoDG" class="mr-2 mb-2 mb-sm-0" style="display: none;">
+                        <div class="d-flex align-items-center">
+                      <span class="font-size-sm mr-3">
+                        <span id="datatableCounterDG">0</span>
+                        đơn được chọn
+                      </span>
+                            <button class="btn btn-sm btn-outline-success" id="xacNhanFromCheckBoxDG">
+                                <i class="tio-checkmark-circle-outlined"></i> Xác Nhận
+                            </button>
+                        </div>
+                    </div>
+                    <!-- End Datatable Info -->
+
+                    <!-- Unfold -->
+                    <div class="hs-unfold">
+                        <a class="js-hs-unfold-invoker btn btn-sm btn-white" href="javascript:;" data-hs-unfold-options='{
+                         "target": "#showHideDropdownDG",
+                         "type": "css-animation"
+                       }'>
+                            <i class="tio-table mr-1"></i>Hiển thị <span class="badge badge-soft-dark rounded-circle ml-1"></span>
+                        </a>
+
+                        <div id="showHideDropdownDG" class="hs-unfold-content dropdown-unfold dropdown-menu dropdown-menu-right dropdown-card" style="width: 15rem;">
+                            <div class="card card-sm">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <span class="mr-2">STT</span>
+
+                                        <!-- Checkbox Switch -->
+                                        <label class="toggle-switch toggle-switch-sm" for="toggleColumn_sttDG">
+                                            <input type="checkbox" class="toggle-switch-input" id="toggleColumn_sttDG" checked="">
+                                            <span class="toggle-switch-label">
+                                <span class="toggle-switch-indicator"></span>
+                              </span>
+                                        </label>
+                                        <!-- End Checkbox Switch -->
+                                    </div>
+
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <span class="mr-2">Mã Hóa Đơn</span>
+
+                                        <!-- Checkbox Switch -->
+                                        <label class="toggle-switch toggle-switch-sm" for="toggleColumn_maHoaDonDG">
+                                            <input type="checkbox" class="toggle-switch-input" id="toggleColumn_maHoaDonDG" checked="">
+                                            <span class="toggle-switch-label">
+                                <span class="toggle-switch-indicator"></span>
+                              </span>
+                                        </label>
+                                        <!-- End Checkbox Switch -->
+                                    </div>
+
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <span class="mr-2">Tên Khách Hàng</span>
+
+                                        <!-- Checkbox Switch -->
+                                        <label class="toggle-switch toggle-switch-sm" for="toggleColumn_tenKhachHangDG">
+                                            <input type="checkbox" class="toggle-switch-input" id="toggleColumn_tenKhachHangDG" checked="">
+                                            <span class="toggle-switch-label">
+                                <span class="toggle-switch-indicator"></span>
+                              </span>
+                                        </label>
+                                        <!-- End Checkbox Switch -->
+                                    </div>
+
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <span class="mr-2">SDT Khách Hàng</span>
+
+                                        <!-- Checkbox Switch -->
+                                        <label class="toggle-switch toggle-switch-sm" for="toggleColumn_sdtKhachHangDG">
+                                            <input type="checkbox" class="toggle-switch-input" id="toggleColumn_sdtKhachHangDG" checked="">
+                                            <span class="toggle-switch-label">
+                                <span class="toggle-switch-indicator"></span>
+                              </span>
+                                        </label>
+                                        <!-- End Checkbox Switch -->
+                                    </div>
+
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <span class="mr-2">Tổng Tiền</span>
+
+                                        <!-- Checkbox Switch -->
+                                        <label class="toggle-switch toggle-switch-sm" for="toggleColumn_tongTienDG">
+                                            <input type="checkbox" class="toggle-switch-input" id="toggleColumn_tongTienDG" checked="">
+                                            <span class="toggle-switch-label">
+                                <span class="toggle-switch-indicator"></span>
+                              </span>
+                                        </label>
+                                        <!-- End Checkbox Switch -->
+                                    </div>
+
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <span class="mr-2">Loại Hóa Đơn</span>
+
+                                        <!-- Checkbox Switch -->
+                                        <label class="toggle-switch toggle-switch-sm" for="toggleColumn_loaiHoaDonDG">
+                                            <input type="checkbox" class="toggle-switch-input" id="toggleColumn_loaiHoaDonDG" checked="">
+                                            <span class="toggle-switch-label">
+                                <span class="toggle-switch-indicator"></span>
+                              </span>
+                                        </label>
+                                        <!-- End Checkbox Switch -->
+                                    </div>
+
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <span class="mr-2">Trạng Thái</span>
+
+                                        <!-- Checkbox Switch -->
+                                        <label class="toggle-switch toggle-switch-sm" for="toggleColumn_trangThaiDG">
+                                            <input type="checkbox" class="toggle-switch-input" id="toggleColumn_trangThaiDG" checked="">
+                                            <span class="toggle-switch-label">
+                                <span class="toggle-switch-indicator"></span>
+                              </span>
+                                        </label>
+                                        <!-- End Checkbox Switch -->
+                                    </div>
+
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="mr-2">Hành Động</span>
+
+                                        <!-- Checkbox Switch -->
+                                        <label class="toggle-switch toggle-switch-sm" for="toggleColumn_hanhDongDG">
+                                            <input type="checkbox" class="toggle-switch-input" id="toggleColumn_hanhDongDG" checked="">
+                                            <span class="toggle-switch-label">
+                                <span class="toggle-switch-indicator"></span>
+                              </span>
+                                        </label>
+                                        <!-- End Checkbox Switch -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Unfold -->
+                </div>
+            </div>
+        </div>
+        <!-- End Row -->
+    </div>
+    <!-- End Header -->
+
+    <!-- Table -->
+    <div class="table-responsive datatable-custom">
+        <table id="datatableDG" class="table table-hover table-borderless table-thead-bordered table-nowrap table-align-middle card-table" style="width: 100%" data-hs-datatables-options='{
+                     "columnDefs": [{
+                        "targets": [0],
+                        "orderable": false
+                      }],
+                     "order": [],
+                     "ordering": false,
+                     "info": {
+                       "totalQty": "#datatableWithPaginationInfoTotalQtyDG"
+                     },
+                     "search": "#datatableSearchDG",
+                     "entries": "#datatableEntriesDG",
+                     "pageLength": 12,
+                     "isResponsive": false,
+                     "isShowPaging": false,
+                     "pagination": "datatablePaginationDG"
+                   }'>
+            <thead class="thead-light">
+            <tr>
+                <th scope="col" class="table-column-pr-0">
+                    <div class="custom-control custom-checkbox">
+                        <input id="datatableCheckAllDG" type="checkbox" class="custom-control-input">
+                        <label class="custom-control-label" for="datatableCheckAllDG"></label>
+                    </div>
+                </th>
+                <th class="table-column-pl-0">STT</th>
+                <th>Mã Hóa Đơn</th>
+                <th>Tên Người Nhận</th>
+                <th>SĐT Nhận</th>
+                <th>Tổng Tiền</th>
+                <th>Loại Hóa Đơn</th>
+                <th>Trạng Thái</th>
+                <th>Hành Động</th>
+            </tr>
+            </thead>
+
+            <tbody id="myBodyAllDG">
+            <tr th:each="hoaDon : ${hoaDonDangGiaoList}">
+                <td th:attr="data-ma-hoa-don-dg=${hoaDon.maHoaDon}" class="table-column-pr-0">
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" th:id="'ordersCheckDG' + ${hoaDonDangGiaoList.indexOf(hoaDon) + 1}">
+                        <label class="custom-control-label" th:for="'ordersCheckDG' + ${hoaDonDangGiaoList.indexOf(hoaDon) + 1}"></label>
+                    </div>
+                </td>
+                <td class="table-column-pl-0">
+                    <span th:text="${hoaDonDangGiaoList.indexOf(hoaDon) + 1}"></span>
+                </td>
+                <td ><a th:href="@{|/cms/hoa-don/${hoaDon.maHoaDon}/chi-tiet|}" th:text="${hoaDon.maHoaDon}"></a></td>
+                <td>
+                    <span th:text="${hoaDon.tenNguoiNhan == null ? 'N/A' : hoaDon.tenNguoiNhan}"></span>
+                </td>
+                <td>
+                    <span th:text="${hoaDon.sdtNhan == null ? 'N/A' : hoaDon.sdtNhan}"></span>
+                </td>
+                <td>
+                    <span th:text="${#numbers.formatDecimal(hoaDon.thucThu, 1, 'DEFAULT', 0, 'DEFAULT')}"></span>
+                </td>
+                <td>
+                    <div class="d-flex align-items-center">
+                        <span class="text-dark" th:text="${hoaDon.loaiHoaDon == true ? 'Bán Tại Quầy' : 'Bán Giao Hàng'}"></span>
+                    </div>
+                </td>
+                <td>
+                    <span  th:class="${hoaDon.trangThai == 'Thành Công' ? 'badge badge-soft-success' :
+                    (hoaDon.trangThai == 'Chờ Giao' ? 'badge badge-soft-warning' : 'badge badge-soft-danger')}"
+                           th:text="${hoaDon.trangThai}">
+                    </span>
+                </td>
+                <td>
+                    <div class="dropdown">
+                        <button class="btn btn-ghost-info dropdown-toggle" type="button" data-toggle="dropdown">Thao tác
+                            <span class="caret"></span></button>
+                        <ul class="text-center dropdown-menu">
+                            <li>
+                                <a class="btn btn-sm btn-outline-dark" data-toggle="tooltip"
+                                   data-original-title="Xem Chi Tiết" th:href="@{|/cms/hoa-don/${hoaDon.maHoaDon}/chi-tiet|}">
+                                    <i class="tio-visible-outlined"></i> Chi tiết</a>
+                            </li>
+                            <li th:if="${hoaDon.trangThai != 'Hủy' && hoaDon.trangThai != 'Thành Công'}">
+                                <a data-toggle="tooltip"
+                                   data-original-title="Xác Nhận Đơn" class="btn btn-sm btn-outline-success xacNhanFromActionDG">
+                                    <i class="tio-checkmark-circle-outlined"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- End Table -->
+
+    <!-- Footer -->
+    <div class="card-footer">
+        <!-- Pagination -->
+        <div class="row justify-content-center justify-content-sm-between align-items-sm-center">
+            <div class="col-sm mb-2 mb-sm-0">
+                <div class="d-flex justify-content-center justify-content-sm-start align-items-center">
+                    <span class="mr-2">Showing:</span>
+
+                    <!-- Select -->
+                    <select id="datatableEntriesDG" class="js-select2-custom" data-hs-select2-options='{
+                            "minimumResultsForSearch": "Infinity",
+                            "customClass": "custom-select custom-select-sm custom-select-borderless",
+                            "dropdownAutoWidth": true,
+                            "width": true
+                          }'>
+                        <option value="3">3</option>
+                        <option value="6">6</option>
+                        <option value="12" selected="">12</option>
+                    </select>
+                    <!-- End Select -->
+
+<!--                    <span class="text-secondary mr-2">of</span>-->
+
+<!--                    &lt;!&ndash; Pagination Quantity &ndash;&gt;-->
+<!--                    <span id="datatableWithPaginationInfoTotalQtyDG"></span>-->
+                </div>
+            </div>
+
+            <div class="col-sm-auto">
+                <div class="d-flex justify-content-center justify-content-sm-end">
+                    <!-- Pagination -->
+                    <nav id="datatablePaginationDG" aria-label="Activity pagination"></nav>
+                </div>
+            </div>
+        </div>
+        <!-- End Pagination -->
+    </div>
+    <!-- End Footer -->
+</div>
+<!-- End Card -->

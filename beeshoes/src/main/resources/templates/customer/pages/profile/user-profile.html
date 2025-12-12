@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Male_Fashion Template">
+    <meta name="keywords" content="Male_Fashion, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>LightBee | Trang Cá Nhân</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
+          rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="/assets/customer/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="/assets/customer/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="/assets/customer/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="/assets/customer/css/magnific-popup.css" type="text/css">
+    <link rel="stylesheet" href="/assets/customer/css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="/assets/customer/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="/assets/customer/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="/assets/customer/css/style.css?v=2.0" type="text/css">
+    <link rel="stylesheet" href="/assets/customer/custom.css?v=1.0" type="text/css">
+    <link rel="stylesheet" href="/assets/customer/css/profile.css?v=2.0" type="text/css">
+</head>
+
+<body>
+<!-- Page Preloder -->
+<div id="preloder">
+    <div class="loader"></div>
+</div>
+<!-- Header Section Begin -->
+<div th:replace="~{customer/pages/_header.html}"></div>
+<!-- Header Section End -->
+<!-- Breadcrumb Section Begin -->
+<section class="breadcrumb-option">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb__text">
+                    <h4>Trang Cá Nhân</h4>
+                    <div class="breadcrumb__links">
+                        <a href="/">Trang Chủ </a>
+                        <span>Trang Cá Nhân</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Section End -->
+
+<!-- Shopping Cart Section Begin -->
+<section class="shopping-cart spad">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="cart__user mb-3">
+                    <div class="w-100 wraper_user">
+                        <input id="id_user_customer" type="text" th:value="${user.getKhachHang().getId()}"
+                               hidden="hidden">
+                        <img id="avatar_preview" class="rounded-circle img_avatar"
+                             th:src="${user.getAvatar()==null?'/assets/customer/img/icon/user.png':user.getAvatar()}"
+                             width="150" height="150">
+                    </div>
+                    <div class="info text-center mt-2">
+                        <h3 id="pro_user_name" class="font-weight-bold user_name"
+                            th:text="${user.getKhachHang()==null or user.getKhachHang().getHoTen()==null?'N/A':user.getKhachHang().getHoTen()}">
+                        </h3>
+                        <label id="pro_email" class="w-100 email"
+                               th:text="${user.getKhachHang()==null?'N/A':user.getEmail()}"></label>
+                        <label id="pro_phone" class="w-100 phone"
+                               th:text="${user.getKhachHang()==null or user.getKhachHang().getSdt()==null?'N/A':user.getKhachHang().getSdt()}">0866755653</label>
+                        <th:block
+                                th:if="${user.getKhachHang()!=null and user.getKhachHang().isGioiTinh()!=null and user.getKhachHang().isGioiTinh()==true}">
+                            <label class="w-100 gender">Nam <i class="fa fa-mars" aria-hidden="true"></i></label>
+                        </th:block>
+                        <th:block
+                                th:if="${user.getKhachHang()!=null and user.getKhachHang().isGioiTinh()!=null and user.getKhachHang().isGioiTinh()==false}">
+                            <label class="w-100 gender">Nữ <i class="fa fa-venus" aria-hidden="true"></i></label>
+                        </th:block>
+                        <label id="pro_birthdate" class="w-100 birthdate"
+                               th:text="${#dates.format(user.getKhachHang().getNgaySinh(), 'dd/MM/yyyy')}">22/12/2001</label>
+                        <th:block
+                                th:if="${user.getKhachHang() != null and user.getKhachHang().getDiaChiMacDinh() != null}">
+
+                            <label id="pro_address" class="w-100 address"
+                                   th:text="${user.getKhachHang().getDiaChiMacDinh().getSoNha()+', '+user.getKhachHang().getDiaChiMacDinh().getPhuongXa()+', '+user.getKhachHang().getDiaChiMacDinh().getQuanHuyen()+', '+user.getKhachHang().getDiaChiMacDinh().getTinhThanhPho()}"></label>
+                        </th:block>
+                    </div>
+                </div>
+                <div class="w-100">
+                    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                        <a class="nav-link mb-1 active" id="v-pills-profile-tab" data-toggle="pill"
+                           href="#pills-profile"
+                           role="tab" aria-controls="v-pills-profile" aria-selected="false">Hồ Sơ</a>
+                        <a class="nav-link mb-1" id="pill-list-oder-tab" data-toggle="pill"
+                           href="#pill-list-oder"
+                           role="tab" aria-controls="v-pills-messages" aria-selected="true">Đơn Mua</a>
+                        <a class="nav-link mb-1" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings"
+                           role="tab" aria-controls="v-pills-settings" aria-selected="false">Mã Giảm Giá</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div class="tab-content" id="v-pills-tabContent">
+                    <div class="tab-pane fade show active" id="pills-profile" role="tabpanel"
+                         aria-labelledby="v-pills-profile-tab">
+                        <h3 class="title_card w-100 border-bottom pb-2">Hồ Sơ Của Tôi</h3>
+                        <div class="wraper_profile row mt-3 p-0 pb-3 ml-0 mr-0">
+                            <div class="col-8 mt-3 border-right infomation">
+                                <div class="row">
+                                    <div class="col-4 form_label">
+                                        <label for="hoTen">Họ Tên</label>
+                                    </div>
+                                    <div class="col-8 form_data">
+                                        <label class="">
+                                            <th:block th:text="${user.getKhachHang().getHoTen()}"></th:block>
+                                            <a class="ml-2" onclick="activeEdit('hoTen')">Thay Đổi</a></label>
+                                        <input id="hoTen" class="d-none form-input" type="text"
+                                               th:value="${user.getKhachHang().getHoTen()}">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4 form_label">
+                                        <label for="email">Email</label>
+                                    </div>
+                                    <div class="col-8 form_data">
+                                        <label class="">
+                                            <th:block th:text="${user.getEmail()}"></th:block>
+                                            <a class="ml-2" onclick="activeEdit('email')">Thay Đổi</a></label>
+                                        <input id="email" class="d-none form-input" type="text"
+                                               th:value="${user.getEmail()}">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4 form_label">
+                                        <label for="soDienThoai">Số Điện Thoại</label>
+                                    </div>
+                                    <div class="col-8 form_data">
+                                        <label class="">
+                                            <th:block th:text="${user.getKhachHang().getSdt()}"></th:block>
+                                            <a class="ml-2" onclick="activeEdit('soDienThoai')">Thay
+                                                Đổi</a></label>
+                                        <input id="soDienThoai" class="d-none form-input" type="text"
+                                               th:value="${user.getKhachHang().getSdt()}">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4 form_label">
+                                        <label for="gioiTinh">Giới Tính</label>
+                                    </div>
+                                    <div class="col-8 form_data">
+                                        <div class="showGender">
+                                            <input id="gioiTinh" type="radio"
+                                                   th:checked="${user.getKhachHang().isGioiTinh()}" value="1"
+                                                   name="gioiTinh">
+                                            <label class="mb-0" for="gioiTinh">Nam</label>
+                                            <input id="gioiTinhN" class="ml-3" type="radio"
+                                                   th:checked="${user.getKhachHang().isGioiTinh()==false}" value="0"
+                                                   name="gioiTinh">
+                                            <label class="mb-0" for="gioiTinhN">Nữ</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4 form_label">
+                                        <label for="ngaySinh">Ngày Sinh</label>
+                                    </div>
+                                    <div class="col-8 form_data">
+                                        <label class="">
+                                            <th:block
+                                                    th:text="${#dates.format(user.getKhachHang().getNgaySinh(),'dd/MM/yyyy')}"></th:block>
+                                            <a class="ml-2" onclick="activeEdit('ngaySinh')">Thay Đổi</a></label>
+                                        <input id="ngaySinh" class="d-none form-input" type="date"
+                                               th:value="${#dates.format(user.getKhachHang().getNgaySinh(),'yyyy-MM-dd')}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-4 wraper_img pt-3">
+                                <img id="show_avatar_slected" class="rounded-circle img_avatar"
+                                     th:src="${user.getAvatar()==null?'/assets/customer/img/icon/user.png':user.getAvatar()}"
+                                     width="150" height="150">
+                                <label for="avatar_selected" class="select-img-btn mt-2"> Chọn Ảnh
+                                    <input id="avatar_selected" type="file" accept="image/*" hidden="hidden">
+                                </label>
+                            </div>
+                            <div id="btn-save" class="d-none col-12">
+                                <div class="w-100 d-flex justify-content-center pb-3 pt-3">
+                                    <button id="btn-save-data" class="primary-btn" type="button">Lưu</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="border-bottom d-flex justify-content-between mt-4">
+                            <h5 class="font-weight-bold pb-1">Địa Chỉ Giao Hàng</h5>
+                            <a class="ml-2 btn-link-address">Thêm</a>
+                        </div>
+                        <div class="wrapper_address row m-0 mt-3">
+                            <div class="item_address mb-1 col-12 col-xl-6 p-0 pr-1"
+                                 th:each="diachi:${user.getKhachHang().getDiaChi()}">
+                                <div th:id="'customer_address_'+${diachi.getId()}"
+                                     class="content_dress row m-0 customerAddress">
+                                    <div class="col-12 d-flex justify-content-between">
+                                        <div class="pt-3">
+                                            <label class="w-100 txt_address mb-0">Địa Chỉ: <label
+                                                    class="mb-0 customerHouseNumber"
+                                                    th:text="${diachi.getSoNha()}"></label></label>
+                                            <div class="d-flex flex-row">
+                                                <label class="txt_address customerWard"
+                                                       th:attr="data-address=${diachi.getPhuongXa()}"
+                                                       th:text="${diachi.getPhuongXa()}+', '"></label>
+                                                <label class="txt_address customerDistrict"
+                                                       th:attr="data-address=${diachi.getQuanHuyen()}"
+                                                       th:text="${diachi.getQuanHuyen()}+', '"></label>
+                                                <label class="txt_address customerProvince"
+                                                       th:attr="data-address=${diachi.getTinhThanhPho()}"
+                                                       th:text="${diachi.getTinhThanhPho()}"></label>
+                                            </div>
+                                            <div>
+                                                <span th:if="${user.getKhachHang().getDiaChiMacDinh() != null and user.getKhachHang().getDiaChiMacDinh().getId()==diachi.getId()}"
+                                                      class="address_default">Mặc Định</span>
+                                            </div>
+                                        </div>
+                                        <div class="btn-action-address">
+                                            <div class="d-flex justify-content-center">
+                                                <a class="mr-2 update-address" th:attr="data-id=${diachi.getId()}"
+                                                   href="javascript:;">Cập Nhật</a>
+                                                <a class="btn-delete-address" th:attr="data-id=${diachi.getId()}"
+                                                   href="javascript:;">Xóa</a>
+                                            </div>
+                                            <button type="button"
+                                                    th:attr="data-customer-id=${user.getKhachHang().getId()},data-id=${diachi.getId()}"
+                                                    th:if="${user.getKhachHang().getDiaChiMacDinh() != null and user.getKhachHang().getDiaChiMacDinh().getId()==diachi.getId()}"
+                                                    class="select-img-btn btn-set-address disabled">Đặt Mặc Định
+                                            </button>
+                                            <button type="button"
+                                                    th:attr="data-customer-id=${user.getKhachHang().getId()},data-id=${diachi.getId()}"
+                                                    th:if="${user.getKhachHang().getDiaChiMacDinh() == null or user.getKhachHang().getDiaChiMacDinh().getId()!=diachi.getId()}"
+                                                    class="select-img-btn btn-set-address">Đặt Mặc Định
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade oder__list" id="pill-list-oder" role="tabpanel"
+                         aria-labelledby="pill-list-oder-tab">
+                        <div class="mb-3 d-flex justify-content-between">
+                            <h3 class="title_card">Danh Sách Đơn Hàng</h3>
+                            <div class="form_filter">
+                                <select id="select_status_oder" class="select_status" type="text">
+                                    <option value="All" selected>Tất Cả</option>
+                                    <option value="Chờ Xác Nhận">Chờ Xác Nhận</option>
+                                    <option value="Chuẩn Bị Hàng">Chuẩn Bị Hàng</option>
+                                    <option value="Chờ Giao">Chờ Giao Hàng</option>
+                                    <option value="Đang Giao">Đang Vận Chuyển</option>
+                                    <option value="Hủy">Đã Hủy</option>
+                                    <option value="Đã Giao">Đã Giao Hàng</option>
+                                    <option value="Thành Công">Thành Công</option>
+                                </select>
+                                <input id="input-search-oder" class="search_input mr-2" type="text"
+                                       placeholder="Tìm kiếm mã hóa đơn.">
+                            </div>
+                        </div>
+                        <div class="w-100" id="show-all-oder">
+                            <div id="show-no-data-oder"
+                                 th:class="'w-100 mt-5 '+${#lists.size(lsthoadon)==0?'':'hidden'}">
+                                <h4 class="text-center">Không có dữ liệu.</h4>
+                            </div>
+                            <div class="card w-100 mb-3 oder_wrapper" th:each="hoadon,iter:${lsthoadon}">
+
+                                <div class="card-header d-flex justify-content-between mr-1 ml-1">
+                                    <div class="oder_code_wrapper">
+                                        Mã Hóa Đơn: <a class="oder_code" href="javascript:;"
+                                                       th:text="${hoadon.getMaHoaDon()}"></a>
+                                    </div>
+                                    <div class="status">
+                                        <label th:id="'trangthai_'+${hoadon.getId()}"
+                                               th:attr="data-status=${hoadon.getTrangThai()}"
+                                               th:text="${hoadon.getTrangThai()}">
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="card_content ">
+                                        <ul class="w-100 wrapper_product_details">
+                                            <li class="row" th:each="sanpham:${hoadon.getHoaDonChiTiets()}"
+                                                th:attr="data-id-ctsp=${sanpham.getChiTietSanPham().getId()},data-quantity=${sanpham.getSoLuong()}">
+                                                <div class="col-2 p-0">
+                                                    <img class="product_img"
+                                                         th:src="${sanpham.getChiTietSanPham().getAnh().getUrl()}">
+                                                </div>
+                                                <div class="col-7 p-0">
+                                                    <div>
+                                                        <h6 class="product_name mb-2"
+                                                            th:text="${sanpham.getChiTietSanPham().getSanPham().getTen()}"></h6>
+                                                        <div class="w-100">
+                                                            Màu :<label
+                                                                th:text="${sanpham.getChiTietSanPham().getMauSac().getTen()}">Màu
+                                                            Trắng</label>, Kích Cỡ :<label
+                                                                th:text="${sanpham.getChiTietSanPham().getKichCo().getTen()}">32</label>
+                                                        </div>
+                                                        <label th:text="'Số Lượng :'+${sanpham.getSoLuong()}"></label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-3 d-flex align-items-center">
+                                                    <h5 class="product_price_cu"
+                                                        th:text="${#numbers.formatDecimal(sanpham.getGiaGoc(), 1, 'DEFAULT', 0, 'DEFAULT')}+'đ'"></h5>
+                                                    <h5 class="product_price"
+                                                        th:text="${#numbers.formatDecimal(sanpham.getGiaBan(), 1, 'DEFAULT', 0, 'DEFAULT')}+'đ'"></h5>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card-footer pt-0">
+                                    <div class="wrapper_money w-100 d-flex justify-content-end align-items-center pb-2 pt-2">
+                                        <label class="mb-0">Thành Tiền: </label><h4 class="show_total_money"
+                                                                                    th:text="${#numbers.formatDecimal(hoadon.getThucThu(), 1, 'DEFAULT', 0, 'DEFAULT')}+'đ'"></h4>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div th:id="'lydo_'+${hoadon.getId()}"
+                                             th:text="${hoadon.getLichSuHoaDons().get(#lists.size(hoadon.getLichSuHoaDons())-1).getHanhDong()}">
+                                            Đơn hàng được tạo bởi bạn.
+                                        </div>
+                                        <div class="card-btn-group">
+                                            <button th:if="${hoadon.getTrangThai() == 'Hủy' or hoadon.getTrangThai() == 'Thành Công'}"
+                                                    class="primary-btn btn-repurchase" type="button">Mua Lại
+                                            </button>
+                                            <a th:href="'/oder-tracking?oder='+${hoadon.getMaHoaDon()}"
+                                               class="info-btn">Xem
+                                                Chi Tiết</a>
+                                            <button th:id="'btn-cancel-'+${hoadon.getId()}"
+                                                    th:if="${hoadon.getTrangThai() == 'Chờ Xác Nhận'}"
+                                                    th:attr="data-id=${hoadon.getId()}"
+                                                    class="info-btn btn-cancel-oders"
+                                                    type="button">Hủy Đơn
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-settings" role="tabpanel"
+                         aria-labelledby="v-pills-settings-tab">
+                        <div class="w-100">
+                            <div class="w-100 mb-3 d-flex justify-content-between">
+                                <h3 class="title_card">Danh Sách Mã Giảm Giá</h3>
+                                <div class="form_filter">
+                                    <select id="select_status_voucher" class="select_status" type="text">
+                                        <option value="All">Tất Cả</option>
+                                        <option value="%">Phần Trăm</option>
+                                        <option value="$">Tiền Mặt</option>
+                                    </select>
+                                    <input id="input_search_voucher" class="search_input" type="text"
+                                           placeholder="Tìm kiếm mã giảm giá.">
+                                </div>
+                            </div>
+                            <div class="list_voucher">
+                                <div id="show-no-data-voucher" class="w-100 mt-5 hidden">
+                                    <h4 class="text-center">Không có dữ liệu.</h4>
+                                </div>
+                                <ul id="list-voucher" class="w-100 row">
+                                    <li class="wraper_li col-12 col-md-6 col-xl-4 p-0"
+                                        th:each="voucher :${lstvouchers}">
+                                        <div th:id="'voucher_'+${voucher.getId()}"
+                                             class="wraper_voucher row m-0">
+                                            <div class="col-9 contents p-2">
+                                                <h5 class="text-center voucher_code" th:text="${voucher.getMa()}"></h5>
+                                                <label class="express_date"
+                                                       th:text="'Hạn Đến:'+${#dates.format(voucher.getNgayKetThuc(),'HH:mm | dd/MM/yyyy')}"></label>
+                                                <label class="express_date"
+                                                       th:text="'Điều Kiện: Áp dụng cho đơn hàng từ '+${#numbers.formatDecimal(voucher.getGiaTriToiThieu(), 1, 'DEFAULT', 0, 'DEFAULT')}+'đ'"></label>
+                                                <label class="express_date"
+                                                       th:text="'Tối Đa:'+${#numbers.formatDecimal(voucher.getGiaTriToiDa(), 1, 'DEFAULT', 0, 'DEFAULT')}+'đ/Khách Hàng'"></label>
+                                                <label class="express_date w-100"
+                                                       th:text="'Số lượng :'+${voucher.getSoLuong()}"></label>
+                                            </div>
+                                            <div class="col-3 p-2 row m-0 card__discount position-relative">
+                                                <label class="col-4">Mã Giảm Giá</label>
+                                                <h3 th:if="${voucher.getLoaiVoucher() == '$'}"
+                                                    class="col-6 voucher_type tienmat"
+                                                    th:text="${#strings.substring(voucher.getGiaTriTienMat().intValue(), 0, #strings.length(voucher.getGiaTriTienMat().intValue()) - 3) + 'K'}"></h3>
+                                                <h3 th:if="${voucher.getLoaiVoucher() == '%'}"
+                                                    class="col-6 voucher_type phantram"
+                                                    th:text="${voucher.getGiaTriPhanTram()}+'%'"></h3>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Shopping Cart Section End -->
+
+<!-- Footer Section Begin -->
+<div th:replace="~{customer/pages/_footer.html}"></div>
+<!-- Footer Section End -->
+<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="width: 420px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Lý Do Hủy Đơn</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body pl-5">
+                <input type="text" hidden="hidden" id="id_oders_cancel">
+                <div class="w-100">
+                    <input id="lg1" type="radio" name="cancel" value="Tôi muốn cập nhật địa chỉ/sđt nhận hàng.">
+                    <label class="pointer" for="lg1">Tôi muốn cập nhật địa chỉ/sđt nhận hàng.</label>
+                </div>
+                <div class="w-100">
+                    <input id="lg2" type="radio" name="cancel" value="Tôi muốn thêm/thay đổi Mã giảm giá.">
+                    <label class="pointer" for="lg2">Tôi muốn thêm/thay đổi Mã giảm giá.</label>
+                </div>
+                <div class="w-100">
+                    <input id="lg3" type="radio" name="cancel" value="Tôi muốn thay đổi sản phẩm.">
+                    <label class="pointer" for="lg3">Tôi muốn thay đổi sản phẩm.</label>
+                </div>
+                <div class="w-100">
+                    <input id="lg4" type="radio" name="cancel" value="Tôi không có nhu cầu mua nữa.">
+                    <label class="pointer" for="lg4">Tôi không có nhu cầu mua nữa.</label>
+                </div>
+                <div class="w-100">
+                    <input id="lg5" type="radio" name="cancel" value="#">
+                    <label class="pointer" for="lg5">Khác</label>
+                </div>
+                <div class="w-100">
+                    <textarea class="w-75 d-none " id="lydo_cancel" rows="2"></textarea>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn info-btn" data-dismiss="modal">Đóng</button>
+                <button id="btn-huy" type="button" class="btn primary-btn">Hủy Đơn</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="updateAddress" data-backdrop="static" data-keyboard="false" tabindex="-1"
+     aria-labelledby="updateAddressLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="width: 420px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="updateAddressLabel">Cập Nhật Địa Chỉ</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+
+            </div>
+            <div class="modal-body p-4">
+                <input type="text" hidden="hidden" id="id_address">
+                <div class="w-100">
+                    <label for="soNha" class="pointer mb-0 w-100">Số Nhà:</label>
+                    <input class="w-100 mb-3 form-input-custom" type="text" id="soNha">
+                    <label for="tinhTP" class="pointer mb-0 w-100">Tỉnh/TP:</label>
+                    <select class="w-100 mb-3" type="text" id="tinhTP"></select>
+                    <label for="quanHuyen" class="pointer mb-0 w-100">Quận Huyện:</label>
+                    <select class="w-100 mb-3" type="text" id="quanHuyen"></select>
+                    <label for="phuongXa" class="pointer mb-0 w-100">Phường Xã:</label>
+                    <select class="w-100" type="text" id="phuongXa"></select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn info-btn" data-dismiss="modal">Đóng</button>
+                <button id="btn-update" type="button" class="btn primary-btn">Cập Nhật</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Search Begin -->
+<div class="search-model">
+    <div class="h-100 d-flex align-items-center justify-content-center">
+        <div class="search-close-switch">+</div>
+        <form class="search-model-form">
+            <input type="text" id="search-input" placeholder="Search here.....">
+        </form>
+    </div>
+</div>
+<!-- Search End -->
+
+<!-- Js Plugins -->
+<script src="/assets/customer/js/jquery-3.3.1.min.js"></script>
+<script src="/assets/customer/js/bootstrap.min.js"></script>
+<script src="/assets/customer/js/jquery.nice-select.min.js"></script>
+<script src="/assets/customer/js/jquery.nicescroll.min.js"></script>
+<script src="/assets/customer/js/jquery.magnific-popup.min.js"></script>
+<script src="/assets/customer/js/jquery.countdown.min.js"></script>
+<script src="/assets/customer/js/jquery.slicknav.js"></script>
+<script src="/assets/customer/js/mixitup.min.js"></script>
+<script src="/assets/customer/js/owl.carousel.min.js"></script>
+<script src="/assets/customer/js/main.js"></script>
+<script src="/assets/customer/js/profile/profile.js?v=2.0" type="module"></script>
+<script>
+    function activeEdit(id) {
+        let ele = $('#' + id);
+        let btnSave = $('#btn-save')
+        ele.removeClass('d-none')
+        ele.closest('.form_data').find('label').addClass('d-none')
+        if (btnSave.hasClass('d-none')) {
+            btnSave.removeClass('d-none');
+        }
+    }
+</script>
+</body>
+
+</html>

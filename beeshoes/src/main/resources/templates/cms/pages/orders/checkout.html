@@ -1,0 +1,1427 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required Meta Tags Always Come First -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Title -->
+    <title>LightBee | Checkout</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="favicon.ico">
+
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+
+    <!-- CSS Implementing Plugins -->
+    <link rel="stylesheet" href="/assets/cms/css/vendor.min.css">
+    <link rel="stylesheet" href="/assets/cms/vendor/icon-set/style.css">
+
+
+    <!-- CSS Front Template -->
+    <link rel="stylesheet" href="/assets/cms/css/theme.min.css?v=1.0">
+</head>
+
+<body class="   footer-offset">
+<script src="/assets/cms/vendor/hs-navbar-vertical-aside/hs-navbar-vertical-aside-mini-cache.js"></script>
+<!-- ========== HEADER ========== -->
+<div th:replace="cms/pages/_header.html"></div>
+<!-- ========== END HEADER ========== -->
+
+<!-- ========== SIDEBAR ========== -->
+<div th:replace="cms/pages/_sidebar.html"></div>
+<!-- ========== END SIDEBAR ========== -->
+<script src="/assets/cms/js/demo.js"></script>
+<!-- ========== MAIN CONTENT ========== -->
+<!-- Navbar Vertical -->
+
+
+<!-- End Navbar Vertical -->
+
+<main id="content" role="main" class="main">
+    <!-- Content -->
+    <div class="content container-fluid">
+        <!-- Step Form -->
+        <form class="js-step-form" data-hs-step-form-options='{
+                "progressSelector": "#checkoutStepFormProgress",
+                "stepsSelector": "#checkoutStepFormContent",
+                "endSelector": "#checkoutFinishBtn",
+                "isValidate": false
+              }'>
+            <div class="w-md-75 mx-md-auto">
+                <!-- Step -->
+                <ul id="checkoutStepFormProgress"
+                    class="js-step-progress step step-sm step-icon-sm step-inline step-item-between mb-7">
+                    <li class="step-item">
+                        <a class="step-content-wrapper" href="javascript:;" data-hs-step-form-next-options='{
+                    "targetSelector": "#checkoutStepDelivery"
+                  }'>
+                            <span class="step-icon step-icon-soft-dark">1</span>
+                            <div class="step-content">
+                                <span class="step-title">Delivery details</span>
+                            </div>
+                        </a>
+                    </li>
+
+                    <li class="step-item">
+                        <a class="step-content-wrapper" href="javascript:;" data-hs-step-form-next-options='{
+                     "targetSelector": "#checkoutStepPayment"}'>
+                            <span class="step-icon step-icon-soft-dark">2</span>
+                            <div class="step-content">
+                                <span class="step-title">Payment method</span>
+                            </div>
+                        </a>
+                    </li>
+
+                    <li class="step-item">
+                        <a class="step-content-wrapper" href="javascript:;" data-hs-step-form-next-options='{
+                     "targetSelector": "#checkoutStepSummary"}'>
+                            <span class="step-icon step-icon-soft-dark">3</span>
+                            <div class="step-content">
+                                <span class="step-title">Order summary</span>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+                <!-- End Step -->
+            </div>
+
+            <!-- Content Step Form -->
+            <div class="row">
+                <div class="col-lg-4 order-lg-2 mb-5 mb-lg-0">
+                    <div id="checkoutStepOrderSummary">
+                        <!-- Card -->
+                        <div class="card mb-3">
+                            <!-- Header -->
+                            <div class="card-header">
+                                <h4 class="card-header-title">2 item</h4>
+                                <a href="#">Edit</a>
+                            </div>
+                            <!-- End Header -->
+
+                            <!-- Body -->
+                            <div class="card-body">
+                                <!-- Media -->
+                                <div class="media">
+                                    <div class="avatar avatar-lg mr-3">
+                                        <img class="avatar-img" src="/assets/cms/img/400x400/img26.jpg"
+                                             alt="Image Description">
+                                        <span class="avatar-status avatar-lg-status avatar-status-primary">1</span>
+                                    </div>
+
+                                    <div class="media-body">
+                                        <h4 class="mb-0">$21</h4>
+                                        <span>Topman shoe</span>
+
+                                        <div class="text-body font-size-sm">
+                                            <span>Color:</span>
+                                            <span class="text-dark font-weight-bold">Green</span>
+                                        </div>
+                                        <div class="text-body font-size-sm">
+                                            <span>Size:</span>
+                                            <span class="text-dark font-weight-bold">UK 7</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Media -->
+
+                                <hr class="my-4">
+
+                                <!-- Media -->
+                                <div class="media">
+                                    <div class="avatar avatar-lg mr-3">
+                                        <img class="avatar-img" src="/assets/cms/img/400x400/img3.jpg"
+                                             alt="Image Description">
+                                        <span class="avatar-status avatar-lg-status avatar-status-primary">2</span>
+                                    </div>
+
+                                    <div class="media-body">
+                                        <h4 class="mb-0">$89</h4>
+                                        <span>Calvin Klein t-shirts</span>
+
+                                        <div class="text-body font-size-sm">
+                                            <span>Color:</span>
+                                            <span class="text-dark font-weight-bold">Green</span>
+                                        </div>
+                                        <div class="text-body font-size-sm">
+                                            <span>Size:</span>
+                                            <span class="text-dark font-weight-bold">M</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Media -->
+
+                                <hr class="my-4">
+
+                                <!-- Input Group -->
+                                <div class="input-group input-group-merge">
+                                    <input type="text" class="form-control" name="name" placeholder="Promo code"
+                                           aria-label="Promo code">
+                                    <div class="input-group-append">
+                                        <button type="submit" class="btn btn-block btn-primary">Apply</button>
+                                    </div>
+                                </div>
+                                <!-- End Input Group -->
+
+                                <small class="form-text">Terms and conditions applied.</small>
+
+                                <hr class="my-4">
+
+                                <div class="row align-items-center mb-3">
+                                    <span class="col-6">Subtotal:</span>
+                                    <h4 class="col-6 text-right text-dark mb-0">$199.00</h4>
+                                </div>
+                                <!-- End Row -->
+
+                                <div class="row align-items-center">
+                                    <span class="col-6">Phí vận chuyển:</span>
+                                    <h4 id="fee" class="col-6 text-right text-dark mb-0">Free</h4>
+                                </div>
+                                <!-- End Row -->
+
+                                <hr class="my-4">
+
+                                <div class="row align-items-center">
+                                    <span class="col-6">VAT included:</span>
+                                    <h4 class="col-6 text-right text-dark mb-0">$20.00</h4>
+                                </div>
+                                <!-- End Row -->
+
+                                <hr class="my-4">
+
+                                <div class="row align-items-center">
+                                    <span class="col-6 text-dark font-weight-bold">Total to pay:</span>
+                                    <h3 class="col-6 text-right text-dark mb-0">$219.00</h3>
+                                </div>
+                                <!-- End Row -->
+                            </div>
+                            <!-- Body -->
+                        </div>
+                        <!-- End Card -->
+
+                        <!-- Help Link -->
+                        <div class="d-flex justify-content-center">
+                            <div class="media align-items-center">
+                                <i class="tio-support mr-1"></i>
+
+                                <div class="media-body">
+                                    <span class="font-weight-bold mr-1">Need Help?</span>
+                                    <a class="link" href="#">Contact us</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Help Link -->
+                    </div>
+                </div>
+
+                <div class="col-lg-8">
+                    <div id="checkoutStepFormContent">
+                        <!-- Card -->
+                        <div id="checkoutStepDelivery" class="active">
+                            <div class="card mb-3 mb-lg-5">
+                                <!-- Header -->
+                                <div class="card-header">
+                                    <h4 class="card-header-title">Delivery details</h4>
+                                </div>
+                                <!-- End Header -->
+
+                                <!-- Body -->
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <!-- Form Group -->
+                                            <div class="form-group">
+                                                <label for="nameDeliveryAddressLabel" class="input-label">Họ và tên</label>
+                                                <input type="text" class="form-control" name="nameDeliveryAddress"
+                                                       id="nameDeliveryAddressLabel" placeholder="Ngô Trung Tuyến"
+                                                       aria-label="Ngô Trung Tuyến">
+                                            </div>
+                                            <!-- End Form Group -->
+                                        </div>
+
+                                        <div class="col-sm-6">
+                                            <!-- Form Group -->
+                                            <div class="form-group">
+                                                <label for="emailDeliveryAddressLabel" class="input-label">Email</label>
+                                                <input type="text" class="form-control" name="emailDeliveryAddress"
+                                                       id="emailDeliveryAddressLabel" placeholder="example@gmail.com"
+                                                       aria-label="example@gmail.com">
+                                            </div>
+                                            <!-- End Form Group -->
+                                        </div>
+                                    </div>
+                                    <!-- End Row -->
+
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <!-- Form Group -->
+                                            <div class="form-group">
+                                                <label for="phoneDeliveryAddressLabel" class="input-label">Số điện thoại</label>
+                                                <input type="text" class="js-masked-input form-control" name="nameDeliveryAddress"
+                                                       id="phoneDeliveryAddressLabel" placeholder="0359xxxxxx"
+                                                       aria-label="0359xxxxxx"
+                                                       data-hs-mask-options='{"template": "0000000000"}'>
+                                            </div>
+                                            <!-- End Form Group -->
+                                        </div>
+
+                                        <div class="col-sm-6">
+                                            <!-- Form Group -->
+                                            <div class="form-group">
+                                                <label for="houseDeliveryAddressLabel" class="input-label">Số nhà</label>
+                                                <input type="text" class="form-control" name="emailDeliveryAddress"
+                                                       id="houseDeliveryAddressLabel" placeholder="44 hoặc tên địa điểm gần nhà bạn"
+                                                       aria-label="44 hoặc tên địa điểm gần nhà bạn">
+                                            </div>
+                                            <!-- End Form Group -->
+                                        </div>
+                                    </div>
+
+<!--                                    <div class="row">-->
+<!--                                        <div class="col-sm-6">-->
+<!--                                            &lt;!&ndash; Form Group &ndash;&gt;-->
+<!--                                            <div class="form-group">-->
+<!--                                                <label for="phoneDeliveryLabel" class="input-label">Số điện thoại</label>-->
+<!--                                                <input type="text" class="js-masked-input form-control"-->
+<!--                                                       name="phoneDeliveryName" id="phoneDeliveryLabel"-->
+<!--                                                       placeholder="0359xxxxxx" aria-label="0359xxxxxx"-->
+<!--                                                       data-hs-mask-options='{-->
+<!--                                     "template": "0000000000"-->
+<!--                                   }'>-->
+<!--                                            </div>-->
+<!--                                            &lt;!&ndash; End Form Group &ndash;&gt;-->
+<!--                                        </div>-->
+
+<!--                                        <div class="col-sm-6">-->
+<!--                                            &lt;!&ndash; Form Group &ndash;&gt;-->
+<!--                                            <div class="form-group">-->
+<!--                                                <label for="homeDeliveryLabel" class="input-label">Số nhà</label>-->
+<!--                                                <input type="text" class="js-masked-input form-control"-->
+<!--                                                       name="phoneDeliveryName" id="homeDeliveryLabel"-->
+<!--                                                       placeholder="44 hoặc tên 1 địa điểm gần nhà bạn" aria-label="44 hoặc tên 1 địa điểm gần nhà bạn"-->
+<!--                                            </div>-->
+<!--                                            &lt;!&ndash; End Form Group &ndash;&gt;-->
+<!--                                        </div>-->
+<!--                                        -->
+<!--                                    </div>-->
+                                    <!-- End Row -->
+
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <!-- Form Group -->
+                                            <div class="form-group">
+                                                <label for="tinhThanhPho" class="input-label">Tỉnh/Thành phố</label>
+                                                <select class="js-select2-custom custom-select" name="tinhThanhPho"
+                                                        id="tinhThanhPho" size="1"
+                                                        style="opacity: 0;"
+                                                        data-hs-select2-options='{
+                                                      "placeholder": "Tỉnh/Thành phố",
+                                                      "searchInputPlaceholder": "Tìm Tỉnh/Thành phố"}'>
+                                                    <option value="" selected>Tỉnh/Thành phố</option>
+                                                </select>
+                                            </div>
+                                            <!-- End Form Group -->
+                                        </div>
+
+                                        <div class="col-sm-4">
+                                            <!-- Form Group -->
+                                            <div class="form-group">
+                                                <label for="quanHuyen" class="input-label">Quận/Huyện</label>
+                                                <select class="js-select2-custom custom-select" name="quanHuyen"
+                                                        id="quanHuyen" size="1"
+                                                        style="opacity: 0;"
+                                                        data-hs-select2-options='{
+                                                      "placeholder": "Quận/Huyện",
+                                                      "searchInputPlaceholder": "Quận/Huyện"}'>
+                                                    <option value="" selected>Quận/Huyện</option>
+                                                </select>
+                                            </div>
+                                            <!-- End Form Group -->
+                                        </div>
+
+                                        <div class="col-sm-4">
+                                            <!-- Form Group -->
+                                            <div class="form-group">
+                                                <label for="phuongXa" class="input-label">Phường/Xã</label>
+                                                <select class="js-select2-custom custom-select" name="phuongXa"
+                                                        id="phuongXa" size="1"
+                                                        style="opacity: 0;"
+                                                        data-hs-select2-options='{
+                                                      "placeholder": "Phường/Xã",
+                                                      "searchInputPlaceholder": "Phường/Xã"}'>
+                                                    <option value="" selected>Phường/Xã</option>
+                                                </select>
+                                            </div>
+                                            <!-- End Form Group -->
+                                        </div>
+                                    </div>
+                                    <!-- End Row -->
+
+                                    <!-- Custom Checkbox -->
+                                    <div class="custom-control custom-checkbox form-group">
+                                        <input type="checkbox" class="custom-control-input"
+                                               id="exclusiveOffersCardCheckbox1">
+                                        <label class="custom-control-label" for="exclusiveOffersCardCheckbox1">Gửi cho tôi email thông báo khi có những ưu đãi mới</label>
+                                    </div>
+                                    <!-- End Custom Checkbox -->
+                                </div>
+                                <!-- Body -->
+                            </div>
+                            <!-- End Card -->
+
+                            <div class="card mb-3 mb-lg-5">
+                                <!-- Header -->
+                                <div class="card-header">
+                                    <h4 class="card-header-title">Phương thức vận chuyển</h4>
+                                    <img class="card-header-title" alt="" src="https://api.ghn.vn/themes/angulr/img/logo-ghn-new.png">
+                                </div>
+                                <!-- End Header -->
+
+                                <!-- Body -->
+                                <div class="card-body">
+                                    <!-- Custom Checkbox -->
+                                    <div class="custom-control custom-radio mb-3">
+                                        <input type="radio" id="nhanh" name="deliveryOptionCheckbox"
+                                               class="custom-control-input" value="53320" checked="">
+                                        <label id="typeNhanh" class="custom-control-label" for="nhanh">
+                                            <span id="textNhanh" class="d-block font-weight-bold mb-1">Nhanh</span>
+                                        </label>
+                                    </div>
+                                    <!-- End Custom Checkbox -->
+
+                                    <!-- Custom Checkbox -->
+                                    <div class="custom-control custom-radio">
+                                        <input type="radio" id="hoaToc" name="deliveryOptionCheckbox"
+                                               class="custom-control-input" value="100039" disabled>
+                                        <label id="typeHoaToc" class="custom-control-label" for="hoaToc">
+                                            <span class="d-block font-weight-bold mb-1">Hỏa tốc <i>(Bảo trì)</i></span>
+                                        </label>
+                                    </div>
+                                    <!-- End Custom Checkbox -->
+                                </div>
+                                <!-- Body -->
+                            </div>
+                            <!-- End Card -->
+
+                            <!-- Footer -->
+                            <div class="d-flex align-items-center">
+                                <a class="btn btn-ghost-secondary" href="#">
+                                    <i class="tio-chevron-left"></i> Return to Cart
+                                </a>
+                                <div class="ml-auto">
+                                    <button type="button" class="btn btn-primary" data-hs-step-form-next-options='{
+                                "targetSelector": "#checkoutStepPayment"
+                              }'>
+                                        Continue <i class="tio-chevron-right"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <!-- End Footer -->
+                        </div>
+
+                        <div id="checkoutStepPayment" style="display: none;">
+                            <!-- Card -->
+                            <div class="card mb-3 mb-lg-5">
+                                <!-- Header -->
+                                <div class="card-header">
+                                    <h4 class="card-header-title">Payment method</h4>
+                                </div>
+                                <!-- End Header -->
+
+                                <!-- Body -->
+                                <div class="card-body">
+                                    <!-- Button Group -->
+                                    <div class="btn-group btn-group-toggle btn-group-segment d-block d-sm-flex form-group"
+                                         data-toggle="buttons">
+                                        <label class="btn flex-fill w-100 focus active">
+                                            <input type="radio" name="options" id="option1" checked="">
+                                            <img class="avatar avatar-xss avatar-4by3 mr-2"
+                                                 src="/assets/cms/svg/brands/mastercard.svg" alt="Image Description">
+                                            Credit or Debit card
+                                        </label>
+                                        <label class="btn flex-fill w-100 disabled">
+                                            <input type="radio" name="options" id="option2">
+                                            <img class="avatar avatar-xss avatar-4by3 mr-2"
+                                                 src="/assets/cms/svg/brands/paypal-icon.svg" alt="Image Description">
+                                            PayPal <span class="badge badge-soft-primary">Coming soon</span>
+                                        </label>
+                                    </div>
+                                    <!-- End Button Group -->
+
+                                    <!-- Form Group -->
+                                    <div class="form-group">
+                                        <label for="cardNameLabel" class="input-label">Name on card</label>
+                                        <input type="text" class="form-control" id="cardNameLabel"
+                                               placeholder="Payoneer" aria-label="Payoneer">
+                                    </div>
+                                    <!-- End Form Group -->
+
+                                    <!-- Form Group -->
+                                    <div class="form-group">
+                                        <label for="cardNumberLabel" class="input-label">Card number</label>
+                                        <input type="text" class="js-masked-input form-control" name="cardNumber"
+                                               id="cardNumberLabel" placeholder="xxxx xxxx xxxx xxxx"
+                                               aria-label="xxxx xxxx xxxx xxxx" data-hs-mask-options='{
+                                "template": "0000 0000 0000 0000"
+                              }'>
+                                    </div>
+                                    <!-- End Form Group -->
+
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <!-- Form Group -->
+                                            <div class="form-group">
+                                                <label for="expirationDateLabel" class="input-label">Expiration
+                                                    date</label>
+                                                <input type="text" class="js-masked-input form-control"
+                                                       name="expirationDate" id="expirationDateLabel"
+                                                       placeholder="xx/xxxx" aria-label="xx/xxxx" data-hs-mask-options='{
+                                    "template": "00/0000"
+                                  }'>
+                                            </div>
+                                            <!-- End Form Group -->
+                                        </div>
+
+                                        <div class="col-sm-6">
+                                            <!-- Form Group -->
+                                            <div class="form-group">
+                                                <label for="securityCodeLabel" class="input-label">CVV Code <i
+                                                        class="far fa-question-circle text-body ml-1"
+                                                        data-toggle="tooltip" data-placement="top"
+                                                        title="A 3 - digit number, typically printed on the back of a card."></i></label>
+                                                <input type="text" class="js-masked-input form-control"
+                                                       name="securityCode" id="securityCodeLabel" placeholder="xxx"
+                                                       aria-label="xxx" data-hs-mask-options='{
+                                    "template": "000"
+                                  }'>
+                                            </div>
+                                            <!-- End Form Group -->
+                                        </div>
+                                    </div>
+                                    <!-- End Row -->
+
+                                    <!-- Custom Checkbox -->
+                                    <div class="custom-control custom-checkbox mb-2">
+                                        <input type="checkbox" class="custom-control-input" id="makePrimaryCheckbox1">
+                                        <label class="custom-control-label" for="makePrimaryCheckbox1">Make this primary
+                                            card</label>
+                                    </div>
+                                    <!-- End Custom Checkbox -->
+
+                                    <!-- Custom Checkbox -->
+                                    <div class="custom-control custom-checkbox form-group">
+                                        <input type="checkbox" class="custom-control-input" id="saveCardCheckbox1">
+                                        <label class="custom-control-label" for="saveCardCheckbox1">Save my payment
+                                            details for future purchases</label>
+                                    </div>
+                                    <!-- End Custom Checkbox -->
+                                </div>
+                                <!-- Body -->
+                            </div>
+                            <!-- End Card -->
+
+                            <!-- Footer -->
+                            <div class="d-flex align-items-center">
+                                <button type="button" class="btn btn-ghost-secondary" data-hs-step-form-next-options='{
+                              "targetSelector": "#checkoutStepDelivery"
+                            }'>
+                                    <i class="tio-chevron-left"></i> Return to Delivery
+                                </button>
+                                <div class="ml-auto">
+                                    <button type="button" class="btn btn-primary" data-hs-step-form-next-options='{
+                                "targetSelector": "#checkoutStepSummary"
+                              }'>
+                                        Continue <i class="tio-chevron-right"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <!-- End Footer -->
+                        </div>
+
+                        <div id="checkoutStepSummary" style="display: none;">
+                            <!-- Card -->
+                            <div class="card mb-3 mb-lg-5">
+                                <!-- Header -->
+                                <div class="card-header">
+                                    <h4 class="card-header-title">Order summary</h4>
+                                </div>
+                                <!-- End Header -->
+
+                                <!-- Body -->
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <h5>Billing address</h5>
+                                        <a class="link" href="javascript:;">Edit</a>
+                                    </div>
+
+                                    <span class="d-block">
+                        Anne Richard,<br>
+                        anne@gmail.com,<br>
+                        +1 (609) 972-22-22,<br>
+                        45 Roker Terrace,<br>
+                        Latheronwheel,<br>
+                        KW5 8NW, London,<br>
+                        UK <img class="avatar avatar-xss avatar-circle ml-1"
+                                src="/assets/cms/vendor/flag-icon-css/flags/1x1/gb.svg" alt="Great Britain Flag">
+                      </span>
+
+                                    <hr>
+
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <h5>Delivery option</h5>
+                                        <a class="link" href="javascript:;">Edit</a>
+                                    </div>
+
+                                    <span class="d-block">Standard delivery</span>
+
+                                    <hr>
+
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <h5>Payment method</h5>
+                                        <a class="link" href="javascript:;">Edit</a>
+                                    </div>
+
+                                    <div class="media">
+                                        <img class="avatar avatar-sm avatar-4by3 mr-3"
+                                             src="/assets/cms/svg/brands/mastercard.svg" alt="Image Description">
+
+                                        <div class="media-body">
+                                            <span class="d-block text-dark">MasterCard &bull;&bull;&bull;&bull; 4242</span>
+                                            <small class="d-block text-muted">Checking - Expires 12/22</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Body -->
+                            </div>
+                            <!-- End Card -->
+
+                            <!-- Footer -->
+                            <div class="d-flex align-items-center">
+                                <button type="button" class="btn btn-ghost-secondary" data-hs-step-form-next-options='{
+                              "targetSelector": "#checkoutStepPayment"
+                            }'>
+                                    <i class="tio-chevron-left"></i> Return to Payment
+                                </button>
+                                <div class="ml-auto">
+                                    <button id="checkoutFinishBtn" type="button" class="btn btn-primary">Place order
+                                    </button>
+                                </div>
+                            </div>
+                            <!-- End Footer -->
+                        </div>
+                    </div>
+                </div>
+                <!-- End Row -->
+            </div>
+            <!-- End Step Form -->
+        </form>
+        <!-- End Step Form -->
+
+        <!-- Message Body -->
+        <div id="checkoutStepSuccessMessage" style="display: none;">
+            <div class="text-center">
+                <img class="img-fluid mb-3" src="/assets/cms/svg/illustrations/hi-five.svg" alt="Image Description"
+                     style="max-width: 15rem;">
+
+                <div class="mb-4">
+                    <h2>Your payment was successful!</h2>
+                    <p>Order #72712</p>
+                    <p>You will receive an email confirmation.</p>
+                </div>
+
+                <a class="btn btn-primary" href="/cms/">
+                    <i class="tio-shopping-basket-outlined mr-1"></i> Continue shopping
+                </a>
+            </div>
+        </div>
+        <!-- End Message Body -->
+    </div>
+    <!-- End Content -->
+
+    <!-- Footer -->
+
+    <div class="footer">
+        <div class="row justify-content-between align-items-center">
+            <div class="col">
+                <p class="font-size-sm mb-0">&copy; Front. <span
+                        class="d-none d-sm-inline-block">2020 Htmlstream.</span></p>
+            </div>
+            <div class="col-auto">
+                <div class="d-flex justify-content-end">
+                    <!-- List Dot -->
+                    <ul class="list-inline list-separator">
+                        <li class="list-inline-item">
+                            <a class="list-separator-link" href="#">FAQ</a>
+                        </li>
+
+                        <li class="list-inline-item">
+                            <a class="list-separator-link" href="#">License</a>
+                        </li>
+
+                        <li class="list-inline-item">
+                            <!-- Keyboard Shortcuts Toggle -->
+                            <div class="hs-unfold">
+                                <a class="js-hs-unfold-invoker btn btn-icon btn-ghost-secondary rounded-circle"
+                                   href="javascript:;" data-hs-unfold-options='{
+                              "target": "#keyboardShortcutsSidebar",
+                              "type": "css-animation",
+                              "animationIn": "fadeInRight",
+                              "animationOut": "fadeOutRight",
+                              "hasOverlay": true,
+                              "smartPositionOff": true
+                             }'>
+                                    <i class="tio-command-key"></i>
+                                </a>
+                            </div>
+                            <!-- End Keyboard Shortcuts Toggle -->
+                        </li>
+                    </ul>
+                    <!-- End List Dot -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- End Footer -->
+</main>
+<!-- ========== END MAIN CONTENT ========== -->
+
+<!-- ========== SECONDARY CONTENTS ========== -->
+<!-- Keyboard Shortcuts -->
+<div id="keyboardShortcutsSidebar" class="hs-unfold-content sidebar sidebar-bordered sidebar-box-shadow">
+    <div class="card card-lg sidebar-card">
+        <div class="card-header">
+            <h4 class="card-header-title">Keyboard shortcuts</h4>
+
+            <!-- Toggle Button -->
+            <a class="js-hs-unfold-invoker btn btn-icon btn-xs btn-ghost-dark ml-2" href="javascript:;"
+               data-hs-unfold-options='{
+                "target": "#keyboardShortcutsSidebar",
+                "type": "css-animation",
+                "animationIn": "fadeInRight",
+                "animationOut": "fadeOutRight",
+                "hasOverlay": true,
+                "smartPositionOff": true
+               }'>
+                <i class="tio-clear tio-lg"></i>
+            </a>
+            <!-- End Toggle Button -->
+        </div>
+
+        <!-- Body -->
+        <div class="card-body sidebar-body sidebar-scrollbar">
+            <div class="list-group list-group-sm list-group-flush list-group-no-gutters mb-5">
+                <div class="list-group-item">
+                    <h5 class="mb-1">Formatting</h5>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span class="font-weight-bold">Bold</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Ctrl</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">b</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <em>italic</em>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Ctrl</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">i</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <u>Underline</u>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Ctrl</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">u</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <s>Strikethrough</s>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Ctrl</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">Alt</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">s</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span class="small">Small text</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Ctrl</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">s</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <mark>Highlight</mark>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Ctrl</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">e</kbd>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="list-group list-group-sm list-group-flush list-group-no-gutters mb-5">
+                <div class="list-group-item">
+                    <h5 class="mb-1">Insert</h5>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Mention person <a href="#">(@Brian)</a></span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">@</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Link to doc <a href="#">(+Meeting notes)</a></span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">+</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <a href="#">#hashtag</a>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">#hashtag</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Date</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">/date</kbd>
+                            <kbd class="d-inline-block mb-1">Space</kbd>
+                            <kbd class="d-inline-block mb-1">/datetime</kbd>
+                            <kbd class="d-inline-block mb-1">/datetime</kbd>
+                            <kbd class="d-inline-block mb-1">Space</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Time</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">/time</kbd>
+                            <kbd class="d-inline-block mb-1">Space</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Note box</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">/note</kbd>
+                            <kbd class="d-inline-block mb-1">Enter</kbd>
+                            <kbd class="d-inline-block mb-1">/note red</kbd>
+                            <kbd class="d-inline-block mb-1">/note red</kbd>
+                            <kbd class="d-inline-block mb-1">Enter</kbd>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="list-group list-group-sm list-group-flush list-group-no-gutters mb-5">
+                <div class="list-group-item">
+                    <h5 class="mb-1">Editing</h5>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Find and replace</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Ctrl</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">r</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Find next</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Ctrl</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">n</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Find previous</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Ctrl</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">p</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Indent</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Tab</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Un-indent</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Shift</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">Tab</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Move line up</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Ctrl</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">Shift</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1"><i class="tio-arrow-large-upward-outlined"></i></kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Move line down</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Ctrl</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">Shift</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1"><i
+                                class="tio-arrow-large-downward-outlined font-size-sm"></i></kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Add a comment</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Ctrl</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">Alt</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">m</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Undo</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Ctrl</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">z</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Redo</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Ctrl</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">y</kbd>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="list-group list-group-sm list-group-flush list-group-no-gutters">
+                <div class="list-group-item">
+                    <h5 class="mb-1">Application</h5>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Create new doc</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Ctrl</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">Alt</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">n</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Present</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Ctrl</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">Shift</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">p</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Share</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Ctrl</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">Shift</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">s</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Search docs</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Ctrl</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">Shift</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">o</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Keyboard shortcuts</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Ctrl</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">Shift</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">/</kbd>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Body -->
+    </div>
+</div>
+<!-- IE Support -->
+<div th:replace="/cms/pages/_IE-suport.html"></div>
+</body>
+<!-- End Keyboard Shortcuts -->
+<!-- ========== END SECONDARY CONTENTS ========== -->
+<!-- JS Implementing Plugins -->
+<script src="/assets/cms/js/vendor.min.js"></script>
+<!-- JS Front -->
+<script src="/assets/cms/js/theme.min.js"></script>
+
+<!-- JS Plugins Init. -->
+<script>
+    activeSiderbar1EXXP("quan_ly_don_hang");
+    $(document).on('ready', function () {
+        // ONLY DEV
+        // =======================================================
+
+        if (window.localStorage.getItem('hs-builder-popover') === null) {
+            $('#builderPopover').popover('show')
+                .on('shown.bs.popover', function () {
+                    $('.popover').last().addClass('popover-dark')
+                });
+
+            $(document).on('click', '#closeBuilderPopover', function () {
+                window.localStorage.setItem('hs-builder-popover', true);
+                $('#builderPopover').popover('dispose');
+            });
+        } else {
+            $('#builderPopover').on('show.bs.popover', function () {
+                return false
+            });
+        }
+
+        // END ONLY DEV
+        // =======================================================
+
+
+        // BUILDER TOGGLE INVOKER
+        // =======================================================
+        $('.js-navbar-vertical-aside-toggle-invoker').click(function () {
+            $('.js-navbar-vertical-aside-toggle-invoker i').tooltip('hide');
+        });
+
+
+        // INITIALIZATION OF MEGA MENU
+        // =======================================================
+        var megaMenu = new HSMegaMenu($('.js-mega-menu'), {
+            desktop: {
+                position: 'left'
+            }
+        }).init();
+
+
+        // INITIALIZATION OF NAVBAR VERTICAL NAVIGATION
+        // =======================================================
+        var sidebar = $('.js-navbar-vertical-aside').hsSideNav();
+
+
+        // INITIALIZATION OF TOOLTIP IN NAVBAR VERTICAL MENU
+        // =======================================================
+        $('.js-nav-tooltip-link').tooltip({boundary: 'window'})
+
+        $(".js-nav-tooltip-link").on("show.bs.tooltip", function (e) {
+            if (!$("body").hasClass("navbar-vertical-aside-mini-mode")) {
+                return false;
+            }
+        });
+
+
+        // INITIALIZATION OF UNFOLD
+        // =======================================================
+        $('.js-hs-unfold-invoker').each(function () {
+            var unfold = new HSUnfold($(this)).init();
+        });
+
+
+        // INITIALIZATION OF FORM SEARCH
+        // =======================================================
+        $('.js-form-search').each(function () {
+            new HSFormSearch($(this)).init()
+        });
+
+
+        // INITIALIZATION OF SELECT2
+        // =======================================================
+        $('.js-select2-custom').each(function () {
+            var select2 = $.HSCore.components.HSSelect2.init($(this));
+        });
+
+
+        // INITIALIZATION OF QUILLJS EDITOR
+        // =======================================================
+        var quill = $.HSCore.components.HSQuill.init('.js-quill');
+
+
+        // INITIALIZATION OF ADD INPUT FILED
+        // =======================================================
+        $('.js-add-field').each(function () {
+            new HSAddField($(this), {
+                addedField: function () {
+                    $('.js-add-field .js-select2-custom-dynamic').each(function () {
+                        var select2dynamic = $.HSCore.components.HSSelect2.init($(this));
+                    });
+                }
+            }).init();
+        });
+
+
+        // INITIALIZATION OF TAGIFY
+        // =======================================================
+        $('.js-tagify').each(function () {
+            var tagify = $.HSCore.components.HSTagify.init($(this));
+        });
+
+
+        // INITIALIZATION OF DROPZONE FILE ATTACH MODULE
+        // =======================================================
+        $('.js-dropzone').each(function () {
+            var dropzone = $.HSCore.components.HSDropzone.init('#' + $(this).attr('id'));
+        });
+
+
+        // INITIALIZATION OF STEP FORM
+        // =======================================================
+        $('.js-step-form').each(function () {
+            var stepForm = new HSStepForm($(this), {
+                finish: function () {
+                    $("#checkoutStepFormProgress").hide();
+                    $("#checkoutStepFormContent").hide();
+                    $("#checkoutStepOrderSummary").hide();
+                    $("#checkoutStepSuccessMessage").show();
+                }
+            }).init();
+        });
+
+
+        // INITIALIZATION OF MASKED INPUT
+        // =======================================================
+        $('.js-masked-input').each(function () {
+            var mask = $.HSCore.components.HSMask.init($(this));
+        });
+    });
+    $(document).on('ready', function () {
+        var tinhThanhPho = $('#tinhThanhPho');
+        var quanHuyen = $('#quanHuyen');
+        var phuongXa = $('#phuongXa');
+        var quanHuyenData = [];
+        var tinhThanhPhoSelected = 0;
+        var quanHuyenSelected = 0;
+        var phuongXaSelected = '';
+        var phuongThucVanChuyen = 53320;
+        function getTypeOfDelivery(selectedType) {
+            phuongThucVanChuyen = selectedType.value;
+        }
+
+        $.ajax({
+            type: "GET",
+            url: "https://dev-online-gateway.ghn.vn/shiip/public-api/master-data/province",
+            contentType: "application/json",
+            headers: {
+                "Token": "68b8b44f-a88d-11ee-8bfa-8a2dda8ec551"
+            },
+            success: function (response) {
+                $.each(response.data, function (index, item) {
+                    let html = `<option value="${item.ProvinceID}">${String(item.ProvinceName)}</option>`;
+                    tinhThanhPho.append(html);
+                });
+            },
+            error: function (error) {
+                console.error('Xảy ra lỗi: ', error);
+            }
+        });
+
+        $.ajax({
+            type: "GET",
+            url: "https://dev-online-gateway.ghn.vn/shiip/public-api/master-data/district",
+            contentType: "application/json",
+            headers: {
+                "Token": "68b8b44f-a88d-11ee-8bfa-8a2dda8ec551"
+            },
+            success: function (response) {
+                quanHuyenData = response.data;
+            },
+            error: function (error) {
+                console.error('Xảy ra lỗi: ', error);
+            }
+        });
+        tinhThanhPho.on('change', function () {
+            tinhThanhPhoSelected = tinhThanhPho.val();
+            quanHuyen.html('<option value="">Quận/Huyện</option>');
+            phuongXa.html('<option value="">Phường/Xã</option>');
+            quanHuyenData.forEach((item) => {
+                if (item.ProvinceID == tinhThanhPhoSelected) {
+                    let html = `<option value="${item.DistrictID}">${String(item.DistrictName)}</option>`;
+                    quanHuyen.append(html);
+                }
+            })
+        })
+
+        quanHuyen.on('change', function () {
+            quanHuyenSelected = $('#quanHuyen').val();
+            $.ajax({
+                type: "GET",
+                url: "https://dev-online-gateway.ghn.vn/shiip/public-api/master-data/ward?district_id=" + quanHuyenSelected,
+                contentType: "application/json",
+                headers: {
+                    "Token": "68b8b44f-a88d-11ee-8bfa-8a2dda8ec551"
+                },
+                success: function (response) {
+                    $.each(response.data, function (index, item) {
+                        let html = `<option value="${item.WardCode}">${String(item.WardName)}</option>`;
+                        phuongXa.append(html);
+                    });
+                },
+                error: function (error) {
+                    console.error('Xảy ra lỗi: ', error);
+                }
+            });
+        })
+
+        phuongXa.on('change', function () {
+            phuongXaSelected = $('#phuongXa').val();
+            $.ajax({
+                type: "GET",
+                url: "https://dev-online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/fee",
+                contentType: "application/json",
+                headers: {
+                    "Token": "68b8b44f-a88d-11ee-8bfa-8a2dda8ec551"
+                },
+                data: {
+                    shop_id: "190713",
+                    weight: 100,
+                    service_id: phuongThucVanChuyen,
+                    to_ward_code: phuongXaSelected,
+                    to_district_id: quanHuyenSelected
+                },
+                success: function (response) {
+                    console.log(phuongXaSelected);
+                    console.log(quanHuyenSelected);
+                    console.log(tinhThanhPhoSelected);
+                    var fee = response.data.total;
+                    var formattedMoney = parseFloat(fee).toLocaleString('en-US');
+                    console.log(formattedMoney);
+                    $('#fee').text(formattedMoney);
+                    $('#textNhanh').text('Nhanh (' + formattedMoney + ' VNĐ)');
+                },
+                error: function (error) {
+                    console.error('Xảy ra lỗi: ', error);
+                }
+            });
+        })
+
+        phuongXa.on('change', function () {
+            phuongXaSelected = $('#phuongXa').val();
+
+            $.ajax({
+                type: "POST",
+                url: "https://dev-online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/create",
+                contentType: "application/json",
+                headers: {
+                    "Token": "68b8b44f-a88d-11ee-8bfa-8a2dda8ec551"
+                },
+                data: JSON.stringify(
+                    {
+                        shop_id: "190713",
+                        from_name: "Tấn Tảo Lù",
+                        from_phone: "0866755653",
+                        from_address: "Hà Nội",
+                        from_ward_name: "Phường Xuân Phương",
+                        from_district_name: "Nam Từ Liêm",
+                        from_province_name: "Hà Nội",
+                        to_name: "Test",
+                        to_phone: "0359966461",
+                        to_address: "Nam Định",
+                        to_ward_code: phuongXaSelected,
+                        to_district_id: quanHuyenSelected,
+                        service_id: 0,
+                        service_type_id: 2,
+                        payment_type_id: 2,
+                        required_note: "KHONGCHOXEMHANG",
+                        items: [
+                            {
+                                name: "Áo Polo",
+                                code: "Polo123",
+                                quantity: 1,
+                                price: 200000,
+                                length: 12,
+                                width: 12,
+                                height: 12,
+                                weight: 1200,
+                                category: {
+                                    level1: "Áo"
+                                }
+                            }
+                        ],
+                        weight: 2000,
+                        length: 1,
+                        width: 19,
+                        height: 10
+                    }
+                ),
+                success: function (response) {
+                    console.log(response.data.expected_delivery_time);
+                    let label = $('#typeNhanh')
+                    let span = document.createElement('span');
+                    var leadDate = new Date(response.data.expected_delivery_time);
+                    let html = `<span class="d-block" xmlns="http://www.w3.org/1999/html">Dự kiến nhận hàng vào: <strong>${leadDate.toLocaleDateString('vi-VN')}</strong></span>`;
+                    span.innerHTML = html;
+                    label.append(span);
+                },
+                error: function (error) {
+                    console.error('Xảy ra lỗi: ', error);
+                }
+            })
+        })
+
+        $('#nhanh').on('change', function (selected) {
+            var type = parseInt($('#nhanh').val());
+            console.log(type);
+            $.ajax({
+                type: "GET",
+                url: "https://dev-online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/fee",
+                contentType: "application/json",
+                headers: {
+                    "Token": "68b8b44f-a88d-11ee-8bfa-8a2dda8ec551"
+                },
+                data: {
+                    shop_id: "190713",
+                    weight: 100,
+                    service_id: type,
+                    to_ward_code: phuongXaSelected,
+                    to_district_id: quanHuyenSelected
+                },
+                success: function (response) {
+                    var fee = response.data.total;
+                    var formattedMoney = parseFloat(fee).toLocaleString('en-US');
+                    console.log(formattedMoney);
+                    $('#fee').text(formattedMoney);
+                },
+                error: function (error) {
+                    console.error('Xảy ra lỗi: ', error);
+                }
+            })
+        })
+
+        $('#hoaToc').on('change', function () {
+            var type = parseInt($('#hoaToc').val());
+            console.log(type);
+            $.ajax({
+                type: "GET",
+                url: "https://dev-online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/fee",
+                contentType: "application/json",
+                headers: {
+                    "Token": "68b8b44f-a88d-11ee-8bfa-8a2dda8ec551"
+                },
+                data: {
+                    shop_id: "190713",
+                    weight: 500,
+                    service_id: type,
+                    to_ward_code: phuongXaSelected,
+                    to_district_id: quanHuyenSelected
+                },
+                success: function (response) {
+                    var fee = response.data.total;
+                    var formattedMoney = parseFloat(fee).toLocaleString('en-US');
+                    console.log(formattedMoney);
+                    $('#fee').text(formattedMoney);
+                },
+                error: function (error) {
+                    console.error('Xảy ra lỗi: ', error);
+                }
+            })
+        })
+
+    })
+</script>
+</html>

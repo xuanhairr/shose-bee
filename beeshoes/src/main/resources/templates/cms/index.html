@@ -1,0 +1,1658 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Required Meta Tags Always Come First -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Title -->
+    <title>LightBee | Trang chủ</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="favicon.ico">
+
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/cms/css/sweetalert2.min.css">
+
+    <!-- CSS Implementing Plugins -->
+    <link rel="stylesheet" href="/assets/cms/css/vendor.min.css">
+    <link rel="stylesheet" href="/assets/cms/vendor/icon-set/style.css">
+    <!-- CSS Front Template -->
+    <link rel="stylesheet" href="/assets/cms/css/theme.min.css?v=1.0">
+</head>
+
+<body class="footer-offset">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.1/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+<script src="/assets/cms/vendor/hs-navbar-vertical-aside/hs-navbar-vertical-aside-mini-cache.js"></script>
+<!-- ONLY DEV -->
+<!-- JS Preview mode only -->
+<!-- ========== HEADER ========== -->
+<div th:replace="~{cms/pages/_header.html}"></div>
+<!-- ========== END HEADER ========== -->
+
+<!-- ========== SIDEBAR ========== -->
+<div th:replace="~{cms/pages/_sidebar.html}"></div>
+<!-- ========== END SIDEBAR ========== -->
+<script src="/assets/cms/js/demo.js"></script>
+
+
+<!-- ========== MAIN CONTENT ========== -->
+
+<main id="content" role="main" class="main pointer-event">
+    <!-- Content -->
+    <div class="content container-fluid">
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col-sm mb-2 mb-sm-0">
+                    <h1 class="page-header-title">Trang chủ</h1>
+                </div>
+
+                <div class="col-sm-auto">
+                </div>
+            </div>
+        </div>
+        <!-- End Page Header -->
+
+        <!-- Card -->
+        <div class="card card-body mb-3 mb-lg-5">
+            <div class="row gx-lg-4">
+                <div class="col-sm-6 col-lg-3">
+                    <div class="media">
+                        <div class="media-body">
+                            <h6 class="card-subtitle">Tại Quầy</h6>
+                            <span class="card-title h3"
+                                  th:text="${#numbers.formatDecimal(in_store_data.total,  1, 'DEFAULT', 0, 'DEFAULT')}+'đ'"></span>
+                            <div class="d-flex align-items-center">
+                                <span class="d-block font-size-sm" th:text="${in_store_data.numOder}+' đơn'"></span>
+                                <span class="badge badge-soft-success ml-2" th:if="${in_store_data.direction}">
+                                    <i class="tio-trending-up"></i> <th:block
+                                        th:text="${in_store_data.percent}+'%'"></th:block>
+                                </span>
+                                <span class="badge badge-soft-danger ml-2" th:if="${in_store_data.direction==false}">
+                                    <i class="tio-trending-down"></i> <th:block
+                                        th:text="${in_store_data.percent}+'%'"></th:block>
+                                </span>
+                            </div>
+                        </div>
+
+                        <span class="icon icon-sm icon-soft-secondary icon-circle ml-3">
+                  <i class="tio-shop"></i>
+                </span>
+                    </div>
+
+                    <div class="d-lg-none">
+                        <hr>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-lg-3 column-divider-sm">
+                    <div class="media">
+                        <div class="media-body">
+                            <h6 class="card-subtitle">Bán Online</h6>
+                            <span class="card-title h3"
+                                  th:text="${#numbers.formatDecimal(online_data.total,  1, 'DEFAULT', 0, 'DEFAULT')}+'đ'"></span>
+
+                            <div class="d-flex align-items-center">
+                                <span class="d-block font-size-sm" th:text="${online_data.numOder}+' đơn'"></span>
+                                <span class="badge badge-soft-success ml-2" th:if="${online_data.direction}">
+                                    <i class="tio-trending-up"></i> <th:block
+                                        th:text="${online_data.percent}+'%'"></th:block>
+                                </span>
+                                <span class="badge badge-soft-danger ml-2" th:if="${online_data.direction==false}">
+                                    <i class="tio-trending-down"></i> <th:block
+                                        th:text="${online_data.percent}+'%'"></th:block>
+                                </span>
+                            </div>
+                        </div>
+
+                        <span class="icon icon-sm icon-soft-secondary icon-circle ml-3">
+                  <i class="tio-website"></i>
+                </span>
+                    </div>
+
+                    <div class="d-lg-none">
+                        <hr>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-lg-3 column-divider-lg">
+                    <div class="media">
+                        <div class="media-body">
+                            <h6 class="card-subtitle">Đơn Hàng</h6>
+                            <span class="card-title h3"
+                                  th:text="${#numbers.formatDecimal(quantity_oder_today,  1, 'DEFAULT', 0, 'DEFAULT')}+' đơn'"></span>
+
+                            <div class="d-flex align-items-center">
+                                <span class="d-block font-size-sm"></span>
+                            </div>
+                        </div>
+
+                        <span class="icon icon-sm icon-soft-secondary icon-circle ml-3">
+                  <i class="tio-receipt"></i>
+                </span>
+                    </div>
+
+                    <div class="d-sm-none">
+                        <hr>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-lg-3 column-divider-sm">
+                    <div class="media">
+                        <div class="media-body">
+                            <h6 class="card-subtitle">Doanh Thu Tổng</h6>
+                            <span class="card-title h3"
+                                  th:text="${#numbers.formatDecimal(total_all_data.total,  1, 'DEFAULT', 0, 'DEFAULT')}+'đ'"></span>
+
+                            <div class="d-flex align-items-center">
+                                <span class="d-block font-size-sm" th:text="${total_all_data.numOder}+' đơn'"></span>
+                                <span class="badge badge-soft-success ml-2" th:if="${total_all_data.direction}">
+                                    <i class="tio-trending-up"></i> <th:block
+                                        th:text="${total_all_data.percent}+'%'"></th:block>
+                                </span>
+                                <span class="badge badge-soft-danger ml-2" th:if="${total_all_data.direction==false}">
+                                    <i class="tio-trending-down"></i> <th:block
+                                        th:text="${total_all_data.percent}+'%'"></th:block>
+                                </span>
+                            </div>
+                        </div>
+
+                        <span class="icon icon-sm icon-soft-secondary icon-circle ml-3">
+                  <i class="tio-wallet"></i>
+                </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Card -->
+
+        <!-- Card -->
+        <div class="card mb-3 mb-lg-5">
+            <!-- Header -->
+            <div class="card-header">
+                <div class="row align-items-center flex-grow-1">
+                    <div class="col-sm mb-2 mb-sm-0">
+                        <h4 class="card-header-title">Bán Hàng <i class="tio-help-outlined text-body ml-1"
+                                                                  data-toggle="tooltip" data-placement="top"
+                                                                  title="Doanh thu thuần (tổng doanh thu trừ đi khoản giảm giá và trả lại) cộng với thuế và phí vận chuyển. Bao gồm các đơn đặt hàng từ tất cả các kênh bán hàng."></i>
+                        </h4>
+                    </div>
+
+                    <div class="col-sm-auto">
+                        <!-- Select -->
+                        <select id="total-oder-today-type" class="js-select2-custom custom-select-sm" size="1"
+                                style="opacity: 0;"
+                                data-hs-select2-options='{
+                          "minimumResultsForSearch": "Infinity",
+                          "customClass": "custom-select custom-select-sm mb-2 mb-sm-0 mr-2",
+                          "dropdownAutoWidth": true,
+                          "width": true
+                        }'>
+                            <option value="in-store" selected>Tại Quầy</option>
+                            <option value="in-website">Bán Online</option>
+                        </select>
+                        <!-- End Select -->
+
+                        <!-- Daterangepicker -->
+                        <button id="js-daterangepicker-predefined"
+                                class="btn btn-sm btn-white dropdown-toggle mb-2 mb-sm-0">
+                            <i class="tio-date-range"></i>
+                            <span class="js-daterangepicker-predefined-preview ml-1"></span>
+                        </button>
+                        <!-- End Daterangepicker -->
+                    </div>
+                </div>
+                <!-- End Row -->
+            </div>
+            <!-- End Header -->
+
+            <!-- Body -->
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-9 mb-5 mb-md-0">
+                        <!-- Bar Chart -->
+                        <div class="chartjs-custom mb-4">
+                            <canvas id="total-data-today" style="height: 18rem;" data-hs-chartjs-options='{
+                            "type": "bar",
+                            "data": {
+                              "labels": ["0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23"],
+                              "datasets": [{
+                                "data": [],
+                                "backgroundColor": "#377dff",
+                                "hoverBackgroundColor": "#377dff",
+                                "borderColor": "#377dff"
+                              },
+                              {
+                                "data": [],
+                                "backgroundColor": "#e7eaf3",
+                                "borderColor": "#e7eaf3"
+                              }]
+                            },
+                            "options": {
+                              "scales": {
+                                "yAxes": [{
+                                  "gridLines": {
+                                    "color": "#e7eaf3",
+                                    "drawBorder": false,
+                                    "zeroLineColor": "#e7eaf3"
+                                  },
+                                  "ticks": {
+                                    "beginAtZero": true,
+                                    "stepSize": 100,
+                                    "fontSize": 12,
+                                    "fontColor": "#97a4af",
+                                    "fontFamily": "Open Sans, sans-serif",
+                                    "padding": 10
+                                  }
+                                }],
+                                "xAxes": [{
+                                  "gridLines": {
+                                    "display": false,
+                                    "drawBorder": false
+                                  },
+                                  "ticks": {
+                                    "fontSize": 12,
+                                    "fontColor": "#97a4af",
+                                    "fontFamily": "Open Sans, sans-serif",
+                                    "padding": 5
+                                  },
+                                  "categoryPercentage": 0.5,
+                                  "maxBarThickness": "10"
+                                }]
+                              },
+                              "cornerRadius": 2,
+                              "tooltips": {
+                                "hasIndicator": true,
+                                "mode": "index",
+                                "intersect": false
+                              },
+                              "hover": {
+                                "mode": "nearest",
+                                "intersect": true
+                              }
+                            }
+                          }'></canvas>
+                        </div>
+                        <!-- End Bar Chart -->
+
+                        <!-- Legend Indicators -->
+                        <div class="row justify-content-center">
+                            <div class="col-auto">
+                                <span id="text-date-yesterday" class="legend-indicator"></span>Hôm Qua
+                            </div>
+                            <div class="col-auto">
+                                <span id="text-date-today" class="legend-indicator bg-primary"></span>Hôm Nay
+                            </div>
+                        </div>
+                        <!-- End Legend Indicators -->
+                    </div>
+
+                    <div class="col-md-3 column-divider-md">
+                        <div class="row">
+                            <div class="col-sm-6 col-md-12">
+                                <div class="d-flex justify-content-center flex-column chart-store"
+                                     style="min-height: 10.5rem;">
+                                    <h6 class="card-subtitle">Doanh Thu dự kiến</h6>
+                                    <span id="show-total-money" class="d-block display-4 text-dark mb-1 mr-3"></span>
+                                    <!--                                    <span class="d-block text-success">-->
+                                    <!--                                        <i class="tio-trending-up mr-1"></i> 19999đ (+20%)-->
+                                    <!--                                    </span>-->
+                                    <!--                                    <span class="d-block text-danger">-->
+                                    <!--                                        <i class="tio-trending-down mr-1"></i>-->
+                                    <!--                                    </span>-->
+                                </div>
+                                <!-- End Stats -->
+
+                                <div class="d-sm-none">
+                                    <hr class="my-0">
+                                </div>
+
+                                <div class="d-none d-md-block">
+                                    <hr class="my-0">
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6 col-md-12">
+                                <!-- Stats -->
+                                <div class="d-flex justify-content-center flex-column" style="min-height: 10.5rem;">
+                                    <h6 class="card-subtitle">Số lượng đơn</h6>
+                                    <span id="text-quantity-oder-today"
+                                          class="d-block display-4 text-dark mb-1 mr-3"></span>
+                                    <!--                                    <span class="d-block text-danger">-->
+                                    <!--                                        <i class="tio-trending-down mr-1"></i> +3,301 (1.2%)-->
+                                    <!--                                    </span>-->
+                                    <!--                             git add -->
+                                </div>
+                                <!-- End Stats -->
+                            </div>
+                        </div>
+                        <!-- End Row -->
+                    </div>
+                </div>
+                <!-- End Row -->
+            </div>
+            <!-- End Body -->
+        </div>
+        <!-- End Card -->
+
+        <div class="row">
+            <div class="col-lg-4 mb-3 mb-lg-5">
+                <!-- Card -->
+                <a class="card card-hover-shadow mb-4" href="/cms/add-product">
+                    <div class="card-body">
+                        <div class="media align-items-center">
+                            <img class="avatar avatar-xl mr-4" src="/assets/cms/svg/illustrations/create.svg"
+                                 alt="Image Description">
+
+                            <div class="media-body">
+                                <h3 class="text-hover-primary mb-1">Sản Phẩm</h3>
+                                <span class="text-body">Thêm sản phẩm mới.</span>
+                            </div>
+
+                            <div class="ml-2 text-right">
+                                <i class="tio-chevron-right tio-lg text-body text-hover-primary"></i>
+                            </div>
+                        </div>
+                        <!-- End Row -->
+                    </div>
+                </a>
+                <!-- End Card -->
+
+                <!-- Card -->
+                <a class="card card-hover-shadow mb-4" href="/cms/cashier">
+                    <div class="card-body">
+                        <div class="media align-items-center">
+                            <img class="avatar avatar-xl mr-4" src="/assets/cms/svg/illustrations/choice.svg"
+                                 alt="Image Description">
+
+                            <div class="media-body">
+                                <h3 class="text-hover-primary mb-1">Bán Hàng</h3>
+                                <span class="text-body">Tạo hóa đơn mới.</span>
+                            </div>
+
+                            <div class="ml-2 text-right">
+                                <i class="tio-chevron-right tio-lg text-body text-hover-primary"></i>
+                            </div>
+                        </div>
+                        <!-- End Row -->
+                    </div>
+                </a>
+                <!-- End Card -->
+
+                <!-- Card -->
+                <a class="card card-hover-shadow" href="/cms/add-voucher">
+                    <div class="card-body">
+                        <div class="media align-items-center">
+                            <img class="avatar avatar-xl mr-4" src="/assets/cms/svg/illustrations/presenting.svg"
+                                 alt="Image Description">
+
+                            <div class="media-body">
+                                <h3 class="text-hover-primary mb-1">Giảm Giá</h3>
+                                <span class="text-body">Tạo phiếu giảm giá mới.</span>
+                            </div>
+
+                            <div class="ml-2 text-right">
+                                <i class="tio-chevron-right tio-lg text-body text-hover-primary"></i>
+                            </div>
+                        </div>
+                        <!-- End Row -->
+                    </div>
+                </a>
+                <!-- End Card -->
+            </div>
+
+            <div class="col-lg-8 mb-3 mb-lg-5">
+                <!-- Card -->
+                <div class="card h-100">
+                    <!-- Header -->
+                    <div class="card-header">
+                        <h4 class="card-header-title">Top Sản Phẩm</h4>
+                        <select id="top-product-option" class="js-select2-custom custom-select-sm" size="1"
+                                style="opacity: 0;"
+                                data-hs-select2-options='{
+                          "minimumResultsForSearch": "Infinity",
+                          "customClass": "custom-select custom-select-sm mb-2 mb-sm-0 mr-2",
+                          "dropdownAutoWidth": true,
+                          "width": true
+                        }'>
+                            <option value="month">Tháng Này</option>
+                            <option value="week">Tuần Này</option>
+                            <option value="day">Hôm Nay</option>
+                        </select>
+                    </div>
+                    <!-- End Header -->
+
+                    <!-- Body -->
+                    <div class="card-body-height">
+                        <!-- Table -->
+                        <div class="table-responsive">
+                            <table class="table table-borderless table-thead-bordered table-nowrap table-align-middle card-table">
+                                <thead class="thead-light">
+                                <tr>
+                                    <th scope="col">TOP</th>
+                                    <th scope="col">SẢN PHẨM</th>
+                                    <th scope="col">GIÁ BÁN</th>
+                                    <th scope="col">ĐÃ BÁN</th>
+                                    <th scope="col">DOANH THU</th>
+                                </tr>
+                                </thead>
+
+                                <tbody id="show-top-product">
+                                <tr th:each="pro,iter:${top_products}">
+                                    <td th:text="${iter.index+1}"></td>
+                                    <td>
+                                        <!-- Media -->
+                                        <a class="media align-items-center" th:href="'/cms/view-product?id='+${pro.id}">
+                                            <img class="avatar mr-3" th:src="${pro.anh}"
+                                                 alt="Image Description">
+
+                                            <div class="media-body">
+                                                <h5 class="text-hover-primary mb-0" th:text="${pro.ten}"></h5>
+                                            </div>
+                                        </a>
+                                        <!-- End Media -->
+                                    </td>
+                                    <!--                                    <td><i class="tio-trending-down text-danger mr-1"></i> 72%</td>-->
+                                    <td th:text="${#numbers.formatDecimal (pro.giaBan, 1, 'DEFAULT', 0, 'DEFAULT')}+'đ'">
+                                        $65
+                                    </td>
+                                    <td th:text="${#numbers.formatDecimal (pro.soLuong, 1, 'DEFAULT', 0, 'DEFAULT')}"></td>
+                                    <td>
+                                        <h4 class="mb-0"
+                                            th:text="${#numbers.formatDecimal (pro.tongTien, 1, 'DEFAULT', 0, 'DEFAULT')}+'đ'"></h4>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- End Table -->
+                    </div>
+                    <!-- End Body -->
+                </div>
+                <!-- End Card -->
+            </div>
+        </div>
+        <!-- End Row -->
+        <!-- Card -->
+        <div class="card">
+            <div class="row">
+                <div class="col-lg-6">
+                    <!-- Body -->
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <h4>Doanh Thu <i class="tio-help-outlined text-body ml-1" data-toggle="tooltip"
+                                             data-placement="top"
+                                             title="Doanh thu thuần (tổng doanh thu trừ đi khoản giảm giá và trả lại) cộng với thuế và phí vận chuyển. Bao gồm các đơn đặt hàng từ tất cả các kênh bán hàng."></i>
+                            </h4>
+                            <button id="js-option-revenue"
+                                    class="btn btn-sm btn-white dropdown-toggle mb-2 mb-sm-0">
+                                <i class="tio-date-range"></i>
+                                <span class="js-daterangepicker-predefined-preview ml-1"></span>
+                            </button>
+                        </div>
+                        <div class="row align-items-sm-center mb-5">
+                            <div class="col-sm">
+                                <span id="total-money-today" class="display-4 text-dark mr-2"></span>
+                            </div>
+
+                            <div class="col-sm-auto">
+
+                    <span class="h3 text-success" th:if="${total_all_data.direction}">
+                      <i class="tio-trending-up"></i>
+                        <th:block th:text="${total_all_data.percent}+'%'"></th:block>
+                    </span>
+                                <span class="h3 text-danger" th:if="${total_all_data.direction==false}">
+                      <i class="tio-trending-down"></i>
+                        <th:block th:text="${total_all_data.percent}+'%'"></th:block>
+                    </span>
+
+                                <span class="d-block">
+                                   &mdash; <th:block
+                                        th:text="${#numbers.formatDecimal(total_all_data.total,  1, 'DEFAULT', 0, 'DEFAULT')}+'đ'"></th:block>
+                                    <span
+                                            class="badge badge-soft-dark badge-pill ml-1"
+                                            th:text="'+'+${#numbers.formatDecimal (total_money_today, 1, 'DEFAULT', 0, 'DEFAULT')}+'k Hôm Nay'"></span></span>
+                            </div>
+                        </div>
+                        <!-- End Row -->
+
+                        <!-- Bar Chart -->
+                        <div class="chartjs-custom mb-4" style="height: 18rem;">
+                            <canvas id="total-revenue-chart" data-hs-chartjs-options='{
+                            "type": "line",
+                            "data": {
+                               "labels": ["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23"],
+                               "datasets": [{
+                                "data": [],
+                                "backgroundColor": "transparent",
+                                "borderColor": "#377dff",
+                                "borderWidth": 2,
+                                "pointRadius": 0,
+                                "hoverBorderColor": "#377dff",
+                                "pointBackgroundColor": "#377dff",
+                                "pointBorderColor": "#fff",
+                                "pointHoverRadius": 0
+                              },
+                              {
+                                "data": [],
+                                "backgroundColor": "transparent",
+                                "borderColor": "#e7eaf3",
+                                "borderWidth": 2,
+                                "pointRadius": 0,
+                                "hoverBorderColor": "#e7eaf3",
+                                "pointBackgroundColor": "#e7eaf3",
+                                "pointBorderColor": "#fff",
+                                "pointHoverRadius": 0
+                              }]
+                            },
+                            "options": {
+                               "scales": {
+                                  "yAxes": [{
+                                    "gridLines": {
+                                      "color": "#e7eaf3",
+                                      "drawBorder": false,
+                                      "zeroLineColor": "#e7eaf3"
+                                    },
+                                    "ticks": {
+                                      "beginAtZero": true,
+                                      "stepSize": 100,
+                                      "fontSize": 12,
+                                      "fontColor": "#97a4af",
+                                      "fontFamily": "Open Sans, sans-serif",
+                                      "padding": 10,
+                                      "postfix": "k"
+                                    }
+                                  }],
+                                  "xAxes": [{
+                                    "gridLines": {
+                                      "display": false,
+                                      "drawBorder": false
+                                    },
+                                    "ticks": {
+                                      "fontSize": 12,
+                                      "fontColor": "#97a4af",
+                                      "fontFamily": "Open Sans, sans-serif",
+                                      "padding": 5
+                                    }
+                                  }]
+                              },
+                              "tooltips": {
+                                "postfix": "k",
+                                "hasIndicator": true,
+                                "mode": "index",
+                                "intersect": false,
+                                "lineMode": true,
+                                "lineWithLineColor": "rgba(19, 33, 68, 0.075)"
+                              },
+                              "hover": {
+                                "mode": "nearest",
+                                "intersect": true
+                              }
+                            }
+                          }'>
+                            </canvas>
+                        </div>
+                        <!-- End Bar Chart -->
+
+                        <!-- Legend Indicators -->
+                        <div class="row justify-content-center">
+                            <div class="col-auto">
+                                <span class="legend-indicator"></span> <span id="text-revenue-yesterday">Hôm Qua</span>
+                            </div>
+                            <div class="col-auto">
+                                <span class="legend-indicator bg-primary"></span><span id="text-revenue-today">Hôm Nay</span>
+                            </div>
+                        </div>
+                        <!-- End Legend Indicators -->
+                    </div>
+                    <!-- End Body -->
+
+                    <div class="d-lg-none">
+                        <hr>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 column-divider-lg">
+                    <!-- Body -->
+                    <div class="card-body">
+                        <h4>Giảm Giá</h4>
+
+                        <div class="row align-items-sm-center mb-5">
+                            <div class="col-sm">
+                                <span class="display-4 text-dark mr-2" th:text="${#numbers.formatDecimal(discount_chart.total,  1, 'DEFAULT', 0, 'DEFAULT')+'đ'}"></span>
+                            </div>
+
+                            <div class="col-sm-auto">
+                    <span class="h3 text-success" th:if="${discount_chart.direction}">
+                      <i class="tio-trending-up"></i> <th:block th:text="${discount_chart.present}+'%'"></th:block>
+                    </span>
+                                <span class="h3 text-danger" th:if="${discount_chart.direction==false}">
+                      <i class="tio-trending-down"></i>  <th:block th:text="${discount_chart.present}+'%'"></th:block>
+                    </span>
+                                <span class="d-block"><span
+                                        class="badge badge-soft-dark badge-pill ml-1" th:text="'+'+${discount_chart.number_discount}+' Hôm Nay'"></span></span>
+                            </div>
+                        </div>
+                        <!-- End Row -->
+
+                        <!-- Bar Chart -->
+                        <div class="chartjs-custom mb-4" style="height: 18rem;">
+                            <canvas id="chart-discount" th:attr="data-label=${discount_chart.label},data-value_today=${discount_chart.value_today},data-value_yesterday=${discount_chart.value_yesterday}" data-hs-chartjs-options='{
+                            "type": "line",
+                            "data": {
+                               "labels": ["1AM","2AM","3AM","4AM","5AM","6AM","7AM","8AM","9AM","10AM"],
+                               "datasets": [{
+                                "data": [],
+                                "backgroundColor": "transparent",
+                                "borderColor": "#377dff",
+                                "borderWidth": 2,
+                                "pointRadius": 0,
+                                "hoverBorderColor": "#377dff",
+                                "pointBackgroundColor": "#377dff",
+                                "pointBorderColor": "#fff",
+                                "pointHoverRadius": 0
+                              },
+                              {
+                                "data": [],
+                                "backgroundColor": "transparent",
+                                "borderColor": "#e7eaf3",
+                                "borderWidth": 2,
+                                "pointRadius": 0,
+                                "hoverBorderColor": "#e7eaf3",
+                                "pointBackgroundColor": "#e7eaf3",
+                                "pointBorderColor": "#fff",
+                                "pointHoverRadius": 0
+                              }]
+                            },
+                            "options": {
+                               "scales": {
+                                  "yAxes": [{
+                                    "gridLines": {
+                                      "color": "#e7eaf3",
+                                      "drawBorder": false,
+                                      "zeroLineColor": "#e7eaf3"
+                                    },
+                                    "ticks": {
+                                      "beginAtZero": true,
+                                      "stepSize": 10,
+                                      "fontSize": 12,
+                                      "fontColor": "#97a4af",
+                                      "fontFamily": "Open Sans, sans-serif",
+                                      "padding": 10,
+                                      "postfix": "k"
+                                    }
+                                  }],
+                                  "xAxes": [{
+                                    "gridLines": {
+                                      "display": false,
+                                      "drawBorder": false
+                                    },
+                                    "ticks": {
+                                      "fontSize": 12,
+                                      "fontColor": "#97a4af",
+                                      "fontFamily": "Open Sans, sans-serif",
+                                      "padding": 5
+                                    }
+                                  }]
+                              },
+                              "tooltips": {
+                                "postfix": "k",
+                                "hasIndicator": true,
+                                "mode": "index",
+                                "intersect": false,
+                                "lineMode": true,
+                                "lineWithLineColor": "rgba(19, 33, 68, 0.075)"
+                              },
+                              "hover": {
+                                "mode": "nearest",
+                                "intersect": true
+                              }
+                            }
+                          }'>
+                            </canvas>
+                        </div>
+                        <!-- End Bar Chart -->
+
+                        <!-- Legend Indicators -->
+                        <div class="row justify-content-center">
+                            <div class="col-auto">
+                                <span class="legend-indicator"></span> Hôm Qua
+                            </div>
+                            <div class="col-auto">
+                                <span class="legend-indicator bg-primary"></span> Hôm Nay
+                            </div>
+                        </div>
+                        <!-- End Legend Indicators -->
+                    </div>
+                    <!-- End Body -->
+                </div>
+            </div>
+            <!-- End Row -->
+
+            <hr class="my-0">
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <!-- Body -->
+                    <div class="card-body">
+                        <h4>Đơn Hàng</h4>
+
+                        <div class="row align-items-sm-center mb-5">
+                            <div class="col-sm">
+                                <span id="total-quantity-today" class="display-4 text-dark mr-2"></span>
+                            </div>
+
+                            <div class="col-sm-auto">
+
+                                    <span class="h3 text-success" th:if="${quantity_oder_direction}">
+                      <i class="tio-trending-up"></i>
+                                        <th:block th:text="${quantity_oder_present}+'%'"></th:block>
+                    </span>
+
+
+                                <span class="h3 text-danger" th:if="${quantity_oder_direction==false}">
+                      <i class="tio-trending-down"></i>
+                                    <th:block th:text="${quantity_oder_present}+'%'"></th:block>
+                    </span>
+
+                                <span class="d-block">&mdash; đơn hàng theo thời gian <span
+                                        class="badge badge-soft-dark badge-pill ml-1"
+                                        th:text="'+'+${quantity_oder_today}+' Hôm Nay'"></span></span>
+                            </div>
+                        </div>
+                        <!-- End Row -->
+
+                        <!-- Bar Chart -->
+                        <div class="chartjs-custom mb-4" style="height: 18rem;">
+                            <canvas id="total-oder-all" data-hs-chartjs-options='{
+                            "type": "line",
+                            "data": {
+                               "labels": ["0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23"],
+                               "datasets": [{
+                                "data": [],
+                                "backgroundColor": "transparent",
+                                "borderColor": "#377dff",
+                                "borderWidth": 2,
+                                "pointRadius": 0,
+                                "hoverBorderColor": "#377dff",
+                                "pointBackgroundColor": "#377dff",
+                                "pointBorderColor": "#fff",
+                                "pointHoverRadius": 0
+                              },
+                              {
+                                "data": [],
+                                "backgroundColor": "transparent",
+                                "borderColor": "#e7eaf3",
+                                "borderWidth": 2,
+                                "pointRadius": 0,
+                                "hoverBorderColor": "#e7eaf3",
+                                "pointBackgroundColor": "#e7eaf3",
+                                "pointBorderColor": "#fff",
+                                "pointHoverRadius": 0
+                              }]
+                            },
+                            "options": {
+                               "scales": {
+                                  "yAxes": [{
+                                    "gridLines": {
+                                      "color": "#e7eaf3",
+                                      "drawBorder": false,
+                                      "zeroLineColor": "#e7eaf3"
+                                    },
+                                    "ticks": {
+                                      "beginAtZero": true,
+                                      "stepSize": 10,
+                                      "fontSize": 12,
+                                      "fontColor": "#97a4af",
+                                      "fontFamily": "Open Sans, sans-serif",
+                                      "padding": 10,
+                                      "postfix": ""
+                                    }
+                                  }],
+                                  "xAxes": [{
+                                    "gridLines": {
+                                      "display": false,
+                                      "drawBorder": false
+                                    },
+                                    "ticks": {
+                                      "fontSize": 12,
+                                      "fontColor": "#97a4af",
+                                      "fontFamily": "Open Sans, sans-serif",
+                                      "padding": 5
+                                    }
+                                  }]
+                              },
+                              "tooltips": {
+                                "postfix": "",
+                                "hasIndicator": true,
+                                "mode": "index",
+                                "intersect": false,
+                                "lineMode": true,
+                                "lineWithLineColor": "rgba(19, 33, 68, 0.075)"
+                              },
+                              "hover": {
+                                "mode": "nearest",
+                                "intersect": true
+                              }
+                            }
+                          }'>
+                            </canvas>
+                        </div>
+                        <!-- End Bar Chart -->
+
+                        <!-- Legend Indicators -->
+                        <div class="row justify-content-center">
+                            <div class="col-auto">
+                                <span class="legend-indicator"></span> Hôm Qua
+                            </div>
+                            <div class="col-auto">
+                                <span class="legend-indicator bg-primary"></span> Hôm Nay
+                            </div>
+                        </div>
+                        <!-- End Legend Indicators -->
+                    </div>
+                    <!-- End Body -->
+
+                    <div class="d-lg-none">
+                        <hr>
+                    </div>
+                </div>
+
+
+                <div class="col-lg-6 column-divider-lg pl-0">
+                    <div class="card-header">
+                        <h4 class="card-header-title">Sản phẩm sắp hết</h4>
+                    </div>
+                    <!-- Body -->
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-borderless table-thead-bordered table-nowrap table-align-middle card-table">
+                                <thead class="thead-light">
+                                <tr>
+                                    <th scope="col">STT</th>
+                                    <th scope="col">SẢN PHẨM</th>
+                                    <th scope="col">GIÁ BÁN</th>
+                                    <th scope="col">SỐ LƯỢNG TỒN</th>
+                                </tr>
+                                </thead>
+                                <tbody id="show-less-product">
+                                <tr th:each="pro,iter:${product_less}">
+                                    <td th:text="${iter.index+1}"></td>
+                                    <td>
+                                        <!-- Media -->
+                                        <a class="media align-items-center"
+                                           th:href="${'/cms/view-product?id='+pro.getId()}">
+                                            <img class="avatar mr-3" th:src="${pro.getMainImage().getUrl()}"
+                                                 alt="Image Description">
+
+                                            <div class="media-body">
+                                                <h5 class="text-hover-primary mb-0" th:text="${pro.getTen()}"></h5>
+                                            </div>
+                                        </a>
+                                        <!-- End Media -->
+                                    </td>
+                                    <!--                                    <td><i class="tio-trending-down text-danger mr-1"></i> 72%</td>-->
+                                    <td th:text="${#numbers.formatDecimal (pro.getChiTietSanPham().get(0).getGiaBan(), 1, 'DEFAULT', 0, 'DEFAULT')}+'đ'">
+                                        $65
+                                    </td>
+                                    <td th:text="${#numbers.formatDecimal (pro.getTotalSoLuongTon(), 1, 'DEFAULT', 0, 'DEFAULT')}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- End Body  -->
+                </div>
+            </div>
+            <!-- End Row -->
+        </div>
+        <!-- End Card -->
+
+
+    </div>
+    <!-- End Content -->
+
+    <!-- Footer -->
+    <div th:replace="~{cms/pages/_footer.html}"></div>
+    <!-- End Footer -->
+</main>
+<!-- ========== END MAIN CONTENT ========== -->
+
+<!-- ========== SECONDARY CONTENTS ========== -->
+<!-- Keyboard Shortcuts -->
+<div id="keyboardShortcutsSidebar" class="hs-unfold-content sidebar sidebar-bordered sidebar-box-shadow">
+    <div class="card card-lg sidebar-card">
+        <div class="card-header">
+            <h4 class="card-header-title">Keyboard shortcuts</h4>
+
+            <!-- Toggle Button -->
+            <a class="js-hs-unfold-invoker btn btn-icon btn-xs btn-ghost-dark ml-2" href="javascript:;"
+               data-hs-unfold-options='{
+                "target": "#keyboardShortcutsSidebar",
+                "type": "css-animation",
+                "animationIn": "fadeInRight",
+                "animationOut": "fadeOutRight",
+                "hasOverlay": true,
+                "smartPositionOff": true
+               }'>
+                <i class="tio-clear tio-lg"></i>
+            </a>
+            <!-- End Toggle Button -->
+        </div>
+
+        <!-- Body -->
+        <div class="card-body sidebar-body sidebar-scrollbar">
+            <div class="list-group list-group-sm list-group-flush list-group-no-gutters mb-5">
+                <div class="list-group-item">
+                    <h5 class="mb-1">Formatting</h5>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span class="font-weight-bold">Bold</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Ctrl</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">b</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <em>italic</em>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Ctrl</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">i</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <u>Underline</u>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Ctrl</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">u</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <s>Strikethrough</s>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Ctrl</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">Alt</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">s</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span class="small">Small text</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Ctrl</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">s</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <mark>Highlight</mark>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Ctrl</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">e</kbd>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="list-group list-group-sm list-group-flush list-group-no-gutters mb-5">
+                <div class="list-group-item">
+                    <h5 class="mb-1">Insert</h5>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Mention person <a href="#">(@Brian)</a></span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">@</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Link to doc <a href="#">(+Meeting notes)</a></span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">+</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <a href="#">#hashtag</a>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">#hashtag</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Date</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">/date</kbd>
+                            <kbd class="d-inline-block mb-1">Space</kbd>
+                            <kbd class="d-inline-block mb-1">/datetime</kbd>
+                            <kbd class="d-inline-block mb-1">/datetime</kbd>
+                            <kbd class="d-inline-block mb-1">Space</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Time</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">/time</kbd>
+                            <kbd class="d-inline-block mb-1">Space</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Note box</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">/note</kbd>
+                            <kbd class="d-inline-block mb-1">Enter</kbd>
+                            <kbd class="d-inline-block mb-1">/note red</kbd>
+                            <kbd class="d-inline-block mb-1">/note red</kbd>
+                            <kbd class="d-inline-block mb-1">Enter</kbd>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="list-group list-group-sm list-group-flush list-group-no-gutters mb-5">
+                <div class="list-group-item">
+                    <h5 class="mb-1">Editing</h5>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Find and replace</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Ctrl</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">r</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Find next</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Ctrl</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">n</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Find previous</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Ctrl</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">p</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Indent</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Tab</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Un-indent</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Shift</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">Tab</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Move line up</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Ctrl</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">Shift</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1"><i class="tio-arrow-large-upward-outlined"></i></kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Move line down</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Ctrl</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">Shift</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1"><i
+                                class="tio-arrow-large-downward-outlined font-size-sm"></i></kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Add a comment</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Ctrl</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">Alt</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">m</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Undo</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Ctrl</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">z</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Redo</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Ctrl</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">y</kbd>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="list-group list-group-sm list-group-flush list-group-no-gutters">
+                <div class="list-group-item">
+                    <h5 class="mb-1">Application</h5>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Create new doc</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Ctrl</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">Alt</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">n</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Present</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Ctrl</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">Shift</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">p</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Share</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Ctrl</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">Shift</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">s</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Search docs</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Ctrl</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">Shift</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">o</kbd>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            <span>Keyboard shortcuts</span>
+                        </div>
+                        <div class="col-7 text-right">
+                            <kbd class="d-inline-block mb-1">Ctrl</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">Shift</kbd> <small class="text-muted">+</small> <kbd
+                                class="d-inline-block mb-1">/</kbd>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Body -->
+    </div>
+</div>
+<!-- End Keyboard Shortcuts -->
+
+<!-- Welcome user -->
+<div class="modal fade" id="welcomeMessageModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <!-- Header -->
+            <div class="modal-close">
+                <button type="button" class="btn btn-icon btn-sm btn-ghost-secondary" data-dismiss="modal"
+                        aria-label="Close">
+                    <i class="tio-clear tio-lg"></i>
+                </button>
+            </div>
+            <!-- End Header -->
+
+            <!-- Body -->
+            <div class="modal-body p-sm-5">
+                <div class="text-center">
+                    <div class="w-75 w-sm-50 mx-auto mb-4">
+                        <img class="img-fluid" src="/assets/cms/svg/illustrations/graphs.svg" alt="Image Description">
+                    </div>
+
+                    <h4 class="h1">Welcome to LightBee !</h4>
+
+                    <p>We're happy to see you in our community.</p>
+                </div>
+            </div>
+            <!-- End Body -->
+
+            <!-- Footer -->
+            <div class="modal-footer d-block text-center py-sm-5">
+                <small class="text-cap mb-4">Trusted by the world's best teams</small>
+
+                <div class="w-85 mx-auto">
+                    <div class="row justify-content-between">
+                        <div class="col">
+                            <img class="img-fluid ie-welcome-brands" src="/assets/cms/svg/brands/gitlab-gray.svg"
+                                 alt="Image Description">
+                        </div>
+                        <div class="col">
+                            <img class="img-fluid ie-welcome-brands" src="/assets/cms/svg/brands/fitbit-gray.svg"
+                                 alt="Image Description">
+                        </div>
+                        <div class="col">
+                            <img class="img-fluid ie-welcome-brands" src="/assets/cms/svg/brands/flow-xo-gray.svg"
+                                 alt="Image Description">
+                        </div>
+                        <div class="col">
+                            <img class="img-fluid ie-welcome-brands" src="/assets/cms/svg/brands/layar-gray.svg"
+                                 alt="Image Description">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Footer -->
+        </div>
+    </div>
+</div>
+<!-- End welcome user -->
+
+<!-- Create a new user Modal -->
+<div class="modal fade" id="inviteUserModal" tabindex="-1" role="dialog" aria-labelledby="inviteUserModalTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <form class="modal-content">
+            <!-- Header -->
+            <div class="modal-header">
+                <h4 id="inviteUserModalTitle" class="modal-title">Invite users</h4>
+
+                <button type="button" class="btn btn-icon btn-sm btn-ghost-secondary" data-dismiss="modal"
+                        aria-label="Close">
+                    <i class="tio-clear tio-lg"></i>
+                </button>
+            </div>
+            <!-- End Header -->
+
+            <!-- Body -->
+            <div class="modal-body">
+                <!-- Form Group -->
+                <div class="form-group">
+                    <div class="input-group input-group-merge mb-2 mb-sm-0">
+                        <div class="input-group-prepend" id="fullName">
+                <span class="input-group-text">
+                  <i class="tio-search"></i>
+                </span>
+                        </div>
+
+                        <input type="text" class="form-control" name="fullName" placeholder="Search name or emails"
+                               aria-label="Search name or emails" aria-describedby="fullName">
+
+                        <div class="input-group-append input-group-append-last-sm-down-none">
+                            <!-- Select -->
+                            <div id="permissionSelect" class="select2-custom select2-custom-right">
+                                <select class="js-select2-custom custom-select" size="1" style="opacity: 0;"
+                                        data-hs-select2-options='{
+                              "dropdownParent": "#permissionSelect",
+                              "minimumResultsForSearch": "Infinity",
+                              "dropdownAutoWidth": true,
+                              "dropdownWidth": "11rem"
+                            }'>
+                                    <option value="guest" selected="">Guest</option>
+                                    <option value="can edit">Can edit</option>
+                                    <option value="can comment">Can comment</option>
+                                    <option value="full access">Full access</option>
+                                </select>
+                            </div>
+                            <!-- End Select -->
+
+                            <a class="btn btn-primary d-none d-sm-block" href="javascript:;">Invite</a>
+                        </div>
+                    </div>
+
+                    <a class="btn btn-block btn-primary d-sm-none" href="javascript:;">Invite</a>
+                </div>
+                <!-- End Form Group -->
+
+                <div class="form-row">
+                    <h5 class="col modal-title">Invite users</h5>
+
+                    <div class="col-auto">
+                        <a class="d-flex align-items-center font-size-sm text-body" href="#">
+                            <img class="avatar avatar-xss mr-2" src="/assets/cms/svg/brands/gmail.svg"
+                                 alt="Image Description">
+                            Import contacts
+                        </a>
+                    </div>
+                </div>
+
+                <hr class="mt-2">
+
+                <ul class="list-unstyled list-unstyled-py-4">
+                    <!-- List Group Item -->
+                    <li>
+                        <div class="media">
+                            <div class="avatar avatar-sm avatar-circle mr-3">
+                                <img class="avatar-img" src="/assets/cms/img/160x160/img10.jpg" alt="Image Description">
+                            </div>
+
+                            <div class="media-body">
+                                <div class="row align-items-center">
+                                    <div class="col-sm">
+                                        <h5 class="text-body mb-0">Amanda Harvey <i class="tio-verified text-primary"
+                                                                                    data-toggle="tooltip"
+                                                                                    data-placement="top"
+                                                                                    title="Top endorsed"></i></h5>
+                                        <span class="d-block font-size-sm">amanda@example.com</span>
+                                    </div>
+
+                                    <div class="col-sm">
+                                        <!-- Select -->
+                                        <div id="inviteUserSelect1"
+                                             class="select2-custom select2-custom-sm-right d-sm-flex justify-content-sm-end">
+                                            <select class="js-select2-custom custom-select-sm" size="1"
+                                                    style="opacity: 0;"
+                                                    data-hs-select2-options='{
+                                    "dropdownParent": "#inviteUserSelect1",
+                                    "minimumResultsForSearch": "Infinity",
+                                    "customClass": "custom-select custom-select-sm custom-select-borderless pl-0",
+                                    "dropdownAutoWidth": true,
+                                    "width": true
+                                  }'>
+                                                <option value="guest" selected="">Guest</option>
+                                                <option value="can edit">Can edit</option>
+                                                <option value="can comment">Can comment</option>
+                                                <option value="full access">Full access</option>
+                                                <option value="remove"
+                                                        data-option-template='<span class="text-danger">Remove</span>'>
+                                                    Remove
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <!-- End Select -->
+                                    </div>
+                                </div>
+                                <!-- End Row -->
+                            </div>
+                        </div>
+                    </li>
+                    <!-- End List Group Item -->
+
+                    <!-- List Group Item -->
+                    <li>
+                        <div class="media">
+                            <div class="avatar avatar-sm avatar-circle mr-3">
+                                <img class="avatar-img" src="/assets/cms/img/160x160/img3.jpg" alt="Image Description">
+                            </div>
+
+                            <div class="media-body">
+                                <div class="row align-items-center">
+                                    <div class="col-sm">
+                                        <h5 class="text-body mb-0">David Harrison</h5>
+                                        <span class="d-block font-size-sm">david@example.com</span>
+                                    </div>
+
+                                    <div class="col-sm">
+                                        <!-- Select -->
+                                        <div id="inviteUserSelect2"
+                                             class="select2-custom select2-custom-sm-right d-sm-flex justify-content-sm-end">
+                                            <select class="js-select2-custom custom-select-sm" size="1"
+                                                    style="opacity: 0;"
+                                                    data-hs-select2-options='{
+                                    "dropdownParent": "#inviteUserSelect2",
+                                    "minimumResultsForSearch": "Infinity",
+                                    "customClass": "custom-select custom-select-sm custom-select-borderless pl-0",
+                                    "dropdownAutoWidth": true,
+                                    "width": true
+                                  }'>
+                                                <option value="guest" selected="">Guest</option>
+                                                <option value="can edit">Can edit</option>
+                                                <option value="can comment">Can comment</option>
+                                                <option value="full access">Full access</option>
+                                                <option value="remove"
+                                                        data-option-template='<span class="text-danger">Remove</span>'>
+                                                    Remove
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <!-- End Select -->
+                                    </div>
+                                </div>
+                                <!-- End Row -->
+                            </div>
+                        </div>
+                    </li>
+                    <!-- End List Group Item -->
+
+                    <!-- List Group Item -->
+                    <li>
+                        <div class="media">
+                            <div class="avatar avatar-sm avatar-circle mr-3">
+                                <img class="avatar-img" src="/assets/cms/img/160x160/img9.jpg" alt="Image Description">
+                            </div>
+
+                            <div class="media-body">
+                                <div class="row align-items-center">
+                                    <div class="col-sm">
+                                        <h5 class="text-body mb-0">Ella Lauda <i class="tio-verified text-primary"
+                                                                                 data-toggle="tooltip"
+                                                                                 data-placement="top"
+                                                                                 title="Top endorsed"></i></h5>
+                                        <span class="d-block font-size-sm">Markvt@example.com</span>
+                                    </div>
+
+                                    <div class="col-sm">
+                                        <!-- Select -->
+                                        <div id="inviteUserSelect4"
+                                             class="select2-custom select2-custom-sm-right d-sm-flex justify-content-sm-end">
+                                            <select class="js-select2-custom custom-select-sm" size="1"
+                                                    style="opacity: 0;"
+                                                    data-hs-select2-options='{
+                                    "dropdownParent": "#inviteUserSelect4",
+                                    "minimumResultsForSearch": "Infinity",
+                                    "customClass": "custom-select custom-select-sm custom-select-borderless pl-0",
+                                    "dropdownAutoWidth": true,
+                                    "width": true
+                                  }'>
+                                                <option value="guest" selected="">Guest</option>
+                                                <option value="can edit">Can edit</option>
+                                                <option value="can comment">Can comment</option>
+                                                <option value="full access">Full access</option>
+                                                <option value="remove"
+                                                        data-option-template='<span class="text-danger">Remove</span>'>
+                                                    Remove
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <!-- End Select -->
+                                    </div>
+                                </div>
+                                <!-- End Row -->
+                            </div>
+                        </div>
+                    </li>
+                    <!-- End List Group Item -->
+
+                    <!-- List Group Item -->
+                    <li>
+                        <div class="media">
+                            <div class="avatar avatar-sm avatar-soft-dark avatar-circle mr-3">
+                                <span class="avatar-initials">B</span>
+                            </div>
+
+                            <div class="media-body">
+                                <div class="row align-items-center">
+                                    <div class="col-sm">
+                                        <h5 class="text-body mb-0">Bob Dean</h5>
+                                        <span class="d-block font-size-sm">bob@example.com</span>
+                                    </div>
+
+                                    <div class="col-sm">
+                                        <!-- Select -->
+                                        <div id="inviteUserSelect3"
+                                             class="select2-custom select2-custom-sm-right d-sm-flex justify-content-sm-end">
+                                            <select class="js-select2-custom custom-select-sm" size="1"
+                                                    style="opacity: 0;"
+                                                    data-hs-select2-options='{
+                                    "dropdownParent": "#inviteUserSelect3",
+                                    "minimumResultsForSearch": "Infinity",
+                                    "customClass": "custom-select custom-select-sm custom-select-borderless pl-0",
+                                    "dropdownAutoWidth": true,
+                                    "width": true
+                                  }'>
+                                                <option value="guest" selected="">Guest</option>
+                                                <option value="can edit">Can edit</option>
+                                                <option value="can comment">Can comment</option>
+                                                <option value="full access">Full access</option>
+                                                <option value="remove"
+                                                        data-option-template='<span class="text-danger">Remove</span>'>
+                                                    Remove
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <!-- End Select -->
+                                    </div>
+                                </div>
+                                <!-- End Row -->
+                            </div>
+                        </div>
+                    </li>
+                    <!-- End List Group Item -->
+                </ul>
+            </div>
+            <!-- End Body -->
+
+            <!-- Footer -->
+            <div class="modal-footer justify-content-start">
+                <div class="row align-items-center flex-grow-1 mx-n2">
+                    <div class="col-sm-9 mb-2 mb-sm-0">
+                        <input type="hidden" id="inviteUserPublicClipboard"
+                               value="https://themes.getbootstrap.com/product/front-multipurpose-responsive-template/">
+
+                        <p class="modal-footer-text">The public share <a href="#">link settings</a>
+                            <i class="tio-help-outlined" data-toggle="tooltip" data-placement="top"
+                               title="The public share link allows people to view the project without giving access to full collaboration features."></i>
+                        </p>
+                    </div>
+
+                    <div class="col-sm-3 text-sm-right">
+                        <a class="js-clipboard btn btn-sm btn-white text-nowrap" href="javascript:;"
+                           data-toggle="tooltip"
+                           data-placement="top" title="Copy to clipboard!" data-hs-clipboard-options='{
+                    "type": "tooltip",
+                    "successText": "Copied!",
+                    "contentTarget": "#inviteUserPublicClipboard",
+                    "container": "#inviteUserModal"
+                   }'>
+                            <i class="tio-link mr-1"></i> Copy link</a>
+                    </div>
+                </div>
+            </div>
+            <!-- End Footer -->
+        </form>
+    </div>
+</div>
+<!-- End Create a new user Modal -->
+<!-- ========== END SECONDARY CONTENTS ========== -->
+
+<!-- JS Implementing Plugins -->
+<script src="/assets/cms/js/vendor.min.js"></script>
+<script src="/assets/cms/vendor/chart.js/dist/Chart.min.js"></script>
+<script src="/assets/cms/vendor/chart.js.extensions/chartjs-extensions.js"></script>
+<script src="/assets/cms/vendor/chartjs-plugin-datalabels/dist/chartjs-plugin-datalabels.min.js"></script>
+<!-- JS Front -->
+<script src="/assets/cms/js/theme.min.js"></script>
+<script src="/assets/cms/js/sweetalert2.all.min.js"></script>
+<script src="/assets/cms/js/dashboard/dashboard.js"></script>
+
+<script src="/assets/socket/socket-config.js"></script>
+<script src="/assets/cms/js/header/_header.js"></script>
+<!-- JS Plugins Init. -->
+<div th:replace="~{cms/pages/_IE-suport.html}"></div>
+</body>
+
+</html>

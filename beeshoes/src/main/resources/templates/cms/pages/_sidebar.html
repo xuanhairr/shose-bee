@@ -1,0 +1,269 @@
+<div id="sidebarMain" class="d-none d-print-none"
+     xmlns:th="http://www.thymeleaf.org"
+     xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+    <aside
+            class="js-navbar-vertical-aside d-print-none navbar navbar-vertical-aside navbar-vertical navbar-vertical-fixed navbar-expand-xl navbar-bordered  ">
+        <div class="navbar-vertical-container">
+            <div class="navbar-vertical-footer-offset">
+                <div class="navbar-brand-wrapper justify-content-between">
+                    <!-- Logo -->
+                    <a class="navbar-brand" href="/cms/" aria-label="Front">
+                        <img class="navbar-brand-logo" src="/assets/customer/img/Logo 1.png"
+                             style="width: 9.5rem" alt="Logo">
+                        <img class="navbar-brand-logo-mini" src="/assets/customer/img/Logo 1.png" alt="Logo">
+                    </a>
+                    <!-- End Logo -->
+
+                    <!-- Navbar Vertical Toggle -->
+                    <button type="button"
+                            class="js-navbar-vertical-aside-toggle-invoker navbar-vertical-aside-toggle btn btn-icon btn-xs btn-ghost-dark">
+                        <i class="tio-clear tio-lg"></i>
+                    </button>
+                    <!-- End Navbar Vertical Toggle -->
+                </div>
+
+                <!-- Content -->
+                <div class="navbar-vertical-content">
+                    <ul id="siderbar" class="navbar-nav navbar-nav-lg nav-tabs">
+                        <!-- Dashboards -->
+                        <li id="dashboards"  class="nav-item">
+                            <a class="js-nav-tooltip-link nav-link" href="/cms/"
+                               title="Dashboards">
+                                <i class="tio-home-vs-1-outlined nav-icon"></i>
+                                <span class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">Trang chủ</span>
+                            </a>
+                        </li>
+                        <!-- End Dashboards -->
+
+                        <li class="nav-item">
+                            <small class="nav-subtitle" title="Pages">Quản Trị</small>
+                            <small class="tio-more-horizontal nav-subtitle-replacer"></small>
+                        </li>
+                        <li id="ban_hang" class="nav-item">
+                            <a class="js-nav-tooltip-link nav-link" href="/cms/cashier" title=""
+                               data-placement="left" data-original-title="Bán Hàng">
+                                <i class="tio-shop-outlined nav-icon"></i>
+                                <span class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">Bán Hàng</span>
+                            </a>
+                        </li>
+                        <li id="quan_ly_don_hang" class="nav-item">
+                            <a class="js-nav-tooltip-link nav-link" href="/cms/hoa-don" title=""
+                               data-placement="left" data-original-title="Quản Lý Đơn Hàng">
+                                <i class="tio-receipt-outlined nav-icon"></i>
+                                <span class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">Quản Lý Đơn Hàng</span>
+                            </a>
+                        </li>
+                        <!-- Sản Phẩm -->
+                        <li sec:authorize="${hasAuthority('ADMIN')}" id="li_san_pham" class="navbar-vertical-aside-has-menu">
+                            <a class="js-navbar-vertical-aside-menu-link nav-link nav-link-toggle " href="javascript:;"
+                               title="Sản Phẩm">
+                                <i class="tio-format-points nav-icon"></i>
+                                <span class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">Sản Phẩm</span>
+                            </a>
+
+                            <ul class="js-navbar-vertical-aside-submenu nav nav-sub">
+                                <li class="nav-item">
+                                    <a id="san_pham" class="nav-link " href="/cms/product" title="Sản Phẩm">
+                                        <span class="tio-circle nav-indicator-icon"></span>
+                                        <span class="text-truncate">Sản Phẩm</span>
+                                    </a>
+                                </li>
+                                <li id="li_thuoc_tinh" class="navbar-vertical-aside-has-menu">
+                                    <a class="js-navbar-vertical-aside-menu-link nav-link nav-link-toggle"
+                                       href="javascript:;" title="Thuộc Tính">
+                                        <span class="tio-circle nav-indicator-icon"></span>
+                                        <span class="text-truncate">Thuộc Tính</span>
+                                    </a>
+                                    <ul class="js-navbar-vertical-aside-submenu nav nav-sub"
+                                        style="display: none; top: 83.6px;">
+                                        <li class="nav-item">
+                                            <a id="chat_lieu" class="nav-link" href="/cms/shoe-material"
+                                               title="Chất Liệu">
+                                                <span class="tio-circle-outlined nav-indicator-icon"></span>
+                                                <span class="text-truncate">Chất Liệu</span>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a id="mau_sac" class="nav-link " href="/cms/shoe-color" title="Màu Sắc">
+                                                <span class="tio-circle-outlined nav-indicator-icon"></span>
+                                                <span class="text-truncate">Màu Sắc</span>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a id="kich_co" class="nav-link " href="/cms/shoe-size" title="Kích Cỡ">
+                                                <span class="tio-circle-outlined nav-indicator-icon"></span>
+                                                <span class="text-truncate">Kích Cỡ</span>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a id="thuong_hieu" class="nav-link " href="/cms/shoe-brand"
+                                               title="Thương Hiệu">
+                                                <span class="tio-circle-outlined nav-indicator-icon"></span>
+                                                <span class="text-truncate">Thương Hiệu</span>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a id="the_loai" class="nav-link " href="/cms/shoe-category"
+                                               title="Thể Loại">
+                                                <span class="tio-circle-outlined nav-indicator-icon"></span>
+                                                <span class="text-truncate"> Thể Loại</span>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a id="de_giay" class="nav-link " href="/cms/shoe-sole" title="Đế Giày">
+                                                <span class="tio-circle-outlined nav-indicator-icon"></span>
+                                                <span class="text-truncate">Đế Giày</span>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a id="mui_giay" class="nav-link " href="/cms/shoe-toe" title="Mũi Giày">
+                                                <span class="tio-circle-outlined nav-indicator-icon"></span>
+                                                <span class="text-truncate">Mũi Giày</span>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a id="co_giay" class="nav-link " href="/cms/shoe-collar" title="Cổ Giày">
+                                                <span class="tio-circle-outlined nav-indicator-icon"></span>
+                                                <span class="text-truncate">Cổ Giày</span>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a id="tags" class="nav-link " href="/cms/tags" title="Tags">
+                                                <span class="tio-circle-outlined nav-indicator-icon"></span>
+                                                <span class="text-truncate">Tags</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <!-- End Sản Phẩm -->
+                        <!-- User -->
+                        <li class="navbar-vertical-aside-has-menu ">
+                            <a class="js-navbar-vertical-aside-menu-link nav-link nav-link-toggle " href="javascript:;"
+                               title="Pages">
+                                <i class="tio-user-big-outlined nav-icon"></i>
+                                <span class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">Tài Khoản</span>
+                            </a>
+
+                            <ul class="js-navbar-vertical-aside-submenu nav nav-sub">
+                                <li sec:authorize="${hasAuthority('ADMIN')}" class="nav-item">
+                                    <a class="nav-link " th:href="@{/cms/nhan-vien}" title="Referrals">
+                                        <span class="tio-circle nav-indicator-icon"></span>
+                                        <span class="text-truncate">Nhân Viên</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link " th:href="@{/cms/khach-hang}" title="Referrals">
+                                        <span class="tio-circle nav-indicator-icon"></span>
+                                        <span class="text-truncate">Khách Hàng</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!-- End User -->
+                        <!-- Voucher -->
+                        <li sec:authorize="${hasAuthority('ADMIN')}" id="phieu_giam_giam" class="nav-item">
+                            <a class="js-nav-tooltip-link nav-link" href="/cms/voucher" title=""
+                               data-placement="left" data-original-title="Phiếu Giảm Giá">
+                                <i class="tio-ticket nav-icon"></i>
+                                <span class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">Phiếu Giảm Giá</span>
+                            </a>
+                        </li>
+                        <!-- End Voucher -->
+                        <li sec:authorize="${hasAuthority('ADMIN')}" id="li_bao_cao" class="navbar-vertical-aside-has-menu ">
+                            <a class="js-navbar-vertical-aside-menu-link nav-link nav-link-toggle " href="javascript:;"
+                               title="Pages">
+                                <i class="tio-document-text-outlined nav-icon"></i>
+                                <span class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">Báo Cáo</span>
+                            </a>
+
+                            <ul class="js-navbar-vertical-aside-submenu nav nav-sub">
+<!--                                <li class="nav-item">-->
+<!--                                    <a class="nav-link " th:href="@{/cms/revenue}" title="Doanh Thu">-->
+<!--                                        <span class="tio-circle nav-indicator-icon"></span>-->
+<!--                                        <span class="text-truncate">Doanh Thu</span>-->
+<!--                                    </a>-->
+<!--                                </li>-->
+<!--                                <li class="nav-item">-->
+<!--                                    <a class="nav-link " th:href="@{/cms/nhan-vien}" title="Sản Phẩm">-->
+<!--                                        <span class="tio-circle nav-indicator-icon"></span>-->
+<!--                                        <span class="text-truncate">Sản Phẩm</span>-->
+<!--                                    </a>-->
+<!--                                </li>-->
+<!--                                <li class="nav-item">-->
+<!--                                    <a class="nav-link " th:href="@{/cms/nhan-vien}" title="Phiếu Giảm Giá">-->
+<!--                                        <span class="tio-circle nav-indicator-icon"></span>-->
+<!--                                        <span class="text-truncate">Phiếu Giảm Giá</span>-->
+<!--                                    </a>-->
+<!--                                </li>-->
+                                <li class="nav-item">
+                                    <a id="lich_su_thanh_toan" class="nav-link " th:href="@{/cms/history-payment}" title="Lịch Sử Thanh Toán">
+                                        <span class="tio-circle nav-indicator-icon"></span>
+                                        <span class="text-truncate">Lịch Sử Thanh Toán</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                </div>
+                <!-- End Content -->
+
+                <!-- Footer -->
+                <div class="navbar-vertical-footer">
+                    <ul class="navbar-vertical-footer-list">
+                        <li class="navbar-vertical-footer-list-item">
+                            <!-- Unfold -->
+                            <!--                            CONTENT FOOTER-->
+                            <!-- End Unfold -->
+                        </li>
+                    </ul>
+                </div>
+                <!-- End Footer -->
+            </div>
+        </div>
+    </aside>
+</div>
+<script>
+    function activeSiderbar1EXXP(id) {
+        $('#' + id).addClass('active');
+    }
+
+    function activeSiderbar(id, idCha, idOng) {
+        $('#' + id).addClass('active').closest('li.nav-item').addClass('show')
+        if (idCha.length > 0) {
+            $('#' + idCha).addClass('show')
+        }
+        if (idOng.length > 0) {
+            $('#' + idOng).addClass('show')
+        }
+    }
+</script>
+<div id="sidebarCompact" class="d-none">
+</div>
+<!--    CHƯA RÕ LÝ DO SAU KHI XÓA ĐI ĐOẠN CODE NÀY SIDEBAR SẼ BỊ LỖI HIỂN THỊ-->
+<!-- Builder -->
+<div id="styleSwitcherDropdown" class="hs-unfold-content sidebar sidebar-bordered sidebar-box-shadow"
+     style="width: 35rem;">
+    <div class="card card-lg border-0 h-100">
+        <!-- Footer -->
+        <div class="card-footer">
+            <div class="row gx-2">
+                <div class="col">
+                    <button type="button" id="js-builder-reset" class="btn btn-block btn-lg btn-white">
+                        <i class="tio-restore"></i> Cài lại
+                    </button>
+                </div>
+                <div class="col">
+                    <button type="button" id="js-builder-preview" class="btn btn-block btn-lg btn-primary">
+                        <i class="tio-visible"></i> Xem trước
+                    </button>
+                </div>
+            </div>
+            <!-- End Row -->
+        </div>
+        <!-- End Footer -->
+    </div>
+</div>
+<!-- End Builder -->

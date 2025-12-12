@@ -1,0 +1,301 @@
+
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required Meta Tags Always Come First -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Title -->
+    <title>LightBee | Lịch Sử Thanh Toán</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/assets/cms/img/icon/favicon.ico">
+
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+
+    <!-- CSS Implementing Plugins -->
+    <link rel="stylesheet" href="/assets/cms/css/vendor.min.css">
+    <link rel="stylesheet" href="/assets/cms/vendor/icon-set/style.css">
+    <link rel="stylesheet" href="/assets/cms/css/sweetalert2.min.css">
+    <style>
+        #dataInTable tr td:nth-child(2) {
+            padding-left: 0 !important;
+        }
+    </style>
+    <!-- CSS Front Template -->
+    <link rel="stylesheet" href="/assets/cms/css/theme.min.css?v=1.0">
+</head>
+
+<body class="footer-offset">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.1/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+<script src="/assets/cms/vendor/hs-navbar-vertical-aside/hs-navbar-vertical-aside-mini-cache.js"></script>
+<!-- ========== HEADER ========== -->
+<div th:replace="~{cms/pages/_header.html}"></div>
+<!-- ========== END HEADER ========== -->
+
+<!-- ========== SIDEBAR ========== -->
+<div th:replace="~{cms/pages/_sidebar.html}"></div>
+<!-- ========== END SIDEBAR ========== -->
+
+<script src="/assets/cms/js/demo.js"></script>
+
+<!-- END ONLY DEV -->
+
+<!-- Search Form -->
+<div id="searchDropdown" class="hs-unfold-content dropdown-unfold search-fullwidth d-md-none">
+    <form class="input-group input-group-merge input-group-borderless">
+        <div class="input-group-prepend">
+            <div class="input-group-text">
+                <i class="tio-search"></i>
+            </div>
+        </div>
+
+        <input class="form-control rounded-0" type="search" placeholder="Search in front" aria-label="Search in front">
+
+        <div class="input-group-append">
+            <div class="input-group-text">
+                <div class="hs-unfold">
+                    <a class="js-hs-unfold-invoker" href="javascript:;" data-hs-unfold-options='{
+                   "target": "#searchDropdown",
+                   "type": "css-animation",
+                   "animationIn": "fadeIn",
+                   "hasOverlay": "rgba(46, 52, 81, 0.1)",
+                   "closeBreakpoint": "md"
+                 }'>
+                        <i class="tio-clear tio-lg"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<!-- End Search Form -->
+
+<!-- ========== HEADER ========== -->
+
+
+<!-- ========== END HEADER ========== -->
+
+<!-- ========== MAIN CONTENT ========== -->
+<!-- Navbar Vertical -->
+
+
+<!-- End Navbar Vertical -->
+
+<main id="content" role="main" class="main">
+    <!-- Content -->
+    <div class="content container-fluid">
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row align-items-end">
+                <div class="col-sm mb-2 mb-sm-0">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb breadcrumb-no-gutter">
+                            <li class="breadcrumb-item"><a class="breadcrumb-link" href="javascript:;">CMS</a></li>
+                            <li class="breadcrumb-item"><a class="breadcrumb-link" href="javascript:;">Báo Cáo</a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">Lịch Sử Thanh Toán</li>
+                        </ol>
+                    </nav>
+
+                    <h1 class="page-header-title">Lịch Sử Thanh Toán</h1>
+                </div>
+
+                <div class="col-sm-auto">
+                </div>
+            </div>
+            <!-- End Row -->
+        </div>
+        <!-- End Page Header -->
+
+        <!-- Card -->
+        <div class="card">
+            <!-- Header -->
+            <div class="card-header">
+                <div class="row justify-content-between align-items-center flex-grow-1">
+                    <div class="col-sm-6 col-md-4 mb-3 mb-sm-0">
+                        <form>
+                            <!-- Search -->
+                            <div class="input-group input-group-merge input-group-flush">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <i class="tio-search"></i>
+                                    </div>
+                                </div>
+                                <input id="datatableSearch" type="search" class="form-control"
+                                       placeholder="Tìm kiếm." aria-label="Tìm kiếm.">
+                            </div>
+                            <!-- End Search -->
+                        </form>
+                    </div>
+
+                    <div class="col-sm-6">
+<!--                        <div class="d-sm-flex justify-content-sm-end align-items-sm-center">-->
+<!--                            &lt;!&ndash; Datatable Info &ndash;&gt;-->
+<!--                            <div id="datatableCounterInfo" class="mr-2 mb-2 mb-sm-0" style="display: none;">-->
+<!--                                <div class="d-flex align-items-center">-->
+<!--                      <span class="font-size-sm mr-3">-->
+<!--                        <span id="datatableCounter">0</span>-->
+<!--                        Selected-->
+<!--                      </span>-->
+<!--                                    <a class="btn btn-sm btn-outline-danger" href="javascript:;">-->
+<!--                                        <i class="tio-delete-outlined"></i> Delete-->
+<!--                                    </a>-->
+<!--                                </div>-->
+<!--                            </div>-->
+                            <!-- End Datatable Info -->
+                        </div>
+                    </div>
+                </div>
+                <!-- End Row -->
+            </div>
+            <!-- End Header -->
+
+            <!-- Table -->
+            <div class="table-responsive datatable-custom">
+                <table id="datatable"
+                       class="table table-lg table-borderless table-thead-bordered table-nowrap table-align-middle card-table"
+                       data-hs-datatables-options='{
+                       "ordering": false,
+                     "columnDefs": [{
+                        "targets": [0, 7],
+                        "orderable": false
+                      }],
+                     "order": [],
+                     "info": {
+                       "totalQty": "#datatableWithPaginationInfoTotalQty"
+                     },
+                     "search": "#datatableSearch",
+                     "entries": "#datatableEntries",
+                     "pageLength": 10,
+                     "isResponsive": false,
+                     "isShowPaging": false,
+                     "pagination": "datatablePagination"
+                   }'>
+                    <thead class="thead-light">
+                    <tr>
+                        <th class="table-column-pr-0">
+                            STT
+                        </th>
+                        <th class="table-column-pl-0">Hóa Đơn</th>
+                        <th>Khách Hàng</th>
+                        <th>Mã Giao Dịch</th>
+                        <th>Hình Thức</th>
+                        <th>Thanh Toán</th>
+                        <th>Tiền Thừa</th>
+                        <th>Thời Gian</th>
+<!--                        <th></th>-->
+                    </tr>
+                    </thead>
+                    <tbody id="dataInTable">
+<!--                    <tr th:each="tt,iter:${listData}">-->
+<!--                        <td class="table-column-pr-0">-->
+<!--                            <label class="text-center" th:text="${iter.index+1}"></label>-->
+<!--                        </td>-->
+<!--                        <td class="table-column-pl-0">-->
+<!--                            <a class="media align-items-center"-->
+<!--                               th:href="'/cms/hoa-don/'+${tt.getHoaDon().getMaHoaDon()}+'/chi-tiet'">-->
+<!--                                <div class="media-body">-->
+<!--                                    <h5 class="text-hover-primary mb-0" th:text="${tt.getHoaDon().getMaHoaDon()}"></h5>-->
+<!--                                </div>-->
+<!--                            </a>-->
+<!--                        </td>-->
+<!--                        <td class="">-->
+<!--                            <div class="media-body">-->
+<!--                                <h5 class="text-hover-primary mb-0" th:text="${tt.getHoaDon().getTenNguoiNhan()}"></h5>-->
+<!--                            </div>-->
+<!--                        </td>-->
+<!--                        <td class="" th:text="${tt.getMaGiaoDich()}">-->
+<!--                        </td>-->
+<!--                        <td class="" th:text="${tt.getHinhThuc()}">-->
+<!--                        </td>-->
+<!--                        <td class="" th:text="${ #numbers.formatDecimal (tt.getTienThanhToan(), 1, 'DEFAULT', 0, 'DEFAULT')}+'đ'"></td>-->
+<!--                        <td class="" th:text="${ #numbers.formatDecimal (tt.getTienThua(), 1, 'DEFAULT', 0, 'DEFAULT')}+'đ'"></td>-->
+<!--                        <td class=""-->
+<!--                            th:text="${#dates.format(tt.getNgayTao(), 'dd-MM-yyyy HH:mm:ss')}">-->
+<!--                        </td>-->
+<!--&lt;!&ndash;                        <td class="table-column-pl-0">&ndash;&gt;-->
+<!--&lt;!&ndash;                            <a class="btn btn-sm btn-white" href="javascript:;" data-toggle="modal"&ndash;&gt;-->
+<!--&lt;!&ndash;                               data-target="#editUserModal"  onclick="edit(this)">&ndash;&gt;-->
+<!--&lt;!&ndash;                                <i class="tio-edit"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;                            </a>&ndash;&gt;-->
+<!--&lt;!&ndash;                            <a class="btn btn-sm btn-white btn-delete"&ndash;&gt;-->
+<!--&lt;!&ndash;                               onclick="deleteCategory(this)" href="javascript:;">&ndash;&gt;-->
+<!--&lt;!&ndash;                                <i class="tio-delete"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;                            </a>&ndash;&gt;-->
+<!--&lt;!&ndash;                        </td>&ndash;&gt;-->
+<!--                    </tr>-->
+                    </tbody>
+                </table>
+            </div>
+            <!-- End Table -->
+
+            <!-- Footer -->
+            <div class="card-footer">
+                <!-- Pagination -->
+                <div class="row justify-content-center justify-content-sm-between align-items-sm-center">
+                    <div class="col-sm mb-2 mb-sm-0">
+                        <div class="d-flex justify-content-center justify-content-sm-start align-items-center">
+                            <span class="mr-2">Hiển Thị:</span>
+
+                            <!-- Select -->
+                            <select id="datatableEntries" class="js-select2-custom" data-hs-select2-options='{
+                            "minimumResultsForSearch": "Infinity",
+                            "customClass": "custom-select custom-select-sm custom-select-borderless",
+                            "dropdownAutoWidth": true,
+                            "width": true
+                          }'>
+<!--                                <option th:if="${#lists.size(listData) < 10}" th:value="${#lists.size(listData)}"-->
+<!--                                        selected th:text="${#lists.size(listData)}"></option>-->
+<!--                                <option th:if="${#lists.size(listData) >= 10}" th:value="10" selected>10</option>-->
+                                <option value="15">15</option>
+                                <option value="20">20</option>
+                            </select>
+                            <!-- End Select -->
+
+                            <span class="text-secondary mr-2">of</span>
+
+                            <!-- Pagination Quantity -->
+                            <span id="datatableWithPaginationInfoTotalQty"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-auto">
+                        <div class="d-flex justify-content-center justify-content-sm-end">
+                            <!-- Pagination -->
+                            <nav id="datatablePagination" aria-label="Activity pagination"></nav>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Pagination -->
+            </div>
+            <!-- End Footer -->
+        </div>
+        <!-- End Card -->
+    </div>
+    <!-- End Content -->
+
+    <!-- Footer -->
+    <div th:replace="~{cms/pages/_footer.html}"></div>
+    <!-- End Footer -->
+</main>
+<!-- ========== END MAIN CONTENT ========== -->
+
+<!-- JS Implementing Plugins -->
+<script src="/assets/cms/js/vendor.min.js"></script>
+
+<!-- JS Front -->
+<script src="/assets/cms/js/theme.min.js"></script>
+
+<!-- JS Plugins Init. -->
+<script src="/assets/cms/js/shoe-mate.js"></script>
+<script src="/assets/cms/js/sweetalert2.all.min.js"></script>
+<script src="/assets/socket/socket-config.js"></script>
+<script src="/assets/cms/js/header/_header.js"></script>
+<!-- IE Support -->
+<div th:replace="~{cms/pages/_IE-suport.html}"></div>
+</body>
+</html>

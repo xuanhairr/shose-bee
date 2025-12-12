@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required Meta Tags Always Come First -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Title -->
+    <title>LightBee | Thông tin</title>
+    <!-- Favicon -->
+    <!--    <link rel="shortcut icon" href="favicon.ico">-->
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <!-- CSS Implementing Plugins -->
+    <link rel="stylesheet" href="/assets/cms/css/vendor.min.css">
+    <link rel="stylesheet" href="/assets/cms/vendor/icon-set/style.css">
+    <!-- CSS Front Template -->
+    <link rel="stylesheet" href="/assets/cms/css/theme.min.css?v=1.0">
+    <!--    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>-->
+
+    <!--    <link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet"/>-->
+    <!--    <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>-->
+
+    <link rel="stylesheet" href="/assets/cms/css/sweetalert2.min.css">
+</head>
+<body class="footer-offset">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.1/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+<script src="/assets/cms/vendor/hs-navbar-vertical-aside/hs-navbar-vertical-aside-mini-cache.js"></script>
+
+<!-- ========== HEADER ========== -->
+<div th:replace="~{cms/pages/_header.html}"></div>
+<!-- ========== END HEADER ========== -->
+
+<!-- ========== SIDEBAR ========== -->
+<div th:replace="~{cms/pages/_sidebar.html}"></div>
+<!-- ========== END SIDEBAR ========== -->
+<script src="/assets/cms/js/demo.js"></script>
+
+<!-- ========== MAIN CONTENT ========== -->
+<main id="content" role="main" class="main">
+    <!-- Content -->
+    <div class="content container-fluid">
+        <!-- Step Form -->
+        <form th:action="@{/cms/quan-tri/update}" method="post"
+              th:object="${quanTri}"
+              class="js-step-form py-md-1" data-hs-step-form-options='{
+                "progressSelector": "#addUserStepFormProgress",
+                "stepsSelector": "#addUserStepFormContent",
+                "endSelector": "#addUserFinishBtn",
+                "isValidate": false
+              }'>
+            <input type="text" id="idNhanVien" th:value="${quanTri.getId()}" hidden>
+            <div class="row justify-content-lg-center">
+                <div class="col">
+                    <!-- Step -->
+                    <ul id="addUserStepFormProgress"
+                        class="js-step-progress step step-sm step-icon-sm step step-inline step-item-between mb-3 mb-md-5">
+                        <li class="step-item">
+                            <a class="step-content-wrapper" href="javascript:;" data-hs-step-form-next-options='{
+                      "targetSelector": "#addUserStepProfile"
+                    }'>
+                                <div class="step-content">
+                                    <h1 class="page-header-title">Quản Trị Trang Chủ</h1>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- End Step -->
+
+                    <!-- Content Step Form -->
+                    <div id="addUserStepFormContent">
+                        <!-- Card -->
+                        <div id="addUserStepProfile" class="card card-lg active">
+                            <!-- Body -->
+                            <div class="card-body row">
+                                <div class="col-sm-4">
+                                    <!-- Form Group -->
+                                    <div class="form-group">
+                                        <label for="title1"
+                                               class="col-sm-4 col-form-label input-label">Title1
+                                            <i
+                                                    class="tio-help-outlined text-body ml-1"
+                                                    data-toggle="tooltip"
+                                                    data-placement="top"
+                                                    title="Displayed on public forums, such as Front."></i></label>
+
+                                        <div class="col">
+                                            <div class="input-group input-group-sm-down-break">
+                                                <input type="text" class="form-control"
+                                                       name="title1"
+                                                       id="title1"
+                                                       placeholder="Nguyễn" aria-label="Title"
+                                                       th:field="*{title1}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- End Form Group -->
+
+                                    <!-- Form Group -->
+                                    <div class="form-group">
+                                        <label class="col col-form-label input-label">Banner 1</label>
+
+                                        <div class="col">
+                                            <div class="d-flex align-items-center">
+                                                <!-- Avatar -->
+                                                <label class="avatar avatar-xl avatar-square avatar-uploader mr-5"
+                                                       for="banner1Uploader">
+                                                    <img id="banner1" class="avatar-img"
+                                                         th:src="${quanTri.getBanner1()==''?'/assets/cms/img/160x160/img1.jpg':quanTri.getBanner1()}"
+                                                         alt="Image Description">
+
+                                                    <input type="file"
+                                                           class="js-file-attach avatar-uploader-input"
+                                                           id="banner1Uploader"
+                                                           data-hs-file-attach-options='{
+                                                                              "textTarget": "#banner1",
+                                                                              "mode": "image",
+                                                                              "targetAttr": "src",
+                                                                              "resetTarget": ".js-file-attach-reset-img",
+                                                                              "resetImg": "/assets/img/160x160/img1.jpg",
+                                                                              "allowTypes": [".png", ".jpeg", ".jpg"]
+                                                                           }'>
+                                                    <th:block th:if="${quanTri.getBanner1()!=null}">
+                                                        <input id="urlImgbanner1" type="hidden"
+                                                               name="banner1"
+                                                               th:value="${quanTri.getBanner1()}"
+                                                               hidden>
+                                                    </th:block>
+                                                    <span class="avatar-uploader-trigger">
+                                                                      <i class="tio-edit avatar-uploader-icon shadow-soft"></i>
+                                                                    </span>
+                                                </label>
+                                                <!-- End Avatar -->
+
+                                                <button type="button"
+                                                        class="js-file-attach-reset-img btn btn-white">
+                                                    Delete
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- End Form Group -->
+
+                                    <!-- Form Group -->
+                                    <div class="form-group">
+                                        <label for="moTa1"
+                                               class="col-sm-4 col-form-label input-label">Mô tả
+                                            1</label>
+
+                                        <div class="col">
+                                            <div class="input-group input-group-sm-down-break align-items-center">
+                                                <input type="text"
+                                                       class="js-masked-input form-control"
+                                                       name="moTa1"
+                                                       id="moTa1" placeholder="Mô tả"
+                                                       th:field="*{mo_ta1}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- End Form Group -->
+
+                                    <!------------------->
+                                    <!-- Form Group -->
+                                    <div class="form-group">
+                                        <label for="title2"
+                                               class="col-sm-4 col-form-label input-label">Title2
+                                            <i
+                                                    class="tio-help-outlined text-body ml-1"
+                                                    data-toggle="tooltip"
+                                                    data-placement="top"
+                                                    title="Displayed on public forums, such as Front."></i></label>
+
+                                        <div class="col">
+                                            <div class="input-group input-group-sm-down-break">
+                                                <input type="text" class="form-control"
+                                                       name="title1"
+                                                       id="title2"
+                                                       placeholder="Nguyễn" aria-label="Title"
+                                                       th:field="*{title2}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- End Form Group -->
+
+                                    <!-- Form Group -->
+                                    <div class="form-group">
+                                        <label class="col col-form-label input-label">Banner2</label>
+
+                                        <div class="col">
+                                            <div class="d-flex align-items-center">
+                                                <!-- Avatar -->
+                                                <label class="avatar avatar-xl avatar-square avatar-uploader mr-5"
+                                                       for="banner2Uploader">
+                                                    <img id="banner2" class="avatar-img"
+                                                         th:src="${quanTri.getBanner2()==''?'/assets/cms/img/160x160/img1.jpg':quanTri.getBanner2()}"
+                                                         alt="Image Description">
+
+                                                    <input type="file"
+                                                           class="js-file-attach avatar-uploader-input"
+                                                           id="banner2Uploader"
+                                                           data-hs-file-attach-options='{
+                                                                              "textTarget": "#banner2",
+                                                                              "mode": "image",
+                                                                              "targetAttr": "src",
+                                                                              "resetTarget": ".js-file-attach-reset-img",
+                                                                              "resetImg": "/assets/img/160x160/img1.jpg",
+                                                                              "allowTypes": [".png", ".jpeg", ".jpg"]
+                                                                           }'>
+                                                    <th:block th:if="${quanTri.getBanner2()!=null}">
+                                                        <input id="urlImgbanner2" type="hidden"
+                                                               name="banner2"
+                                                               th:value="${quanTri.getBanner2()}"
+                                                               hidden>
+                                                    </th:block>
+                                                    <span class="avatar-uploader-trigger">
+                                                                      <i class="tio-edit avatar-uploader-icon shadow-soft"></i>
+                                                                    </span>
+                                                </label>
+                                                <!-- End Avatar -->
+
+                                                <button type="button"
+                                                        class="js-file-attach-reset-img btn btn-white">
+                                                    Delete
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- End Form Group -->
+
+                                    <!-- Form Group -->
+                                    <div class="form-group">
+                                        <label for="moTa2"
+                                               class="col-sm-4 col-form-label input-label">Mô tả 2</label>
+
+                                        <div class="col">
+                                            <div class="input-group input-group-sm-down-break align-items-center">
+                                                <input type="text"
+                                                       class="js-masked-input form-control"
+                                                       name="moTa2"
+                                                       id="moTa2" placeholder="Mô tả"
+                                                       th:field="*{mo_ta2}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- End Form Group -->
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <!-- Form Group -->
+                                    <div class="form-group">
+                                        <label
+                                                class="col-sm-4 col-form-label input-label">Sản phẩm 1
+                                            <i
+                                                    class="tio-help-outlined text-body ml-1"
+                                                    data-toggle="tooltip"
+                                                    data-placement="top"
+                                                    title="Displayed on public forums, such as Front."></i></label>
+
+                                        <div class="col">
+                                            <select class="js-select2-custom custom-select form-control"
+                                                    th:field="*{san_pham1}">
+                                                <option th:each="cv:${listSP}" th:value="${cv.getId()}"
+                                                        th:selected="${quanTri.getSan_pham1() == cv.getId()}"
+                                                        th:text="${cv.getTen()}"></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <!-- End Form Group -->
+
+                                    <!-- Form Group -->
+                                    <div class="form-group">
+                                        <label for="title_sp1"
+                                               class="col-sm-4 col-form-label input-label">Title sp1</label>
+
+                                        <div class="col">
+                                            <div class="input-group input-group-sm-down-break align-items-center">
+                                                <input type="text"
+                                                       class="js-masked-input form-control"
+                                                       name="title_sp1"
+                                                       id="title_sp1" placeholder="Title sp"
+                                                       th:field="*{title_sp1}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- End Form Group -->
+
+
+                                    <!-------------------------->
+                                    <!-- Form Group -->
+                                    <div class="form-group">
+                                        <label
+                                                class="col-sm-4 col-form-label input-label">Sản phẩm 2
+                                            <i
+                                                    class="tio-help-outlined text-body ml-1"
+                                                    data-toggle="tooltip"
+                                                    data-placement="top"
+                                                    title="Displayed on public forums, such as Front."></i></label>
+
+                                        <div class="col">
+                                            <select class="js-select2-custom custom-select form-control"
+                                                    th:field="*{san_pham2}">
+                                                <option th:each="cv:${listSP}" th:value="${cv.getId()}"
+                                                        th:selected="${quanTri.getSan_pham2() == cv.getId()}"
+                                                        th:text="${cv.getTen()}"></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <!-- End Form Group -->
+
+                                    <!-- Form Group -->
+                                    <div class="form-group">
+                                        <label for="title_sp2"
+                                               class="col-sm-4 col-form-label input-label">Title sp2</label>
+
+                                        <div class="col">
+                                            <div class="input-group input-group-sm-down-break align-items-center">
+                                                <input type="text"
+                                                       class="js-masked-input form-control"
+                                                       name="title_sp2"
+                                                       id="title_sp2" placeholder="Title sp"
+                                                       th:field="*{title_sp2}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- End Form Group -->
+
+
+                                    <!------------------------->
+                                    <!-- Form Group -->
+                                    <div class="form-group">
+                                        <label
+                                                class="col-sm-4 col-form-label input-label">Sản phẩm 3
+                                            <i
+                                                    class="tio-help-outlined text-body ml-1"
+                                                    data-toggle="tooltip"
+                                                    data-placement="top"
+                                                    title="Displayed on public forums, such as Front."></i></label>
+
+                                        <div class="col">
+                                            <select class="js-select2-custom custom-select form-control"
+                                                    th:field="*{san_pham3}">
+                                                <option th:each="cv:${listSP}" th:value="${cv.getId()}"
+                                                        th:selected="${quanTri.getSan_pham3() == cv.getId()}"
+                                                        th:text="${cv.getTen()}"></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <!-- End Form Group -->
+
+                                    <!-- Form Group -->
+                                    <div class="form-group">
+                                        <label for="title_sp3"
+                                               class="col-sm-4 col-form-label input-label">Title sp3</label>
+
+                                        <div class="col">
+                                            <div class="input-group input-group-sm-down-break align-items-center">
+                                                <input type="text"
+                                                       class="js-masked-input form-control"
+                                                       name="title_sp3"
+                                                       id="title_sp3" placeholder="Title sp"
+                                                       th:field="*{title_sp3}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- End Form Group -->
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <!-- Form Group -->
+                                    <div class="form-group">
+                                        <label
+                                                class="col-sm-4 col-form-label input-label">Sản phẩm sale
+                                            <i
+                                                    class="tio-help-outlined text-body ml-1"
+                                                    data-toggle="tooltip"
+                                                    data-placement="top"
+                                                    title="Displayed on public forums, such as Front."></i></label>
+
+                                        <div class="col">
+                                            <select class="js-select2-custom custom-select form-control"
+                                                    th:field="*{san_pham_sale}">
+                                                <option th:each="cv:${listSPSales}" th:value="${cv.getId()}"
+                                                        th:selected="${quanTri.getSan_pham_sale() == cv.getId()}"
+                                                        th:text="${cv.getTen()}"></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <!-- End Form Group -->
+
+                                    <!-- Form Group -->
+                                    <div class="form-group">
+                                        <label for="title_sp_sale"
+                                               class="col-sm-4 col-form-label input-label">Title sp sale</label>
+
+                                        <div class="col">
+                                            <div class="input-group input-group-sm-down-break align-items-center">
+                                                <input type="text"
+                                                       class="js-masked-input form-control"
+                                                       name="title_sp_sale"
+                                                       id="title_sp_sale" placeholder="Title sp sale"
+                                                       th:field="*{title_sp_sale}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- End Form Group -->
+
+                                    <div class="form-group">
+                                        <label for="thoi_gian_sale"
+                                               class="col-sm-4 col-form-label input-label">Thời gian sale</label>
+
+                                        <div class="col">
+                                            <div class="input-group input-group-sm-down-break align-items-center">
+                                                <input type="datetime-local" class="form-control money-input-mask"
+                                                       name="thoi_gian_sale"
+                                                       id="thoi_gian_sale"
+                                                       th:value="*{thoi_gian}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Body -->
+
+                            <div class="d-flex justify-content-center">
+                                <div class="card-footer d-sm-flex align-items-sm-center">
+                                    <button type="submit" class="btn btn-primary">Cập nhật</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Row -->
+        </form>
+        <!-- End Step Form -->
+    </div>
+
+
+    <div class="footer">
+        <div class="row justify-content-between align-items-center">
+            <div class="col">
+                <p class="font-size-sm mb-0">&copy; Front. <span
+                        class="d-none d-sm-inline-block">2020 Htmlstream.</span></p>
+            </div>
+            <div class="col-auto">
+                <div class="d-flex justify-content-end">
+                    <!-- List Dot -->
+                    <ul class="list-inline list-separator">
+                        <li class="list-inline-item">
+                            <a class="list-separator-link" href="#">FAQ</a>
+                        </li>
+
+                        <li class="list-inline-item">
+                            <a class="list-separator-link" href="#">License</a>
+                        </li>
+
+                        <li class="list-inline-item">
+                            <!-- Keyboard Shortcuts Toggle -->
+                            <div class="hs-unfold">
+                                <a class="js-hs-unfold-invoker btn btn-icon btn-ghost-secondary rounded-circle"
+                                   href="javascript:;" data-hs-unfold-options='{
+                              "target": "#keyboardShortcutsSidebar",
+                              "type": "css-animation",
+                              "animationIn": "fadeInRight",
+                              "animationOut": "fadeOutRight",
+                              "hasOverlay": true,
+                              "smartPositionOff": true
+                             }'>
+                                    <i class="tio-command-key"></i>
+                                </a>
+                            </div>
+                            <!-- End Keyboard Shortcuts Toggle -->
+                        </li>
+                    </ul>
+                    <!-- End List Dot -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- End Footer -->
+</main>
+<!-- ========== END MAIN CONTENT ========== -->
+<!-- ========== SECONDARY CONTENTS ========== -->
+<!-- ========== END SECONDARY CONTENTS ========== -->
+
+<!-- JS Implementing Plugins -->
+<script src="/assets/cms/js/vendor.min.js"></script>
+<!-- JS Front -->
+<script src="/assets/cms/js/theme.min.js"></script>
+<!-- JS Plugins Init. -->
+<script src="/assets/cms/js/khachHangJS/quanTri.js"></script>
+<script src="/assets/cms/js/sweetalert2.all.min.js"></script>
+<script src="/assets/socket/socket-config.js"></script>
+<script src="/assets/cms/js/header/_header.js"></script>
+<div th:replace="~{cms/pages/_IE-suport.html}"></div>
+</body>
+</html>

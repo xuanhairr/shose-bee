@@ -1,0 +1,146 @@
+<!-- Offcanvas Menu Begin -->
+<div class="offcanvas-menu-overlay"></div>
+<div class="offcanvas-menu-wrapper">
+    <div class="offcanvas__option">
+        <div class="offcanvas__links">
+            <a href="/login">Đăng nhập</a>
+            <a href="/about">About</a>
+        </div>
+    </div>
+    <div class="offcanvas__nav__option">
+        <a href="#" class="search-switch"><img src="/assets/customer/img/icon/search.png" alt=""></a>
+        <a href="#"><img src="/assets/customer/img/icon/heart.png" alt=""></a>
+        <a href="/shopping-cart"><img src="/assets/customer/img/icon/cart.png" alt=""> <span>0</span></a>
+    </div>
+    <div id="mobile-menu-wrap"></div>
+    <div class="offcanvas__text">
+        <p>Miễn phí vận chuyển, đảm bảo hoàn trả hoặc hoàn tiền trong 30 ngày.</p>
+    </div>
+</div>
+<!-- Offcanvas Menu End -->
+<link rel="stylesheet" href="/assets/cms/css/sweetalert2.min.css">
+<header class="header">
+    <div class="container" xmlns:th="http://www.thymeleaf.org"
+         xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+        <div class="row">
+            <div class="col-lg-3 col-md-3">
+                <div class="header__logo">
+                    <a href="/"><img src="/assets/customer/img/Logo 2.png" alt="" style="width: 195px"></a>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 p-0">
+                <nav class="header__menu mobile-menu">
+                    <ul>
+                        <li class="tabsheader active" data-web="index"><a href="/">Trang chủ</a></li>
+                        <li class="tabsheader" data-web="shop"><a href="/shop">Cửa hàng</a></li>
+                        <li class="tabsheader" data-web="pages"><a href="/oder-tracking">Tra Cứu</a></li>
+                        <li class="tabsheader" data-web="contact"><a href="/contact">Liên Hệ</a></li>
+                        <li class="tabsheader" data-web="about"><a href="/about">Thông Tin</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-lg-3 col-md-3 p-0">
+                <div class="header__nav__option">
+                    <ul>
+                        <li><a href="javascript:;" class="search-switch"><img src="/assets/customer/img/icon/search.png"
+                                                                              alt=""></a></li>
+                        <li><a href="javascript:;"><img src="/assets/customer/img/icon/heart.png" alt=""></a></li>
+                        <li>
+                            <a href="/shopping-cart"><img src="/assets/customer/img/icon/cart.png" alt=""> <span
+                                    id="quantity__item_carts">0</span></a>
+                            <ul class="cart-dropdown" id="cart-dropdown-items">
+                                <li class="list_product_items" id="list_product_items_cart">
+                                    <!--                                    <div class="cart_product_item row">-->
+                                    <!--                                        <div class="thumb col-sm-3">-->
+                                    <!--                                            <img src="/assets/customer/img/product/product-1.jpg" alt="product img">-->
+                                    <!--                                        </div>-->
+                                    <!--                                        <div class="cart_content col-sm-9 ">-->
+                                    <!--                                            <h5 class="title col-11 w_100">Tên Sản Phẩm Tên Sản Phẩm </h5>-->
+                                    <!--                                            <div class="product_quantity col-12 w_100 mt-1 " >-->
+                                    <!--                                                <label class="mb-0">SL:1</label>-->
+                                    <!--                                            </div>-->
+                                    <!--                                            <div class="col-12 height-mid">-->
+                                    <!--                                                <label class="small">MS:Màu Đen</label>-->
+                                    <!--                                                <label class="small">KT:34</label>-->
+                                    <!--                                            </div>-->
+                                    <!--                                            <h6 class="product_price col-sm-12 w_100">100,000đ</h6>-->
+                                    <!--                                            <a class="cart_trash"><i class="fa fa-trash"></i></a>-->
+                                    <!--                                        </div>-->
+                                    <!--                                    </div>-->
+                                </li>
+                                <li class="cart-total mt-3  w_100 ">
+                                    <h5>Tổng Tiền : <span id="total-money-cart">0đ</span></h5>
+                                </li>
+                                <li class="cart-btn-group mt-3">
+                                    <a href="/shopping-cart" class="primary-btn cart_btn">Xem Giỏ Hàng</a>
+                                    <a id="btn-checkout-header" class="primary-btn cart_btn">Thanh Toán</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+
+                            <th:block sec:authorize="!isAuthenticated()">
+                                <a href="/login">
+                                    <img src="/assets/customer/img/icon/padlock.png" width="21" height="22" alt="">
+                                </a>
+                            </th:block>
+                            <th:block sec:authorize="isAuthenticated()">
+                                <a class="user-avatar" href="/user-profile">
+                                    <img th:src="${#authentication.getPrincipal().avatar == null ?'/assets/customer/img/icon/user.png':#authentication.getPrincipal().avatar}"
+                                         width="28" height="28" onerror="avatarError(this,event)">
+                                </a>
+                                <label class="user-name mb-0"
+                                       th:if="${#authentication.getPrincipal().khachHang!= null and #authentication.getPrincipal().khachHang.hoTen!=null}"
+                                       th:text="${#authentication.getPrincipal().khachHang.hoTen}"></label>
+                                <label class="user-name mb-0"
+                                       th:if="${#authentication.getPrincipal().nhanVien!= null and #authentication.getPrincipal().nhanVien.hoTen!=null}"
+                                       th:text="${#authentication.getPrincipal().nhanVien.hoTen}"></label>
+                            </th:block>
+
+                            <ul class="dropdown boxshadow_drop" style="margin-right: 0px">
+                                <th:block sec:authorize="!isAuthenticated()">
+                                    <li>
+                                        <a th:href="@{/login}">Đăng nhập</a>
+                                    </li>
+                                    <li>
+                                        <a th:href="@{/register}">Đăng ký</a>
+                                    </li>
+                                </th:block>
+                                <th:block sec:authorize="hasAnyAuthority('USER','MANAGER', 'ADMIN')">
+                                    <li>
+                                        <a th:href="@{/cms/}">Quản trị</a>
+                                    </li>
+                                </th:block>
+                                <th:block sec:authorize="isAuthenticated()">
+                                    <li>
+                                        <a th:href="@{/user-profile}">Trang Cá Nhân</a>
+                                    </li>
+                                    <li>
+                                        <a href="/change-password">Đổi mật khẩu</a>
+                                    </li>
+                                    <li>
+                                        <a onclick="Swal.fire({
+                                        title: 'Bạn chắc chứ?',
+                                        text: 'Bạn muốn đăng xuất?',
+                                        icon: 'warning',
+                                        showCancelButton: true,
+                                        confirmButtonColor: '#3085d6',
+                                        cancelButtonColor: '#d33',
+                                        cancelButtonText: 'Hủy',
+                                        confirmButtonText: 'Đăng Xuất'
+                                        }).then((result) => {
+                                        if(result.isConfirmed) location.href = '/logout';
+                                        })">Đăng xuất</a>
+                                    </li>
+                                </th:block>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="canvas__open"><i class="fa fa-bars"></i></div>
+        <input id="authentication_username" type="text" hidden="hidden" sec:authorize="isAuthenticated()"
+               th:value="${#authentication.principal.username}"/>
+    </div>
+</header>

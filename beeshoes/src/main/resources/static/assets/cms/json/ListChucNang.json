@@ -1,0 +1,82 @@
+[
+  {
+    "icon": "tio-home-vs-1-outlined",
+    "name": "Trang Chủ",
+    "link": "/cms"
+  },
+  {
+    "icon": "tio-shop-outlined",
+    "name": "Bán Hàng",
+    "link": "/cms/cashier"
+  },
+  {
+    "icon": "tio-receipt-outlined",
+    "name": "Quản Lý Đơn Hàng",
+    "link": "/cms/hoa-don"
+  },
+  {
+    "icon": "tio-format-points",
+    "name": "Sản Phẩm",
+    "link": "/cms/product"
+  },
+  {
+    "icon": "tio-add",
+    "name": "Thêm Sản Phẩm",
+    "link": "/cms/add-product"
+  },
+  {
+    "icon": "tio-color",
+    "name": "Màu Sắc",
+    "link": "/cms/shoe-color"
+  },
+  {
+    "icon": "tio-paint-bucket",
+    "name": "Chất Liệu",
+    "link": "/cms/shoe-material"
+  },
+  {
+    "icon": "tio-tune",
+    "name": "Kích Cỡ",
+    "link": "/cms/shoe-size"
+  },
+  {
+    "icon": "tio-category",
+    "name": "Thể Loại",
+    "link": "/cms/shoe-category"
+  },
+  {
+    "icon": "tio-tune",
+    "name": "Đế Giày",
+    "link": "/cms/shoe-sole"
+  },
+  {
+    "icon": "tio-tune",
+    "name": "Cổ Giày",
+    "link": "/cms/shoe-collar"
+  },
+  {
+    "icon": "tio-hashtag",
+    "name": "Tags",
+    "link": "/cms/tags"
+  },
+  {
+    "icon": "tio-user-big-outlined",
+    "name": "Nhân Viên",
+    "link": "/cms/nhan-vien"
+  },
+  {
+    "icon": "tio-user-big-outlined",
+    "name": "Khách Hàng",
+    "link": "/cms/khach-hang"
+  },
+  {
+    "icon": "tio-ticket",
+    "name": "Phiếu Giảm Giá",
+    "link": "/cms/voucher"
+  },
+  {
+    "icon": "tio-history",
+    "name": "Lịch Sử Thanh Toán",
+    "link": "/cms/history-payment"
+  }
+]

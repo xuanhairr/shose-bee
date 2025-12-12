@@ -1,0 +1,394 @@
+
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required Meta Tags Always Come First -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Title -->
+    <title>LightBee | Phiếu Giảm Giá</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/assets/cms/img/icon/favicon.ico">
+
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+
+    <!-- CSS Implementing Plugins -->
+    <link rel="stylesheet" href="/assets/cms/css/vendor.min.css">
+    <link rel="stylesheet" href="/assets/cms/vendor/icon-set/style.css">
+    <link rel="stylesheet" href="/assets/cms/css/sweetalert2.min.css">
+    <link rel="stylesheet" href="/assets/cms/css/voucher.css?v=1.0">
+    <!-- CSS Front Template -->
+    <link rel="stylesheet" href="/assets/cms/css/theme.min.css?v=1.0">
+</head>
+
+<body class="footer-offset">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.1/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+<script src="/assets/cms/vendor/hs-navbar-vertical-aside/hs-navbar-vertical-aside-mini-cache.js"></script>
+<!-- ========== HEADER ========== -->
+<div th:replace="~{cms/pages/_header.html}"></div>
+<!-- ========== END HEADER ========== -->
+
+<!-- ========== SIDEBAR ========== -->
+<div th:replace="~{cms/pages/_sidebar.html}"></div>
+<!-- ========== END SIDEBAR ========== -->
+
+<script src="/assets/cms/js/demo.js"></script>
+
+<!-- END ONLY DEV -->
+
+<!-- Search Form -->
+<div id="searchDropdown" class="hs-unfold-content dropdown-unfold search-fullwidth d-md-none">
+    <form class="input-group input-group-merge input-group-borderless">
+        <div class="input-group-prepend">
+            <div class="input-group-text">
+                <i class="tio-search"></i>
+            </div>
+        </div>
+
+        <input class="form-control rounded-0" type="search" placeholder="Search in front" aria-label="Search in front">
+
+        <div class="input-group-append">
+            <div class="input-group-text">
+                <div class="hs-unfold">
+                    <a class="js-hs-unfold-invoker" href="javascript:;" data-hs-unfold-options='{
+                   "target": "#searchDropdown",
+                   "type": "css-animation",
+                   "animationIn": "fadeIn",
+                   "hasOverlay": "rgba(46, 52, 81, 0.1)",
+                   "closeBreakpoint": "md"
+                 }'>
+                        <i class="tio-clear tio-lg"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<!-- End Search Form -->
+
+<!-- ========== HEADER ========== -->
+
+
+<!-- ========== END HEADER ========== -->
+
+<!-- ========== MAIN CONTENT ========== -->
+<!-- Navbar Vertical -->
+
+
+<!-- End Navbar Vertical -->
+
+<main id="content" role="main" class="main">
+    <!-- Content -->
+    <div class="content container-fluid">
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row align-items-end">
+                <div class="col-sm mb-2 mb-sm-0">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb breadcrumb-no-gutter">
+                            <li class="breadcrumb-item"><a class="breadcrumb-link" href="javascript:;">CMS</a></li>
+                            <li class="breadcrumb-item active" aria-current="page"><a class="breadcrumb-link"
+                                                                                      href="/cms/voucher/">Phiếu Giảm
+                                Giá</a></li>
+                        </ol>
+                    </nav>
+                    <h1 class="page-header-title" th:if="${voucher==null}">Thêm Phiếu Giảm Giá</h1>
+                    <h1 class="page-header-title" th:if="${voucher!=null}">Cập Nhật Phiếu Giảm Giá</h1>
+                </div>
+                <div class="col-sm-auto">
+                    <a class="btn btn-primary" href="/cms/voucher/">
+                        <i class="tio-arrow-backward mr-1"></i>Trở Về
+                    </a>
+                </div>
+            </div>
+            <!-- End Row -->
+        </div>
+        <div class="row">
+            <div class="col-12 col-lg-8">
+                <div class="card mb-3 mb-lg-5">
+                    <div class="card-header">
+                        <h4 class="card-header-title">Thông Tin Phiếu Giảm Giá</h4>
+                    </div>
+                    <div class="card-body row">
+                        <input type="text" id="id-voucher" hidden="hidden"
+                               th:value="${voucher!=null?voucher.getId():''}">
+                        <div class="col-sm-12 col-md-6">
+                            <div class="form-group">
+                                <label class="input-label" for="voucher_name">Tên Phiếu</label>
+                                <input type="text" id="voucher_name" class="form-control"
+                                       placeholder="Tên phiếu giảm giá..."
+                                       th:value="${voucher!=null?voucher.getTen():''}">
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <div class="form-group">
+                                <label class="input-label" for="voucher_type">Loại Phiếu</label>
+                                <select id="voucher_type" class="js-select2-custom custom-select" size="1"
+                                        style="opacity: 0;"
+                                        data-hs-select2-options='{
+                                  "minimumResultsForSearch": "Infinity",
+                                  "placeholder": "Select member"
+                                }'>
+                                    <option th:selected="${voucher!=null and voucher.getLoaiVoucher()=='%'}" value="%"
+                                            selected>Phần Trăm
+                                    </option>
+                                    <option th:selected="${voucher!=null and voucher.getLoaiVoucher()=='$'}" value="$">
+                                        Tiền Mặt
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <div class="form-group">
+                                <label class="input-label" for="discount_condition">Giá Trị Đơn Hàng</label>
+                                <div class="input-group input-group-merge">
+                                    <input type="number" id="discount_condition" class="form-control"
+                                           placeholder="Điều kiện áp dụng..."
+                                           th:value="${voucher!=null?voucher.getGiaTriToiThieu().intValue():''}">
+                                    <div class="input-group-prepend money-dv">
+                                        <div class="input-group-text">VND</div>
+                                    </div>
+                                </div>
+                                <span id="text_error_discount_condition" class="text-danger small"></span>
+                            </div>
+                        </div>
+                        <div th:class="'col-sm-12 col-md-6 '+${voucher==null or voucher!=null and voucher.getLoaiVoucher()=='%'?'':'d-none'}">
+                            <div class="form-group">
+                                <label class="input-label" for="discount_percent">Phần Trăm Giảm</label>
+                                <div class="input-group input-group-merge">
+                                    <input id="discount_percent" type="number" class="form-control"
+                                           placeholder="Phần trăm giảm giá..."
+                                           th:value="${voucher!=null?voucher.getGiaTriPhanTram():''}">
+                                    <div class="input-group-prepend money-dv">
+                                        <div class="input-group-text">%</div>
+                                    </div>
+                                </div>
+                                <span id="text_error_discount_percent" class="text-danger small"></span>
+                            </div>
+                        </div>
+                        <div th:class="'col-sm-12 col-md-6 '+${voucher!=null and voucher.getLoaiVoucher()=='$'?'':'d-none'}">
+                            <div class="form-group">
+                                <label class="input-label" for="discount_money">Số Tiền Giảm</label>
+                                <div class="input-group input-group-merge">
+                                    <input type="number" id="discount_money" class="form-control"
+                                           placeholder="Số tiền giảm giá..."
+                                           th:value="${voucher!=null and voucher.getGiaTriTienMat() !=null ? voucher.getGiaTriTienMat().intValue():''}">
+                                    <div class="input-group-prepend money-dv">
+                                        <div class="input-group-text">VND</div>
+                                    </div>
+                                </div>
+                                <span id="text_error_discount_money" class="text-danger small"></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <div class="form-group">
+                                <label class="input-label" for="discount_start_time">Ngày Bắt Đầu</label>
+                                <input type="datetime-local" id="discount_start_time" class="form-control"
+                                       placeholder="Số tiền giảm giá..."
+                                       th:value="${voucher!=null?voucher.getNgayBatDau():null}">
+                                <span id="text_error_discount_start_time" class="text-danger small"></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <div class="form-group">
+                                <label class="input-label" for="discount_end_time">Ngày Kết Thúc</label>
+                                <input type="datetime-local" id="discount_end_time" class="form-control"
+                                       placeholder="Số tiền giảm giá..."
+                                       th:value="${voucher!=null?voucher.getNgayKetThuc():null}">
+                                <span id="text_error_discount_end_time" class="text-danger small"></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <div class="form-group">
+                                <label class="input-label" for="quantity_discount">Số lượng</label>
+                                <input type="number" id="quantity_discount" class="form-control"
+                                       placeholder="Số lượng phiếu..."
+                                       th:value="${voucher!=null?voucher.getSoLuong():''}">
+                                <span id="text_error_quantity_discount" class="text-danger small"></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <div class="form-group">
+                                <label class="input-label" for="max_discount">Giảm Tối Đa</label>
+                                <div class="input-group input-group-merge">
+                                    <input type="number" id="max_discount" class="form-control"
+                                           placeholder="Giảm tối đa..."
+                                           th:value="${voucher!=null?voucher.getGiaTriToiDa().intValue():''}">
+                                    <div class="input-group-prepend money-dv">
+                                        <div class="input-group-text">VND</div>
+                                    </div>
+                                </div>
+                                <span id="text_error_max_discount" class="text-danger small"></span>
+                            </div>
+                        </div>
+                        <div th:class="'col-sm-12 '+ ${voucher==null?'':'col-md-6'}">
+                            <div class="form-group">
+                                <label class="input-label" for="description">Mô Tả <span class="input-label-secondary">(Optional)</span></label>
+                                <input type="text" id="description" class="form-control"
+                                       placeholder="Giảm tối đa..." th:value="${voucher!=null?voucher.getMoTa():''}">
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-6" th:if="${voucher!=null}">
+                            <div class="form-group">
+                                <label class="input-label" for="discount_status">Trạng Thái</label>
+                                <select id="discount_status" class="js-select2-custom custom-select" size="1"
+                                        style="opacity: 0;"
+                                        data-hs-select2-options='{
+                                  "minimumResultsForSearch": "Infinity",
+                                  "placeholder": "Select member"
+                                }'>
+                                    <option th:selected="${voucher!=null and voucher.getTrangThai()==1}" value="1">Sắp
+                                        Diễn Ra
+                                    </option>
+                                    <option th:selected="${voucher!=null and voucher.getTrangThai()==2}" value="2">Đang
+                                        Diễn Ra
+                                    </option>
+                                    <option th:selected="${voucher!=null and voucher.getTrangThai()==3}" value="3">Kết
+                                        Thúc
+                                    </option>
+                                    <option th:selected="${voucher!=null and voucher.getTrangThai()==4}" value="4">Hủy
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-none d-lg-block col-lg-4">
+                <div class="card mb-3 mb-lg-5">
+                    <div class="card-header">
+                        <h4 class="card-header-title">Xem Trước Mã</h4>
+                    </div>
+                    <div class="card-body">
+                        <ul id="voucher_cms" class="list_voucher">
+                            <li id="item_5_1" class="item-voucher">
+                                <div id="voucher_5_1" data-id="5" class="wrapper_voucher row m-0">
+                                    <div class="col-9 contents p-2">
+                                        <h5 class="text-center voucher_code"
+                                            th:text="${voucher==null?'VCXXXXX':voucher.getMa()}"></h5>
+                                        <label class="express_date end_date"
+                                               th:text="${voucher==null?'Hạn Đến : ':'Hạn Đến :'+#dates.format(voucher.ngayKetThuc, ' HH:mm') +' Ngày '+#dates.format(voucher.ngayKetThuc, 'dd-MM-yyyy')}"></label>
+                                        <label class="express_date condition"
+                                               th:text="'Điều Kiện: Áp dụng cho đơn hàng từ '+${voucher==null?'0':#numbers.formatDecimal(voucher.getGiaTriToiThieu(), 1, 'DEFAULT', 0, 'DEFAULT')}+'đ'"></label>
+                                        <label class="express_date max_discount"
+                                               th:text="'Tối Đa:'+${voucher==null?'0':#numbers.formatDecimal(voucher.giaTriToiDa, 1, 'DEFAULT', 0, 'DEFAULT')}+'đ/Khách Hàng'"></label>
+                                        <label class="express_date quantity w-100"
+                                               th:text="'Số Lượng :'+${voucher==null?'0':#numbers.formatDecimal(voucher.getSoLuong(), 1, 'DEFAULT', 0, 'DEFAULT')}"></label>
+                                    </div>
+                                    <div class="col-3 p-2 row m-0 card__discount position-relative">
+                                        <label class="text-discount">Phiếu Giảm Giá</label>
+                                        <h2 class="text-value-discount text-discount-value"
+                                            th:attr="data-type=${voucher == null ? '%' : voucher.loaiVoucher}, data-value=${voucher == null ? '0' : (voucher.loaiVoucher == '$' ? voucher.giaTriTienMat : voucher.giaTriPhanTram)}">
+                                            20%</h2>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <hr class="mb-3 mt-3">
+                        <div class="list-voucher">
+                            <ul class="mt-2" id="voucher_customer">
+                                <li class="wraper_li">
+                                    <div data-id="5" id="voucher_5" class="wraper_voucher row m-0">
+                                        <div class="col-9 contents p-2">
+                                            <h5 class="text-center voucher_code"
+                                                th:text="${voucher==null?'VCXXXXX':voucher.getMa()}"></h5>
+                                            <label class="express_date end_date"
+                                                   th:text="${voucher==null?'Hạn Đến : ':'Hạn Đến :'+#dates.format(voucher.ngayKetThuc, ' HH:mm') +' Ngày '+#dates.format(voucher.ngayKetThuc, 'dd-MM-yyyy')}"></label>
+                                            <label class="express_date condition"
+                                                   th:text="'Điều Kiện: Áp dụng cho đơn hàng từ '+${voucher==null?'0':#numbers.formatDecimal(voucher.getGiaTriToiThieu(), 1, 'DEFAULT', 0, 'DEFAULT')}+'đ'"></label>
+                                            <label class="express_date max_discount"
+                                                   th:text="'Tối Đa:'+${voucher==null?'0':#numbers.formatDecimal(voucher.giaTriToiDa, 1, 'DEFAULT', 0, 'DEFAULT')}+'đ/Khách Hàng'"></label>
+                                            <label class="express_date quantity w-100"
+                                                   th:text="'Số Lượng :'+${voucher==null?'0':#numbers.formatDecimal(voucher.getSoLuong(), 1, 'DEFAULT', 0, 'DEFAULT')}"></label>
+                                        </div>
+                                        <div class="col-3 p-2 row m-0 card__discount position-relative">
+                                            <label class="col-4">Phiếu Giảm Giá</label>
+                                            <h3 class="col-6 phantram text-discount-value"
+                                                th:attr="data-type=${voucher == null ? '%' : voucher.loaiVoucher}, data-value=${voucher == null ? '0' : (voucher.loaiVoucher == '$' ? voucher.giaTriTienMat : voucher.giaTriPhanTram)}"></h3>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 d-flex justify-content-center">
+                <a id="btn-save-voucher" class="btn btn-primary">Lưu</a>
+            </div>
+        </div>
+        <!-- End Page Header -->
+    </div>
+    <!-- End Content -->
+
+    <!-- Footer -->
+    <div th:replace="~{cms/pages/_footer.html}"></div>
+    <!-- End Footer -->
+</main>
+<!-- ========== END MAIN CONTENT ========== -->
+
+<!-- ========== SECONDARY CONTENTS ========== -->
+
+<!-- Edit user Modal -->
+<div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="editUserModalTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <!-- Header -->
+            <div class="modal-header">
+                <h4 id="editUserModalTitle" class="modal-title">Phiếu Giảm Giá</h4>
+
+                <button type="button" class="btn btn-icon btn-sm btn-ghost-secondary" data-dismiss="modal"
+                        aria-label="Close">
+                    <i class="tio-clear tio-lg"></i>
+                </button>
+            </div>
+            <!-- End Header -->
+
+            <!-- Body -->
+            <div class="modal-body">
+                <div class="form-group p-4 pb-0 mb-0">
+                    <label for="inputData">Tên Mã Giảm Giá :</label>
+                    <input class="form-control" type="text" id="inputData" autofocus placeholder="Vui lòng nhập tên.">
+                    <input class="form-control" type="text" id="inputDataId" hidden="">
+                </div>
+                <div class="form-group p-4 pt-0">
+                    <label for="inputData">Trạng Thái :</label>
+                    <select class="form-control" type="text" id="selectedStaus">
+                        <option value="1">Hiển Thị</option>
+                        <option value="0">Không Hiển Thị</option>
+                    </select>
+                </div>
+                <div class="d-flex justify-content-end">
+                    <button type="button" class="btn btn-white mr-2" data-dismiss="modal" aria-label="Close">Cancel
+                    </button>
+                    <button type="button" class="btn btn-primary" id="save">Lưu</button>
+                </div>
+            </div>
+            <!-- End Body -->
+        </div>
+    </div>
+</div>
+<!-- End Edit user Modal -->
+<!-- ========== END SECONDARY CONTENTS ========== -->
+
+<!-- JS Implementing Plugins -->
+<script src="/assets/cms/js/vendor.min.js"></script>
+
+
+<!-- JS Front -->
+<script src="/assets/cms/js/theme.min.js"></script>
+
+<!-- JS Plugins Init. -->
+<script src="/assets/cms/js/sweetalert2.all.min.js"></script>
+<script src="/assets/cms/js/voucher/add-voucher.js?v=1.0"></script>
+<script src="/assets/socket/socket-config.js"></script>
+<script src="/assets/cms/js/header/_header.js"></script>
+<!-- IE Support -->
+<div th:replace="~{cms/pages/_IE-suport.html}"></div>
+</body>
+</html>

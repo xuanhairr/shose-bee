@@ -1,0 +1,694 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required Meta Tags Always Come First -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Title -->
+    <title>LightBee | Add product</title>
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/assets/cms/img/icon/favicon.ico">
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <!-- CSS Implementing Plugins -->
+    <link rel="stylesheet" href="/assets/cms/css/vendor.min.css">
+    <link rel="stylesheet" href="/assets/cms/vendor/icon-set/style.css">
+    <link rel="stylesheet" href="/assets/cms/vendor/icon-set/style.css">
+    <link rel="stylesheet" href="/assets/cms/css/custom.css">
+    <link rel="stylesheet" href="/assets/cms/css/sweetalert2.min.css">
+    <!-- CSS Front Template -->
+    <link rel="stylesheet" href="/assets/cms/css/theme.min.css?v=1.0">
+</head>
+<body class="footer-offset">
+<script src="/assets/cms/vendor/hs-navbar-vertical-aside/hs-navbar-vertical-aside-mini-cache.js"></script>
+<!-- ONLY DEV -->
+<!-- ========== HEADER ========== -->
+<div th:replace="~{cms/pages/_header.html}"></div>
+<!-- ========== END HEADER ========== -->
+
+<!-- ========== SIDEBAR ========== -->
+
+<div th:replace="~{cms/pages/_sidebar.html}"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.1/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+<!-- ========== END SIDEBAR ========== -->
+<script src="/assets/cms/js/demo.js"></script>
+<!-- END ONLY DEV -->
+<!-- ========== MAIN CONTENT ========== -->
+
+<main id="content" role="main" class="main">
+    <!-- Content -->
+    <div class="content container-fluid">
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col-sm mb-2 mb-sm-0">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb breadcrumb-no-gutter">
+                            <li class="breadcrumb-item"><a class="breadcrumb-link" href="/cms/product">Sản Phẩm</a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">Chi Tiết Sản Phẩm</li>
+                        </ol>
+                    </nav>
+                    <h1 class="page-header-title">Chi Tiết Sản Phẩm</h1>
+                </div>
+            </div>
+            <!-- End Row -->
+        </div>
+        <!-- End Page Header -->
+        <div class="row">
+            <div class="col-lg-8">
+                <!-- Card -->
+                <div class="card mb-3 mb-lg-5">
+                    <!-- Header -->
+                    <div class="card-header">
+                        <h4 class="card-header-title">Thông Tin Sản Phẩm</h4>
+                    </div>
+                    <!-- End Header -->
+                    <!-- Body -->
+                    <div class="card-body">
+                        <!-- Form Group -->
+                        <div class="row">
+                            <div id="showSelectedProduct" class="form-group col-10 col-sm-10 col-md-11">
+                                <label for="sanPham" class="input-label">Tên Sản Phẩm</label>
+                                <select class="js-select2-custom custom-select" name="sanPham" id="sanPham" size="1"
+                                        style="opacity: 0;"
+                                        data-hs-select2-options='{
+                                            "placeholder": "Tìm sản phẩm...",
+                                            "searchInputPlaceholder": "Tìm sản phẩm..."}'>
+                                    <option value="#" selected>Chọn Sản Phẩm</option>
+                                    <option th:each="sp : ${lstsanpham}"
+                                            th:value="${sp.getId()}"
+                                            th:text="${sp.getTen()}"
+                                            th:selected="${sanPham == null ?'': sp.getId() == sanPham.getId()}">
+                                    </option>
+                                </select>
+                            </div>
+                            <div id="btn_add_new_product" class="col-1 col-md-1 col-sm-1 col-sm-auto p-0">
+                                <button class="m-0 p-0 border-0 mt-5" type="button" data-toggle="tooltip"
+                                        data-placement="top"
+                                        title="Thêm Sản Phẩm.">
+                                    <a class="btn btn-primary" href="javascript:;"
+                                       onclick="setFormSendData('san-pham','Sản Phẩm','sanPham')">
+                                        <i class="tio-add-circle"></i>
+                                    </a>
+                                </button>
+                            </div>
+                            <div id="showInputProduct" class="form-group col-12 col-sm-12 col-md-12 d-none">
+                                <label for="sanPham" class="input-label">Tên Sản Phẩm</label>
+                                <input class="form-control" name="sanPham" id="sanPham_input" th:value="${sanPham == null ?'':sanPham.getTen()}">
+                            </div>
+                        </div>
+                        <!-- End Form Group -->
+
+                        <div class="row">
+                            <!--Thể loại-->
+                            <div class="col-sm-12 col-md-6 row p-0 m-0">
+                                <!-- Form Group -->
+                                <div class="form-group col-10">
+                                    <label for="theLoai" class="input-label">Thể Loại</label>
+                                    <select class="js-select2-custom custom-select" name="theLoai" id="theLoai"
+                                            size="1"
+                                            style="opacity: 0;"
+                                            data-hs-select2-options='{
+                                    "placeholder": "Tìm thể loại...",
+                                    "searchInputPlaceholder": "Tìm thể loại..."
+                                    }'> <option value="#" selected>Chọn Thể Loại</option>
+                                        <option th:each="th:${lsttheloai}"
+                                                th:value="${th.getId()}"
+                                                th:selected="${sanPham != null and sanPham.getTheLoai() != null and th.getId()==sanPham.getTheLoai().getId()}"
+                                                th:text="${th.getTen()}">
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="col-1 pl-0 m-0">
+                                    <button class="m-0 p-0 border-0 mt-5" type="button" data-toggle="tooltip"
+                                            data-placement="top"
+                                            title="Thêm Thể Loại.">
+                                        <a class="btn btn-primary" href="javascript:;"
+                                           onclick="setFormSendData('the-loai','Thể Loại','theLoai')">
+                                            <i class="tio-add-circle"></i>
+                                        </a>
+                                    </button>
+                                </div>
+                                <!-- End Form Group -->
+                            </div>
+                            <!--Thương hiệu-->
+                            <div class="col-sm-12 col-md-6 row p-0 m-0">
+                                <!-- Form Group -->
+                                <div class="form-group col-10">
+                                    <label for="thuongHieu" class="input-label">Thương Hiệu</label>
+
+                                    <select class="js-select2-custom custom-select" name="thuongHieu"
+                                            id="thuongHieu" size="1"
+                                            style="opacity: 0;"
+                                            data-hs-select2-options='{
+                                    "placeholder": "Tìm thương hiệu...",
+                                    "searchInputPlaceholder": "Tìm thương hiệu..."
+                                    }'> <option value="#" selected>Chọn Thương Hiệu</option>
+                                        <option th:each="th:${lstthuonghieu}"
+                                                th:value="${th.getId()}"
+                                                th:selected="${sanPham != null and sanPham.getThuongHieu() != null and th.getId()==sanPham.getThuongHieu().getId()}"
+                                                th:text="${th.getTen()}"></option>
+                                    </select>
+                                </div>
+                                <div class="col-1 pl-0 m-0">
+                                    <button class="m-0 p-0 border-0 mt-5" type="button" data-toggle="tooltip"
+                                            data-placement="top"
+                                            title="Thêm thương hiệu.">
+                                        <a class="btn btn-primary" href="javascript:;"
+                                           onclick="setFormSendData('thuong-hieu','Thương Hiệu','thuongHieu')">
+                                            <i class="tio-add-circle"></i>
+                                        </a>
+                                    </button>
+                                </div>
+                                <!-- End Form Group -->
+                            </div>
+                            <!--Chất liệu-->
+                            <div class="col-sm-12 col-md-6 row p-0 m-0">
+                                <!-- Form Group -->
+                                <div class="form-group col-10">
+                                    <label for="chatLieu" class="input-label">Chất Liệu</label>
+
+                                    <select class="js-select2-custom custom-select" name="chatLieu" id="chatLieu"
+                                            size="1"
+                                            style="opacity: 0;"
+                                            data-hs-select2-options='{
+                                    "placeholder": "Tìm chất liệu...",
+                                    "searchInputPlaceholder": "Tìm chất liệu..."
+                                    }'> <option value="#" selected>Chọn Chất Liệu</option>
+                                        <option th:each="th : ${lstchatlieu}"
+                                                th:value="${th.getId()}"
+                                                th:selected="${sanPham != null and sanPham.getChiTietSanPham() != null and not sanPham.getChiTietSanPham().isEmpty() and th.getId() == sanPham.getChiTietSanPham().get(0).getChatLieu().getId()}"
+                                                th:text="${th.getTen() != null ? th.getTen() : ''}"></option>
+                                    </select>
+                                </div>
+                                <div class="col-1 pl-0 m-0">
+                                    <button class="m-0 p-0 border-0 mt-5" type="button" data-toggle="tooltip"
+                                            data-placement="top"
+                                            title="Thêm chất liệu.">
+                                        <a class="btn btn-primary" href="javascript:;"
+                                           onclick="setFormSendData('chat-lieu','Chất Liệu','chatLieu')">
+                                            <i class="tio-add-circle"></i>
+                                        </a>
+                                    </button>
+                                </div>
+                                <!-- End Form Group -->
+                            </div>
+                            <!--Đế Giày-->
+                            <div class="col-sm-12 col-md-6 row p-0 m-0">
+                                <!-- Form Group -->
+                                <div class="form-group col-10">
+                                    <label for="deGiay" class="input-label">Đế Giày</label>
+
+                                    <select class="js-select2-custom custom-select" id="deGiay" size="1"
+                                            style="opacity: 0;"
+                                            data-hs-select2-options='{
+                                    "placeholder": "Tìm đế giày...",
+                                    "searchInputPlaceholder": "Tìm đế giày..."
+                                    }'><option value="#" selected>Chọn Đế Giày</option>
+                                        <option th:each="th : ${lstdegiay}"
+                                                th:value="${th.getId()}"
+                                                th:selected="${sanPham != null and sanPham.getChiTietSanPham() != null and not sanPham.getChiTietSanPham().isEmpty() and th.getId() == sanPham.getChiTietSanPham().get(0).getDeGiay().getId()}"
+                                                th:text="${th.getTen() != null ? th.getTen() : ''}"></option>
+                                    </select>
+                                </div>
+                                <div class="col-1 pl-0 m-0">
+                                    <button class="m-0 p-0 border-0 mt-5" type="button" data-toggle="tooltip"
+                                            data-placement="top"
+                                            title="Thêm đế giày.">
+                                        <a class="btn btn-primary" href="javascript:;"
+                                           onclick="setFormSendData('de-giay','Đế Giày','deGiay')">
+                                            <i class="tio-add-circle"></i>
+                                        </a>
+                                    </button>
+                                </div>
+                                <!-- End Form Group -->
+                            </div>
+                            <!--Cổ Giày-->
+                            <div class="col-sm-12 col-md-6 row p-0 m-0">
+                                <!-- Form Group -->
+                                <div class="form-group col-10">
+                                    <label for="coGiay" class="input-label">Cổ Giày</label>
+
+                                    <select class="js-select2-custom custom-select" name="coGiay" id="coGiay"
+                                            size="1"
+                                            style="opacity: 0;"
+                                            data-hs-select2-options='{
+                                    "placeholder": "Tìm cổ giày...",
+                                    "searchInputPlaceholder": "Tìm cổ giày..."
+                                    }'><option value="#" selected>Chọn Cổ Giày</option>
+                                        <option th:each="th : ${lstcogiay}"
+                                                th:value="${th.getId()}"
+                                                th:selected="${sanPham != null and sanPham.getChiTietSanPham() != null and not sanPham.getChiTietSanPham().isEmpty() and th.getId() == sanPham.getChiTietSanPham().get(0).getCoGiay().getId()}"
+                                                th:text="${th.getTen() != null ? th.getTen() : ''}"></option>
+                                    </select>
+                                </div>
+                                <div class="col-1 pl-0 m-0">
+                                    <button class="m-0 p-0 border-0 mt-5" type="button" data-toggle="tooltip"
+                                            data-placement="top"
+                                            title="Thêm cổ giày.">
+                                        <a class="btn btn-primary" href="javascript:;"
+                                           onclick="setFormSendData('co-giay','Cổ Giày','coGiay')">
+                                            <i class="tio-add-circle"></i>
+                                        </a>
+                                    </button>
+                                </div>
+                                <!-- End Form Group -->
+                            </div>
+                            <!--Mũi Giày-->
+                            <div class="col-sm-12 col-md-6 row p-0 m-0">
+                                <!-- Form Group -->
+                                <div class="form-group col-10">
+                                    <label for="muiGiay" class="input-label">Mũi Giày</label>
+
+                                    <select class="js-select2-custom custom-select" name="muiGiay" id="muiGiay"
+                                            size="1"
+                                            style="opacity: 0;"
+                                            data-hs-select2-options='{
+                                    "placeholder": "Tìm mũi giày...",
+                                    "searchInputPlaceholder": "Tìm mũi giày..."
+                                    }'><option value="#" selected>Chọn Mũi Giày</option>
+                                        <option th:each="th : ${lstmuigiay}"
+                                                th:value="${th.getId()}"
+                                                th:text="${th.getTen()}"
+                                                th:selected="${sanPham != null and sanPham.getChiTietSanPham() != null and not sanPham.getChiTietSanPham().isEmpty() and th.getId() == sanPham.getChiTietSanPham().get(0).getMuiGiay().getId()}">
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="col-1 pl-0 m-0">
+                                    <button class="m-0 p-0 border-0 mt-5" type="button" data-toggle="tooltip"
+                                            data-placement="top"
+                                            title="Thêm mũi giày.">
+                                        <a class="btn btn-primary" href="javascript:;"
+                                           onclick="setFormSendData('mui-giay','Mũi Giày','muiGiay')">
+                                            <i class="tio-add-circle"></i>
+                                        </a>
+                                    </button>
+                                </div>
+                                <!-- End Form Group -->
+                            </div>
+                            <!-- Form Group -->
+                        </div>
+
+                        <label class="input-label">Giới Thiệu Sản Phẩm <span
+                                class="input-label-secondary">(Optional)</span></label>
+
+                        <!-- Quill -->
+                        <div class="quill-custom">
+                            <div class="js-quill" style="min-height: 15rem;" data-hs-quill-options='{
+                            "placeholder": "Hãy viết một bài giới thiệu thật hay nào..."}'
+                                 th:utext="${sanPham== null ? '' : sanPham.getMoTa()}">
+
+                            </div>
+                        </div>
+                        <!-- End Quill -->
+                    </div>
+                    <!-- End Row -->
+                </div>
+                <!-- End Card -->
+            </div>
+
+            <div class="col-lg-4">
+                <!-- Card -->
+                <div class="card mb-3 mb-lg-5">
+                    <!-- Header -->
+                    <div class="card-header">
+                        <h4 class="card-header-title">Thẻ Tags</h4>
+                    </div>
+                    <!-- End Header -->
+
+                    <!-- Body -->
+                    <div class="card-body">
+                        <div class="form-group" id="tags">
+                            <div class="d-flex justify-content-between">
+                                <label for="mauSac" class="input-label">Tags <i class="tio-help-outlined text-body ml-1"
+                                                                                data-toggle="tooltip" data-placement="top"
+                                                                                title="" data-original-title="Lưu ý: Thẻ Tags phải viết liền, không dấu và không chứa Ký tự đặc biệt "></i></label>
+                                <a class="text-primary" href="javascript:;">
+                                </a>
+                            </div>
+                            <select class="js-select2-custom custom-select" name="tags" id="lstTags" multiple
+                                    size="1"
+                                    style="opacity: 0;"
+                                    data-hs-select2-options='{
+                                    "tags": true,
+                                    "minimumResultsForSearch": "Infinity",
+                                    "placeholder":"Chọn Tags"
+                                    }'>
+                                <option th:each="th : ${lsttags}"
+                                        th:value="${th.getId()}"
+                                        th:text="${th.getTen()}"
+                                        th:selected="${sanPham!=null and sanPham.getTags()!=null and sanPham.getTags().contains(th)}">
+                                </option>
+                            </select>
+                            <!-- End Select2 -->
+                        </div>
+                    </div>
+                    <!-- Body -->
+                </div>
+                <!-- End Card -->
+
+                <!-- Card -->
+                <div class="card">
+                    <!-- Header -->
+                    <div class="card-header">
+                        <h4 class="card-header-title">Phiên Bản</h4>
+                    </div>
+                    <!-- End Header -->
+
+                    <!-- Body -->
+                    <div class="card-body">
+                        <!-- Form Group -->
+                        <div class="form-group" id="selectedColor">
+                            <div class="d-flex justify-content-between">
+                                <label for="mauSac" class="input-label">Màu Sắc</label>
+                                <a class="text-primary" href="javascript:;" data-toggle="modal"
+                                   data-target="#form-add-color">
+                                    Thêm Màu
+                                </a>
+                            </div>
+
+                            <select class="js-select2-custom custom-select" name="mauSac" id="mauSac" multiple
+                                    size="1"
+                                    style="opacity: 0;"
+                                    data-hs-select2-options='{
+                                    "tags": false,
+                                    "minimumResultsForSearch": "Infinity",
+                                    "placeholder":"Chọn màu"
+                                    }'>
+                                <option th:each="th : ${lstmausac}"
+                                        th:value="${th.getMaMauSac()}"
+                                        th:attr="data-name=${th.getTen()}"
+                                        th:text="${th.getTen()}"
+                                        th:selected="${sanPham != null and sanPham.getMauSac() != null and sanPham.getMauSac().contains(th)}">
+                                </option>
+                            </select>
+                            <!-- End Select2 -->
+                        </div>
+                        <!-- End Form Group -->
+
+                        <!-- Form Group -->
+                        <div id="wraperKichCo" class="form-group">
+                            <div class="d-flex justify-content-between">
+                                <label for="kichCo" class="input-label">Kích Cỡ</label>
+                                <a class="text-primary" href="javascript:;"
+                                   onclick="setFormSendData('kich-co','Kích Cỡ','kichCo')">
+                                    Thêm Cỡ
+                                </a>
+                            </div>
+                            <!-- Select -->
+                            <select class="js-select2-custom custom-select de" name="kichCo" id="kichCo" multiple
+                                    size="1"
+                                    style="opacity: 0;"
+                                    data-hs-select2-options='{
+                                    "tags": false ,
+                                    "placeholder":"Chọn size"
+                                    }'>
+                                <option th:each="kc:${lstkichco}"
+                                        th:value="${kc.getTen()}"
+                                        th:selected="${kichCo != null and kichCo.contains(kc.getTen())}"
+                                        th:text="${kc.getTen()}"></option>
+                            </select>
+                            <!-- End Select -->
+                        </div>
+                        <!-- Form Group -->
+                    </div>
+                    <!-- End Body -->
+                </div>
+                <!-- End Card -->
+            </div>
+            <!-- Card -->
+            <div class="card md-3 mt-3 col-12">
+                <!-- Header -->
+                <div class="card-header pl-0 pr-0">
+                    <div class="row justify-content-between align-items-center flex-grow-1 col-12 p-0">
+                        <div class="col-10 col-sm-6 col-md-4 mb-3 mb-sm-0">
+                            <form>
+                                <!-- Search -->
+                                <div class="input-group input-group-merge input-group-flush">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <i class="tio-search"></i>
+                                        </div>
+                                    </div>
+                                    <input id="datatableSearch" type="search" class="form-control"
+                                           placeholder="Tìm kiếm." aria-label="Tìm kiếm.">
+                                </div>
+                                <!-- End Search -->
+                            </form>
+                        </div>
+                        <!-- End Card -->
+                        <div class="col-2 col-sm-1">
+                            <button class="btn btn-primary mr-2" id="save-product-detail">Lưu</button>
+                        </div>
+                    </div>
+                    <!-- End Row -->
+                </div>
+                <!-- End Header -->
+
+                <!-- Table -->
+                <div class="table-responsive datatable-custom" style="overflow-y: hidden">
+                    <table id="datatable"
+                           class="table table-lg table-borderless table-thead-bordered table-nowrap table-align-middle card-table"
+                           data-hs-datatables-options='{
+                     "columnDefs": [{
+                        "targets": [0,1,2,4,5,6,7],
+                        "orderable": false
+                      }],
+                     "order": [],
+                     "info": {
+                       "totalQty": "#datatableWithPaginationInfoTotalQty"
+                     },
+                     "search": "#datatableSearch",
+                     "entries": "#datatableEntries",
+                     "pageLength": 10,
+                     "isResponsive": false,
+                     "isShowPaging": false,
+                     "pagination": "datatablePagination"
+                   }'>
+                        <thead class="thead-light">
+                        <tr>
+                            <th class="table-column-pr-0">
+                                <div class="custom-control custom-checkbox">
+                                    <input id="datatableCheckAll" type="checkbox" class="custom-control-input">
+                                    <label class="custom-control-label" for="datatableCheckAll"></label>
+                                </div>
+                            </th>
+                            <th class="width-100">Ảnh</th>
+                            <th>Kích Cỡ</th>
+                            <th>Màu Sắc</th>
+                            <th>Giá Gốc(đ)</th>
+                            <th>Giá Bán(đ)</th>
+                            <th>Số Lượng(đôi)</th>
+                            <th>Hành Động</th>
+                        </tr>
+                        </thead>
+                        <tbody id="addVariantsContainer">
+                        </tbody>
+                    </table>
+                </div>
+                <!-- End Table -->
+
+                <!-- Footer -->
+                <div class="card-footer">
+                    <!-- Pagination -->
+                    <div class="row justify-content-center justify-content-sm-between align-items-sm-center">
+                        <div class="col-sm mb-2 mb-sm-0">
+                            <div id="showNumWrap" class="d-flex justify-content-center justify-content-sm-start align-items-center">
+                                <span class="mr-2">Hiển Thị:</span>
+
+                                <!-- Select -->
+                                <select id="datatableEntries" class="js-select2-custom" data-hs-select2-options='{
+                            "minimumResultsForSearch": "Infinity",
+                            "customClass": "custom-select custom-select-sm custom-select-borderless",
+                            "dropdownAutoWidth": true,
+                            "width": true
+                          }'>
+                                    <option th:if="${sanPham==null}" value="0">0</option>
+                                    <option th:if="${sanPham != null and #lists.size(sanPham.getChiTietSanPham()) < 10}"
+                                            th:value="${#lists.size(sanPham.getChiTietSanPham())}" selected
+                                            th:text="${#lists.size(sanPham.getChiTietSanPham())}"></option>
+                                    <option th:if="${sanPham != null and #lists.size(sanPham.getChiTietSanPham()) >= 10}" th:value="10" selected>10</option>
+                                    <option value="20">20</option>
+                                    <option value="40">40</option>
+                                </select>
+                                <!-- End Select -->
+
+                                <span class="text-secondary mr-2">/</span>
+
+                                <!-- Pagination Quantity -->
+                                <span id="datatableWithPaginationInfoTotalQty"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-auto">
+                            <div class="d-flex justify-content-center justify-content-sm-end">
+                                <!-- Pagination -->
+                                <nav id="datatablePagination" aria-label="Activity pagination"></nav>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Pagination -->
+                </div>
+                <!-- End Footer -->
+            </div>
+        </div>
+
+        <!-- End Row -->
+    </div>
+    <!-- End Content -->
+
+    <!-- Footer -->
+    <div th:replace="~{cms/pages/_footer.html}"></div>
+    <!-- End Footer -->
+    <!--  các form chuyên dụng chứa dữ liệu tạm thời  -->
+    <div class="hidden">
+        <input type="text" hidden="hidden" id="url-post-data">
+        <input type="text" hidden="hidden" id="status-product" th:value="${errorSP}">
+        <input type="text" hidden="hidden" id="id-element-data">
+    </div>
+</main>
+<!-- ========== END MAIN CONTENT ========== -->
+
+<!-- ========== SECONDARY CONTENTS ========== -->
+
+<!-- add san pham Modal -->
+<div class="modal fade" id="form-add-product-attr" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <!-- Header -->
+            <div class="modal-header">
+                <h5 class="modal-title" id="titleModalLabel">Thêm Mới Sản Phẩm</h5>
+                <button type="button" class="btn btn-icon btn-sm btn-ghost-secondary" data-dismiss="modal"
+                        aria-label="Close">
+                    <i class="tio-clear tio-lg" aria-hidden="true"></i>
+                </button>
+            </div>
+            <!-- End Header -->
+
+            <!-- Body -->
+            <div class="modal-body pb-0">
+                <div class="input-group input-group-merge form-group">
+                    <label for="product-name-modal" class="input-label col-12 pl-0" id="form-modal-add-attr-label">Tên
+                        :</label>
+                    <input type="text" id="product-name-modal" class="js-form-search form-control"
+                           placeholder="Vui lòng nhập tên...">
+                    <a class="input-group-append" href="javascript:;">
+                            <span class="input-group-text">
+                                <i id="clearIconModalEg" class="tio-clear tio-lg" style="display: none;"></i>
+                            </span>
+                    </a>
+                </div>
+            </div>
+            <!-- End Body -->
+
+            <!-- Footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-white" data-dismiss="modal">Đóng</button>
+                <button type="button" id="btn-add-new-product" class="btn btn-primary">Thêm Mới</button>
+            </div>
+            <!-- End Footer -->
+        </div>
+    </div>
+</div>
+<!-- end san pham Modal -->
+<!-- add màu sắc Modal -->
+<div class="modal fade" id="form-add-color" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <!-- Header -->
+            <div class="modal-header">
+                <h5 class="modal-title" id="form-add-color-Label">Thêm Màu</h5>
+                <button type="button" class="btn btn-icon btn-sm btn-ghost-secondary" data-dismiss="modal"
+                        aria-label="Close">
+                    <i class="tio-clear tio-lg" aria-hidden="true"></i>
+                </button>
+            </div>
+            <!-- End Header -->
+
+            <!-- Body -->
+            <div class="modal-body row">
+                <div class="col-md-4 form-group">
+                    <label for="colorChoice" class="col-12">Chọn màu:</label>
+                    <input type="color" id="colorChoice" value="" onchange="showColorCode(this.value)">
+                </div>
+                <div class="col-md-8 form-group">
+                    <label class="">Mã Màu</label>
+                    <input id="colorCode" type="text" class="form-control disabled" disabled>
+                    <label class="">Tên Màu</label>
+                    <input id="color-name" type="text" class="form-control">
+                </div>
+            </div>
+            <!-- End Body -->
+
+            <!-- Footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-white" data-dismiss="modal">Đóng</button>
+                <button type="button" id="btn-add-new-color" class="btn btn-primary">Thêm Mới</button>
+            </div>
+            <!-- End Footer -->
+        </div>
+    </div>
+</div>
+
+<!-- Then put toasts within -->
+<div id="systoast" class="toast fade hide" role="alert" aria-live="assertive" aria-atomic="true"
+     style="position: fixed; top: 20px; right: 20px; z-index: 9999;width: 300px;">
+    <div class="toast-header">
+        <img class="avatar avatar-sm avatar-circle mr-2" id="img-toast" src="/assets/cms/img/160x160/img1.jpg"
+             alt="Image description">
+        <h5 class="mb-0" id="toast-status">Hệ Thống</h5>
+        <small class="ml-auto">Vừa xong</small>
+        <button type="button" class="close ml-3" data-dismiss="toast" aria-label="Close">
+            <i class="tio-clear" aria-hidden="true"></i>
+        </button>
+    </div>
+    <div class="toast-body" id="system-toast-mesage">
+        Thành Công !
+    </div>
+</div>
+<!-- End Footer -->
+<table id="datatableGetdata" class="d-none">
+    <tr th:each="ctsp, iter : ${sanPham != null and sanPham.getChiTietSanPham() != null ? sanPham.getChiTietSanPham() : null}">
+        <th name="id" th:text="${ctsp != null ? ctsp.getId() : ''}"></th>
+        <th name="img"
+            th:text="${ctsp != null and ctsp.getAnh() != null ? ctsp.getAnh().getUrl() : '/assets/cms/img/400x400/img2.jpg'}"></th>
+        <th name="kichCo"
+            th:text="${ctsp != null and ctsp.getKichCo() != null ? ctsp.getKichCo().getTen() : ''}"></th>
+        <th name="maMauSac"
+            th:text="${ctsp != null and ctsp.getMauSac() != null ? ctsp.getMauSac().getMaMauSac() : ''}"></th>
+        <th name="tenMau"
+            th:text="${ctsp != null and ctsp.getMauSac() != null ? ctsp.getMauSac().getTen() : ''}"></th>
+        <th name="giaGoc"
+            th:text="${ctsp != null ? #numbers.formatDecimal (ctsp.getGiaGoc(), 1, 'DEFAULT', 0, 'DEFAULT'):0}"></th>
+        <th name="giaBan"
+            th:text="${ctsp != null ? #numbers.formatDecimal (ctsp.getGiaBan(), 1, 'DEFAULT', 0, 'DEFAULT'):0}"></th>
+        <th name="soLuong" th:text="${ctsp.getSoLuongTon()==null ?0:ctsp.getSoLuongTon()}"></th>
+    </tr>
+</table>
+<!-- ========== END SECONDARY CONTENTS ========== -->
+<!-- JS Implementing Plugins -->
+<script src="/assets/cms/js/vendor.min.js"></script>
+<!-- JS Front -->
+<script src="/assets/cms/js/theme.min.js"></script>
+<script src="/assets/cms/js/sweetalert2.all.min.js"></script>
+<th:block th:if="${editproduct!=null and editproduct==1}">
+    <script>
+    $('#showSelectedProduct').addClass('d-none');
+    $('#btn_add_new_product').addClass('d-none');
+    $('#showInputProduct').removeClass('d-none');
+    </script>
+</th:block>
+<script src="/assets/cms/js/add-product.js"></script>
+<script src="/assets/cms/js/custom-firebase.js" type="module"></script>
+<script src="/assets/cms/js/custom.js"></script>
+<script src="/assets/socket/socket-config.js"></script>
+<script src="/assets/cms/js/header/_header.js"></script>
+<!-- IE Support -->
+<div th:replace="~{cms/pages/_IE-suport.html}"></div>
+</body>
+</html>

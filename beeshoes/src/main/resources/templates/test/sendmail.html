@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="/assets/customer/js/jquery-3.3.1.min.js"></script>
+</head>
+<body>
+<form th:action="@{/send-mail}" method="post">
+    To email: <input type="text" name="to">
+    Subject: <input type="text" name="subject">
+    Body: <textarea type="text" name="body"></textarea>
+    <button type="submit">Send</button>
+</form>
+<p class="text-success" th:text="${message}"></p>
+<div>
+    <button id="addressJson">Download Json Data</button>
+</div>
+<script>
+    // var allData = [];
+    // $('#addressJson').on('click', function () {
+    //     $.ajax({
+    //         type: "GET",
+    //         url: "/assets/address-json/district.json",
+    //         contentType: "application/json",
+    //         success: function (response) {
+    //             console.log('district ok')
+    //             response.forEach((item) => {
+    //                 $.ajax({
+    //                     type: "GET",
+    //                     url: "/api/hoa-don/getWard?district_id=" + item.DistrictID,
+    //                     contentType: "application/json",
+    //                     success: function (response) {
+    //                         allData.push(response.data);
+    //                     },
+    //                     error: function (error) {
+    //                         console.error('Xảy ra lỗi: ', error);
+    //                     }
+    //                 });
+    //             })
+    //                 // $.ajax({
+    //                 //     type: "GET",
+    //                 //     url: "/api/hoa-don/getWard?district_id=" + 3323,
+    //                 //     contentType: "application/json",
+    //                 //     success: function (response) {
+    //                 //         allData.push(response.data);
+    //                 //     },
+    //                 //     error: function (error) {
+    //                 //         console.error('Xảy ra lỗi: ', error);
+    //                 //     }
+    //                 // });
+    //         },
+    //         error: function (error) {
+    //             console.error('Xảy ra lỗi: ', error);
+    //         }
+    //     });
+    //     console.log(allData);
+    // })
+
+</script>
+</body>
+</html>

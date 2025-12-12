@@ -1,0 +1,190 @@
+
+#dataInTable tr td:nth-child(2) {
+    padding-left: 0 !important;
+}
+
+
+.list_voucher li.scaleIn {
+    animation-name: scaleIn;
+    margin-bottom: 0.5rem !important;
+}
+
+.list_voucher li.scaleOut {
+    animation-name: scaleOut;
+    margin-bottom: 0 !important;
+}
+
+.list_voucher {
+    padding: 0;
+    margin-bottom: 0;
+    max-height: 515px;
+}
+
+
+.list_voucher li {
+    list-style: none;
+    cursor: pointer;
+    animation-duration: 0.5s;
+    animation-timing-function: ease-in-out;
+}
+
+.text-voucher-not-accept {
+    background-color: #dcdcdc;
+}
+
+.btn-show-all-voucher {
+    border-bottom: solid 1px #e5e5e5;
+    border-radius: 0;
+    margin-bottom: 10px;
+}
+
+.list_voucher li .wrapper_voucher {
+    border-radius: 10px;
+    border: solid 1px #ededed;
+}
+
+.badge-suggests-money {
+    font-size: 14px;
+    cursor: pointer;
+    border: .0625rem solid #e7eaf3;
+}
+
+.list_voucher li .wrapper_voucher.active {
+    border: solid 1px #000000;
+}
+
+.list_voucher li .wrapper_voucher .card__discount {
+    background-color: #ededed;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.list_voucher li .wrapper_voucher .contents {
+    font-size: 11px;
+    border-right: solid 1px #ededed;
+}
+
+.list_voucher li .wrapper_voucher .contents .voucher_code {
+    font-size: 25px;
+    font-weight: 600;
+}
+
+.text-discount {
+    display: flex;
+    position: absolute;
+    transform: rotate(270deg);
+    justify-content: center;
+    top: 67px;
+    right: 2px;
+    width: 168%;
+}
+
+.text-value-discount {
+    position: absolute;
+    transform: rotate(270deg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    top: 60px;
+    font-size: 30px;
+    font-weight: 800;
+}
+
+/*----------------------*/
+
+.list-voucher ul li {
+    list-style: none;
+    overflow: hidden;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.list-voucher ul li .wraper_voucher .contents {
+    background-color: #f3f2ee;
+    min-height: 160px;
+}
+
+.list-voucher ul li .wraper_voucher_not .contents {
+    background-color: #f3f2ee;
+    line-height: 1.2;
+    min-height: 120px;
+}
+
+.list-voucher ul li .wraper_voucher {
+    border: 2px solid transparent;
+    transition: border-color 0.3s ease;
+}
+
+.list-voucher ul li .wraper_voucher_not {
+    border: 2px solid transparent;
+    transition: border-color 0.3s ease;
+    border-bottom-width: 0px;
+}
+
+.list-voucher ul li .active {
+    border-color: #0b0b0b;
+}
+
+.list-voucher {
+    position: relative;
+}
+
+.list-voucher ul {
+    max-height: 550px;
+    padding: 0;
+}
+
+
+.list-voucher ul li .wraper_voucher .contents h5 {
+    font-weight: 900;
+    font-size: 26px;
+}
+
+.list-voucher ul li .wraper_voucher .contents label {
+    font-size: 10px;
+    margin-bottom: 0;
+    cursor: pointer;
+    width: 100%;
+}
+
+
+.list-voucher ul li .wraper_voucher .card__discount {
+    background-color: #0f6674;
+}
+
+
+.list-voucher ul li .wraper_voucher .card__discount label {
+    transform: rotate(270deg);
+    font-size: 15px;
+    color: #000;
+    position: absolute;
+    margin-top: 30px;
+    white-space: nowrap;
+    left: 0;
+    top: 85px;
+    cursor: pointer;
+}
+
+.list-voucher ul li .wraper_voucher .card__discount h3 {
+    transform: rotate(270deg);
+    position: absolute;
+    font-weight: 800;
+    font-size: 30px;
+    left: 30px;
+    white-space: nowrap;
+}
+
+.list-voucher ul li .wraper_voucher .card__discount .tienmat {
+    top: 74px;
+}
+
+.list-voucher ul li .wraper_voucher .card__discount .phantram {
+    top: 77px;
+}
+.money-dv {
+    right: 10px !important;
+}

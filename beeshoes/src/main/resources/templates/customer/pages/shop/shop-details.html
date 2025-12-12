@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>BeeShoes | Chi Tiết Sản Phẩm</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
+          rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="/assets/customer/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="/assets/customer/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="/assets/customer/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="/assets/customer/css/magnific-popup.css" type="text/css">
+    <link rel="stylesheet" href="/assets/customer/css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="/assets/customer/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="/assets/customer/css/fancybox.min.css" type="text/css">
+    <link rel="stylesheet" href="/assets/customer/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="/assets/customer/css/style.css" type="text/css">
+    <link rel="stylesheet" href="/assets/customer/custom.css" type="text/css">
+
+</head>
+
+<body>
+<!-- Page Preloder -->
+<div id="preloder">
+    <div class="loader"></div>
+</div>
+
+<!-- Header Section Begin -->
+<div th:replace="~{customer/pages/_header.html}"></div>
+<!-- Header Section End -->
+
+<!-- Shop Details Section Begin -->
+<section class="shop-details">
+    <div class="product__details__pic">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="product__details__breadcrumb">
+                        <a href="/index">Trang chủ</a>
+                        <a href="/shop">Cửa hàng</a>
+                        <span>Thông tin chi tiết sản phẩm</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-11 col-md-9 product-img-show">
+                    <div class="tab-content">
+                        <th:block th:each="img:${sanPham.getAnh()}">
+                            <div th:attr="class='tab-pane '+${img.getId()==sanPham.getMainImage().getId()?'active':''} "
+                                 th:id="'tabs-'+${img.getId()}" role="tabpanel">
+                                <div class="product__details__pic__item">
+                                    <img class="product-img-show" th:src="${img.getUrl()}" alt="">
+                                </div>
+                            </div>
+                        </th:block>
+                    </div>
+                </div>
+                <div class="col-lg-1 col-md-3">
+                    <ul class="nav nav-tabs mini_img " role="tablist">
+                        <th:block th:each="img:${sanPham.getAnh()}">
+                            <li class="nav-item open-fancybox">
+                                <a th:attr="class='nav-link '+${img.getId()==sanPham.getMainImage().getId()?'active':''} ,data-caption='#product img '+${img.getId()}"
+                                   data-toggle="tab" th:href="'#tabs-'+${img.getId()}" role="tab">
+                                    <div class="product__thumb__pic set-bg" th:attr="data-setbg=${img.getUrl()}">
+                                    </div>
+                                </a>
+                            </li>
+                        </th:block>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="position-absolute btn-fullscreen">
+            <i id="openFancybox" class="fa fa-arrows-alt" aria-hidden="true"></i>
+        </div>
+    </div>
+    <div class="product__details__content">
+        <div class="container">
+            <div class="row d-flex justify-content-center">
+                <div class="col-lg-8">
+                    <div class="product__details__text">
+                        <h4 th:text="${sanPham.getTen()}">Product Name</h4>
+                        <div class="rating">
+                            <span>Tổng số lượng : <th:block th:text="${sanPham.getSoLuong()}"></th:block></span> |<span
+                                id="total-num-product"></span>
+                        </div>
+                        <h3 id="show-price">
+                            <th:block
+                                    th:if="${sanPham != null and sanPham.giaBan != null and sanPham.chiTietSanPham != null and sanPham.chiTietSanPham.size() > 0}">
+                                <th:block
+                                        th:text="|${#numbers.formatDecimal(sanPham.giaBan, 1, 'DEFAULT', 0, 'DEFAULT')}đ|"></th:block>
+                                <span th:if="${sanPham.giaBan < sanPham.chiTietSanPham[0].giaGoc}"
+                                      th:text="|${#numbers.formatDecimal(sanPham.chiTietSanPham[0].giaGoc, 1, 'DEFAULT', 0, 'DEFAULT')}đ|"></span>
+                            </th:block>
+                        </h3>
+
+                        <p>Một đôi giày thể thao hiện đại và phong cách, được thiết kế với chất liệu vải lưới thoáng
+                            khí và lớp đệm êm ái, mang lại cảm giác thoải mái và thoáng mát cho đôi chân.
+                            Phần đế giày có thiết kế độc đáo, vừa giúp tăng cường độ bám và linh hoạt khi di chuyển,
+                            vừa tạo điểm nhấn thời trang cho toàn bộ sản phẩm.</p>
+                        <div class="product__details__option">
+                            <div class="product__details__option__size">
+                                <span>Size:</span>
+                                <th:block th:each="kichCo,iter:${sanPham.getDistinctKichCoList()}">
+                                    <label th:for="'size_id_'+${kichCo.getId()}">
+                                        <th:block th:text="${kichCo.getTen()}"></th:block>
+                                        <input class="size_selected" name="kichthuoc" type="radio"
+                                               th:id="'size_id_'+${kichCo.getId()}" th:value="${kichCo.getTen()}"
+                                               th:attr="data-id-size=${kichCo.getId()}">
+                                    </label>
+                                </th:block>
+                            </div>
+                            <div class="product__details__option__color">
+                                <span>Color:</span>
+                                <th:block th:each="color, iter: ${sanPham.getMauSac()}">
+                                    <label class="label_select_color"
+                                           th:style="'background-color: ' + ${color.getMaMauSac()}"
+                                           th:for="'color_id_'+${color.getId()}">
+                                        <input class="select_color" type="radio" th:id="'color_id_'+${color.getId()}"
+                                               th:value="${color.getMaMauSac()}"
+                                               name="color" th:attr="data-id-color=${color.getId()}"/>
+                                    </label>
+                                </th:block>
+                            </div>
+                        </div>
+                        <div class="product__details__cart__option">
+                            <div class="quantity">
+                                <div class="pro-qty">
+                                    <input id="quantity-selected" type="text" value="1">
+                                </div>
+                            </div>
+                            <a href="javascript:;" id="btn-buy-product" class="primary-btn">Mua Ngay</a>
+                        </div>
+                        <div class="product__details__btns__option">
+                            <a href="javascript:;"><i class="fa fa-heart"></i> Thêm Vào Yêu Thích</a>
+                            <a href="javascript:;" id="add-to-cart"><i class="fa fa-shopping-cart"></i> Thêm Vào Giỏ
+                                Hàng</a>
+                        </div>
+                        <div class="product__details__last__option">
+                            <h5><span>Các Hình Thức Thanh Toán</span></h5>
+                            <img src="/assets/customer/img/shop-details/details-payment.png" alt="">
+                            <ul>
+                                <li id="product-sku"></li>
+                                <li><span>Thể Loại :</span>
+                                    <th:block th:text="${sanPham.getTheLoai().getTen()}"></th:block>
+                                </li>
+                                <li><span>Thương Hiệu :</span>
+                                    <th:block th:text="${sanPham.getThuongHieu().getTen()}"></th:block>
+                                </li>
+                                <li><span>Loại Đế Giày :</span>
+                                    <th:block
+                                            th:text="${sanPham.getChiTietSanPham().get(0).getDeGiay().getTen()}"></th:block>
+                                </li>
+                                <li><span>Loại Cổ Giày :</span>
+                                    <th:block
+                                            th:text="${sanPham.getChiTietSanPham().get(0).getCoGiay().getTen()}"></th:block>
+                                </li>
+                                <li th:if="${#lists.size(sanPham.getTags())>0}"><span>Tag:</span>
+                                    <th:block th:each="tag,iter:${sanPham.getTags()}">
+                                        <th:block th:if="${iter.index > 0}">,</th:block>
+                                        <th:block th:text="${tag.getTen()}"></th:block>
+                                    </th:block>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="product__details__tab">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-toggle="tab" href="#tabs-5"
+                                   role="tab">Giới Thiệu Sản Phẩm</a>
+                            </li>
+                            <!--                                <li class="nav-item">-->
+                            <!--                                    <a class="nav-link" data-toggle="tab" href="#tabs-6" role="tab">Customer-->
+                            <!--                                    Previews(5)</a>-->
+                            <!--                                </li>-->
+                            <!--                                <li class="nav-item">-->
+                            <!--                                    <a class="nav-link" data-toggle="tab" href="#tabs-7" role="tab">Additional-->
+                            <!--                                    information</a>-->
+                            <!--                                </li>-->
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="tabs-5" role="tabpanel">
+                                <div class="product__details__tab__content">
+                                    <p class="note">
+                                        <!--                                            note in here-->
+                                    </p>
+                                    <div class="product__details__tab__content__item" th:utext="${sanPham.getMoTa()}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="tabs-6" role="tabpanel">
+                                <div class="product__details__tab__content">
+                                    <div class="product__details__tab__content__item">
+                                        <h5>Thông tin sản phẩm</h5>
+                                        <p>AMàu sắc của đôi giày có thể là sắc trắng trẻ trung hoặc sắc đen lịch lãm,
+                                            phối hợp với các chi tiết màu sắc tương phản tạo điểm nhấn nổi bật. Logo của thương hiệu có thể
+                                            được đính ở phần mũi giày hoặc gót giày, tôn lên vẻ sang trọng và đẳng cấp của sản phẩm.</p>
+                                        <p>Màu sắc của đôi giày có thể là sắc trắng trẻ trung hoặc sắc đen lịch lãm, phối hợp với
+                                            các chi tiết màu sắc tương phản tạo điểm nhấn nổi bật. Logo của thương hiệu
+                                            có thể được đính ở phần mũi giày hoặc gót giày, tôn lên vẻ sang trọng và đẳng cấp của sản phẩm.</p>
+                                    </div>
+                                    <div class="product__details__tab__content__item">
+                                        <h5>Vật liệu đã sử dụng</h5>
+                                        <p>ải lưới được sử dụng ở phần thân giày để tạo cảm giác thoáng khí và thoải mái cho đôi chân. Vải lưới giúp lưu thông không khí và hút ẩm tốt,
+                                            giúp chân luôn khô ráo và thoáng mát trong suốt quá trình sử dụng.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Shop Details Section End -->
+
+<!-- Related Section Begin -->
+<section class="related spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h3 class="related-title">Sản phẩm liên quan</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3 col-md-6 col-sm-6" th:each="sp:${lstRelatedProduct}">
+                <div class="product__item sale" th:attr="data-product-id=${sp.getId()}">
+                    <th:block th:each="anh:${sp.getAnh()}" th:if="${anh.isMain == true}">
+                        <div class="product__item__pic set-bg susor-pointer"
+                             th:attr="data-setbg=${anh.getUrl()}, data-href=@{/shop-detail(product=${sp.getId()})}">
+                            <img class="img-main-product d-none" th:src="${anh.getUrl()}" alt="">
+                            <span class="label" th:if="${sp.isSale()}">SALE</span>
+                            <ul class="product__hover">
+                                <li><a href="javascript:;"><img src="/assets/customer/img/icon/heart.png"
+                                                                alt=""></a>
+                                </li>
+                                <li>
+                                    <a class="btn-add-to-cart" href="javascript:;"><img
+                                            src="/assets/customer/img/icon/shopping-cart-add.svg"
+                                            alt=""></a>
+                                </li>
+                                <li><a th:href="@{/shop-detail(product=${sp.getId()})}"><img
+                                        src="/assets/customer/img/icon/eye.svg" alt=""></a></li>
+                            </ul>
+                        </div>
+                    </th:block>
+                    <div class="product__item__text ">
+                        <h6 class="product_name" th:text="${sp.getTen()}"></h6>
+                        <a th:href="@{/shop-detail(product=${sp.getId()})}" class="add-cart">Mua Ngay</a>
+                        <th:block th:each="ctsp,iter:${sp.getChiTietSanPham()}">
+                            <th:block th:if="${iter.index == 0}">
+                                <div class="rating">
+                                    <h6 class="giaGoc pb-3"
+                                        th:if="${iter.index == 0 and ctsp.getGiaGoc()==ctsp.getGiaBan()}"></h6>
+                                    <h6 class="giaGoc"
+                                        th:if="${iter.index == 0 and ctsp.getGiaGoc()!=ctsp.getGiaBan()}"
+                                        th:text="${#numbers.formatDecimal (ctsp.getGiaGoc(), 1, 'DEFAULT', 0, 'DEFAULT')} + 'đ'"></h6>
+                                </div>
+                            </th:block>
+                            <h5 th:if="${iter.index == 0}"
+                                th:text="${#numbers.formatDecimal (ctsp.getGiaBan(), 1, 'DEFAULT', 0, 'DEFAULT')} + 'đ'"></h5>
+                        </th:block>
+                        <div class="product__option__size">
+                            <th:block th:each="size:${sp.getDistinctKichCoList()}">
+                                <label class="label_select_size"
+                                       th:for="'size_id_'+${size.getId()}+'_'+${sp.getId()}">
+                                    <th:block th:text="${size.getTen()}"></th:block>
+                                    <input class="size_selected" th:name="'kichthuoc'+${sp.getId()}"
+                                           type="radio" th:id="'size_id_'+${size.getId()}+'_'+${sp.getId()}"
+                                           th:value="${size.getTen()}" data-id-size="4">
+                                </label>
+                            </th:block>
+                        </div>
+                        <div class="product__color__select">
+                            <th:block th:each="ms:${sp.getDistinctMauSacList()}">
+                                <label th:style="'background-color:' + ${ms.getMaMauSac()}">
+                                    <input type="radio" th:value="${ms.getMaMauSac()}">
+                                </label>
+                            </th:block>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Related Section End -->
+
+
+<table border="1" id="table-data" class="d-none">
+    <tr th:each="ctsp:${sanPham.getChiTietSanPham()}">
+        <td data-name="id" th:text="${ctsp.getId()}"></td>
+        <td data-name="name" th:text="${sanPham.getTen()}"></td>
+        <td data-name="color_name" th:text="${ctsp.getMauSac().getTen()}"></td>
+        <td data-name="color_code" th:text="${ctsp.getMauSac().getMaMauSac()}"></td>
+        <td data-name="size" th:text="${ctsp.getKichCo().getTen()}"></td>
+        <td data-name="detail_code" th:text="${ctsp.getMaSanPham()}"></td>
+        <td style="max-width: 50px;overflow: hidden" data-name="product_img"
+            th:text="${ctsp.getAnh().getUrl()}"></td>
+        <td data-name="gia_ban"
+            th:text="${#numbers.formatDecimal(ctsp.getGiaBan(), 1, 'DEFAULT', 0, 'DEFAULT')}"></td>
+        <td data-name="gia_goc"
+            th:text="${#numbers.formatDecimal(ctsp.getGiaGoc(), 1, 'DEFAULT', 0, 'DEFAULT')}"></td>
+        <td data-name="so_luong_ton" th:text="${ctsp.getSoLuongTon()}"></td>
+        <td data-name="chat_lieu" th:text="${ctsp.getChatLieu().getTen()}"></td>
+        <td data-name="co_giay" th:text="${ctsp.getCoGiay().getTen()}"></td>
+        <td data-name="de_giay" th:text="${ctsp.getDeGiay().getTen()}"></td>
+        <td data-name="mui_giay" th:text="${ctsp.getMuiGiay().getTen()}"></td>
+        <td data-name="Inventory_number" th:text="${ctsp.getTrangThai()}"></td>
+    </tr>
+</table>
+<!-- Footer Section Begin -->
+<div th:replace="~{customer/pages/_footer.html}"></div>
+<!-- Footer Section End -->
+
+
+<!-- Search Begin -->
+<div class="search-model">
+    <div class="h-100 d-flex align-items-center justify-content-center">
+        <div class="search-close-switch">+</div>
+        <form class="search-model-form">
+
+            <input type="text" id="search-input" placeholder="Tìm kiếm ở đây.....">
+
+        </form>
+    </div>
+</div>
+
+<!-- Search End -->
+
+<!-- Js Plugins -->
+<script src="/assets/customer/js/jquery-3.3.1.min.js"></script>
+<script src="/assets/customer/js/fancybox.min.js"></script>
+<script src="/assets/customer/js/bootstrap.min.js"></script>
+<script src="/assets/customer/js/jquery.nice-select.min.js"></script>
+<script src="/assets/customer/js/jquery.nicescroll.min.js"></script>
+<script src="/assets/customer/js/jquery.inputmask.min.js"></script>
+<script src="/assets/customer/js/jquery.magnific-popup.min.js"></script>
+<script src="/assets/customer/js/jquery.countdown.min.js"></script>
+<script src="/assets/customer/js/jquery.slicknav.js"></script>
+<script src="/assets/customer/js/mixitup.min.js"></script>
+<script src="/assets/customer/js/owl.carousel.min.js"></script>
+<script src="/assets/customer/js/main.js"></script>
+<script src="/assets/customer/js/shop/shop-detail.js"></script>
+
+</body>
+
+</html>

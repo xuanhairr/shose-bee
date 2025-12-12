@@ -1,0 +1,62 @@
+
+/* Định nghĩa animation cho hiệu ứng xuất hiện */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: scale(0); /* Phóng to dần từ kích thước 80% */
+        width: 0;
+        height: 0;
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1); /* Hiển thị với kích thước ban đầu */
+        width: 292px;
+        height: 393px;
+    }
+}
+
+#list_product_items {
+    min-height: 1000px;
+}
+
+/* Định nghĩa animation cho hiệu ứng biến mất */
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+        transform: scale(1); /* Kích thước ban đầu */
+        width: 292px;
+        height: 393px;
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0); /* Thu nhỏ dần đến 80% */
+        width: 0;
+        height: 0;
+    }
+}
+
+
+/* CSS cho phần tử xuất hiện */
+.mix.fadeIn {
+    display: block; /* Hiển thị phần tử */
+    animation: fadeIn 0.7s ease-in-out; /* Sử dụng animation fadeIn */
+}
+
+/* CSS cho phần tử biến mất */
+.fadeOut {
+    animation: fadeOut 0.7s ease-in-out; /* Sử dụng animation fadeOut */
+}
+
+.mix.fadeOut {
+    display: none;
+}
+
+.product_wraper {
+    transition: transform 0.7s ease-in-out;
+}
+
+/*!* CSS cho hiệu ứng chuyển động *!*/
+/*.mixitup-transitions-enabled .product_wraper {*/
+/*    transition: opacity 0.7s ease-in-out; !* Hiệu ứng chuyển động *!*/
+
+/*}*/

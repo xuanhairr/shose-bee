@@ -1,0 +1,395 @@
+
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required Meta Tags Always Come First -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Title -->
+    <title>LightBee | Phiếu Giảm Giá</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/assets/cms/img/icon/favicon.ico">
+
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+
+    <!-- CSS Implementing Plugins -->
+    <link rel="stylesheet" href="/assets/cms/css/vendor.min.css">
+    <link rel="stylesheet" href="/assets/cms/vendor/icon-set/style.css">
+    <link rel="stylesheet" href="/assets/cms/css/sweetalert2.min.css">
+    <style>
+        #dataInTable tr td:nth-child(2) {
+            padding-left: 0 !important;
+        }
+    </style>
+    <!-- CSS Front Template -->
+    <link rel="stylesheet" href="/assets/cms/css/theme.min.css?v=1.0">
+</head>
+
+<body class="footer-offset">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.1/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+<script src="/assets/cms/vendor/hs-navbar-vertical-aside/hs-navbar-vertical-aside-mini-cache.js"></script>
+<!-- ========== HEADER ========== -->
+<div th:replace="~{cms/pages/_header.html}"></div>
+<!-- ========== END HEADER ========== -->
+
+<!-- ========== SIDEBAR ========== -->
+<div th:replace="~{cms/pages/_sidebar.html}"></div>
+<!-- ========== END SIDEBAR ========== -->
+
+<script src="/assets/cms/js/demo.js"></script>
+
+<!-- END ONLY DEV -->
+
+<!-- Search Form -->
+<div id="searchDropdown" class="hs-unfold-content dropdown-unfold search-fullwidth d-md-none">
+    <form class="input-group input-group-merge input-group-borderless">
+        <div class="input-group-prepend">
+            <div class="input-group-text">
+                <i class="tio-search"></i>
+            </div>
+        </div>
+
+        <input class="form-control rounded-0" type="search" placeholder="Search in front" aria-label="Search in front">
+
+        <div class="input-group-append">
+            <div class="input-group-text">
+                <div class="hs-unfold">
+                    <a class="js-hs-unfold-invoker" href="javascript:;" data-hs-unfold-options='{
+                   "target": "#searchDropdown",
+                   "type": "css-animation",
+                   "animationIn": "fadeIn",
+                   "hasOverlay": "rgba(46, 52, 81, 0.1)",
+                   "closeBreakpoint": "md"
+                 }'>
+                        <i class="tio-clear tio-lg"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<!-- End Search Form -->
+
+<!-- ========== HEADER ========== -->
+
+
+<!-- ========== END HEADER ========== -->
+
+<!-- ========== MAIN CONTENT ========== -->
+<!-- Navbar Vertical -->
+
+
+<!-- End Navbar Vertical -->
+
+<main id="content" role="main" class="main">
+    <!-- Content -->
+    <div class="content container-fluid">
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row align-items-end">
+                <div class="col-sm mb-2 mb-sm-0">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb breadcrumb-no-gutter">
+                            <li class="breadcrumb-item"><a class="breadcrumb-link" href="javascript:;">CMS</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Phiếu Giảm Giá</li>
+                        </ol>
+                    </nav>
+
+                    <h1 class="page-header-title">Phiếu Giảm Giá</h1>
+                </div>
+                <div class="col-sm-auto">
+                    <a class="btn btn-primary" id="btn-add-new" href="/cms/voucher/add-voucher">
+                        <i class="tio-user-add mr-1"></i>Thêm Mới
+                    </a>
+                </div>
+            </div>
+            <!-- End Row -->
+        </div>
+        <!-- End Page Header -->
+
+        <div class="card h-100 mb-5">
+            <div class="card-body">
+                <h6 class="card-subtitle mb-2">Bộ Lọc</h6>
+                <div class="row align-items-center gx-2">
+                    <div class="row align-items-center flex-grow-1">
+                        <div class="col-sm-6 col-md-4 mb-3 mb-md-0">
+                            <form class="col-12 mb-3">
+                                <!-- Search -->
+                                <div class="input-group input-group-merge input-group-flush">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <i class="tio-search"></i>
+                                        </div>
+                                    </div>
+                                    <input id="datatableSearch" type="search" class="form-control"
+                                           placeholder="Tìm kiếm." aria-label="Tìm sản phẩm" autofocus>
+                                </div>
+                                <!-- End Search -->
+                            </form>
+                        </div>
+                        <div class="hs-unfold form-group col-sm-6 col-md-4">
+                            <label for="loaiVoucher">Thể Loại</label>
+                            <select class="js-select2-custom custom-select" name="loai-voucher"
+                                    id="loaiVoucher" size="1"
+                                    style="opacity: 0;"
+                                    data-hs-select2-options='{
+                                    "placeholder": "Chọn loại...",
+                                    "searchInputPlaceholder": "Tìm loại..."
+                                    }'>
+                                <option value="all" selected>Tất Cả</option>
+                                <option value="%">Phần Trăm (%)</option>
+                                <option value="$">Tiền Mặt ($)</option>
+                            </select>
+                        </div>
+                        <div class="hs-unfold form-group col-sm-6 col-md-4">
+                            <label>Khoảng SL</label>
+                            <div class="row align-items-center">
+                                <label for="quantity_from" class="col-2">Từ</label><input
+                                    class="number-input-mask form-control col-4" type="text" id="quantity_from"
+                                    value="">
+                                <label for="quantity_to" class="col-2">Đến</label><input
+                                    class="number-input-mask form-control col-4" type="text" id="quantity_to"
+                                    value="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Row -->
+        </div>
+        <!-- Card -->
+        <div class="card">
+            <!-- Header -->
+            <div class="card-header">
+                <div class="row justify-content-between align-items-center flex-grow-1">
+                    <div class="col-sm-6 col-md-4 mb-3 mb-sm-0">
+                        <h2>Danh Sách Phiếu Giảm Giá</h2>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="d-sm-flex justify-content-sm-end align-items-sm-center">
+                            <!-- Datatable Info -->
+                            <div id="datatableCounterInfo" class="mr-2 mb-2 mb-sm-0" style="display: none;">
+                                <div class="d-flex align-items-center">
+                      <span class="font-size-sm mr-3">
+                        <span id="datatableCounter">0</span>
+                        Selected
+                      </span>
+                                    <a class="btn btn-sm btn-outline-danger" href="javascript:;">
+                                        <i class="tio-delete-outlined"></i> Delete
+                                    </a>
+                                </div>
+                            </div>
+                            <!-- End Datatable Info -->
+                        </div>
+                    </div>
+                </div>
+                <!-- End Row -->
+            </div>
+            <!-- End Header -->
+
+            <!-- Table -->
+            <div class="table-responsive datatable-custom">
+                <table id="datatable"
+                       class="table table-borderless table-thead-bordered table-nowrap table-align-middle card-table"
+                       data-hs-datatables-options='{
+                       "ordering": false,
+                     "columnDefs": [{
+                        "targets": [0, 7],
+                        "orderable": false
+                      }],
+                     "order": [],
+                     "info": {
+                       "totalQty": "#datatableWithPaginationInfoTotalQty"
+                     },
+                     "search": "#datatableSearch",
+                     "entries": "#datatableEntries",
+                     "pageLength": 10,
+                     "isResponsive": true,
+                     "isShowPaging": true,
+                     "pagination": "datatablePagination"
+                   }'>
+                    <thead class="thead-light">
+                    <tr>
+                        <th>STT</th>
+                        <th>Mã</th>
+                        <th>Tên Phiếu</th>
+                        <th>Loại Phiếu</th>
+                        <th>Số Lượng</th>
+                        <th>Giá Trị</th>
+                        <th>Giá Trị Tối Đa</th>
+                        <th>Giá Trị Tối Thiểu</th>
+                        <th>Ngày Bắt Đầu</th>
+                        <th>Ngày Kết Thúc</th>
+                        <th>Trạng Thái</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+
+                    <tbody id="show-all-voucher">
+                    <th:block th:each="voucher,loop : ${lstvoucher}">
+                        <tr th:attr="data-voucher-id=${voucher.getId()}">
+                            <td>[[${loop.index + 1}]]</td>
+                            <td>[[${voucher.ma}]]</td>
+                            <td>[[${voucher.ten}]]</td>
+                            <td th:text="${voucher.loaiVoucher == '%' ? 'Phần trăm' : 'Tiền mặt'}"></td>
+                            <td>[[${voucher.soLuong}]]</td>
+                            <th:block th:if="${voucher.loaiVoucher=='$'}">
+                                <td th:text="${#numbers.formatDecimal(voucher.giaTriTienMat, 1, 'DEFAULT', 0, 'DEFAULT')} + 'đ' "></td>
+                            </th:block>
+                            <th:block th:if="${voucher.loaiVoucher=='%'}">
+                                <td>[[${voucher.giaTriPhanTram}]] %</td>
+                            </th:block>
+                            <td th:text="${#numbers.formatDecimal(voucher.giaTriToiDa, 1, 'DEFAULT', 0, 'DEFAULT')} + 'đ'"></td>
+                            <td th:text="${#numbers.formatDecimal(voucher.giaTriToiThieu, 1, 'DEFAULT', 0, 'DEFAULT')} + 'đ' "></td>
+                            <td th:if="${voucher != null}"
+                                th:text="${#dates.format(voucher.ngayBatDau, 'yyyy-MM-dd | HH:mm')}"></td>
+                            <td th:if="${voucher != null}"
+                                th:text="${#dates.format(voucher.ngayKetThuc, 'yyyy-MM-dd | HH:mm')}"></td>
+                            <td class="status-voucher">
+                             <th:block th:switch="${voucher.trangThai}">
+                                <span th:case="1" class="badge badge-pill badge-light">Sắp Diễn Ra</span>
+                                <span th:case="2" class="badge badge-pill badge-success">Đang Diễn Ra</span>
+                                <span th:case="3" class="badge badge-pill badge-warning">Đã Kết Thúc</span>
+                                <span th:case="4" class="badge badge-pill badge-dark">Hủy</span>
+                             </th:block>
+                            </td>
+                            <td>
+                                <div class="btn-group" role="group">
+                                    <a class="btn " data-toggle="tooltip"
+                                       data-placement="top" title="Cập Nhật"
+                                       th:href="@{/cms/voucher/add-voucher(id=${voucher.id})}">
+                                        <i class="tio-edit"></i>
+                                    </a>
+
+                                    <a class="btn cancel-voucher" th:if="${voucher.getTrangThai()!=3}" data-toggle="tooltip"
+                                       data-placement="top"
+                                       title="Kết Thúc" th:attr="data-id=${voucher.id}">
+                                        <i class="tio-clear"></i>
+                                    </a>
+                                    <!-- End Unfold -->
+                                </div>
+                            </td>
+                        </tr>
+                    </th:block>
+                    </tbody>
+                </table>
+            </div>
+            <!-- End Table -->
+
+            <!-- Footer -->
+            <div class="card-footer">
+                <!-- Pagination -->
+                <div class="row justify-content-center justify-content-sm-between align-items-sm-center">
+                    <div class="col-sm mb-2 mb-sm-0">
+                        <div class="d-flex justify-content-center justify-content-sm-start align-items-center">
+                            <span class="mr-2">Hiển Thị:</span>
+
+                            <!-- Select -->
+                            <select id="datatableEntries" class="js-select2-custom" data-hs-select2-options='{
+                            "minimumResultsForSearch": "Infinity",
+                            "customClass": "custom-select custom-select-sm custom-select-borderless",
+                            "dropdownAutoWidth": true,
+                            "width": true
+                          }'>
+                                <option th:if="${#lists.size(lstvoucher) < 10}" th:value="${#lists.size(lstvoucher)}"
+                                        selected th:text="${#lists.size(lstvoucher)}"></option>
+                                <option th:if="${#lists.size(lstvoucher) >= 10}" th:value="10" selected>10</option>
+                                <option value="15">15</option>
+                                <option value="20">20</option>
+                            </select>
+                            <!-- End Select -->
+
+                            <span class="text-secondary mr-2">/</span>
+
+                            <!-- Pagination Quantity -->
+                            <span id="datatableWithPaginationInfoTotalQty"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-auto">
+                        <div class="d-flex justify-content-center justify-content-sm-end">
+                            <!-- Pagination -->
+                            <nav id="datatablePagination" aria-label="Activity pagination"></nav>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Pagination -->
+            </div>
+            <!-- End Footer -->
+        </div>
+        <!-- End Card -->
+    </div>
+    <!-- End Content -->
+
+    <!-- Footer -->
+    <div th:replace="~{cms/pages/_footer.html}"></div>
+    <!-- End Footer -->
+</main>
+<!-- ========== END MAIN CONTENT ========== -->
+
+<!-- ========== SECONDARY CONTENTS ========== -->
+
+<!-- Edit user Modal -->
+<div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="editUserModalTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <!-- Header -->
+            <div class="modal-header">
+                <h4 id="editUserModalTitle" class="modal-title">Phiếu Giảm Giá</h4>
+
+                <button type="button" class="btn btn-icon btn-sm btn-ghost-secondary" data-dismiss="modal"
+                        aria-label="Close">
+                    <i class="tio-clear tio-lg"></i>
+                </button>
+            </div>
+            <!-- End Header -->
+
+            <!-- Body -->
+            <div class="modal-body">
+                <div class="form-group p-4 pb-0 mb-0">
+                    <label for="inputData">Tên Mã Giảm Giá :</label>
+                    <input class="form-control" type="text" id="inputData" autofocus placeholder="Vui lòng nhập tên.">
+                    <input class="form-control" type="text" id="inputDataId" hidden="">
+                </div>
+                <div class="form-group p-4 pt-0">
+                    <label for="inputData">Trạng Thái :</label>
+                    <select class="form-control" type="text" id="selectedStaus">
+                        <option value="1">Hiển Thị</option>
+                        <option value="0">Không Hiển Thị</option>
+                    </select>
+                </div>
+                <div class="d-flex justify-content-end">
+                    <button type="button" class="btn btn-white mr-2" data-dismiss="modal" aria-label="Close">Cancel
+                    </button>
+                    <button type="button" class="btn btn-primary" id="save">Lưu</button>
+                </div>
+            </div>
+            <!-- End Body -->
+        </div>
+    </div>
+</div>
+<!-- End Edit user Modal -->
+<!-- ========== END SECONDARY CONTENTS ========== -->
+
+<!-- JS Implementing Plugins -->
+<script src="/assets/cms/js/vendor.min.js"></script>
+
+
+<!-- JS Front -->
+<script src="/assets/cms/js/theme.min.js"></script>
+
+<!-- JS Plugins Init. -->
+<script src="/assets/cms/js/sweetalert2.all.min.js"></script>
+<script src="/assets/cms/js/voucher/voucher.js"></script>
+<script src="/assets/socket/socket-config.js"></script>
+<script src="/assets/cms/js/header/_header.js"></script>
+<!-- IE Support -->
+<div th:replace="~{cms/pages/_IE-suport.html}"></div>
+</body>
+</html>

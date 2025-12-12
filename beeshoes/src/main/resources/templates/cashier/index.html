@@ -1,0 +1,1153 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required Meta Tags Always Come First -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Title -->
+    <title>Bán Hàng</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="favicon.ico">
+
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/cms/css/sweetalert2.min.css">
+    <!-- CSS Implementing Plugins -->
+    <link rel="stylesheet" href="/assets/cms/css/vendor.min.css">
+    <link rel="stylesheet" href="/assets/cms/vendor/icon-set/style.css">
+    <link rel="stylesheet" href="/assets/cms/css/theme.min.css?v=1.0">
+    <link rel="stylesheet" href="/assets/cms/css/custom.css?v=1.0">
+    <link rel="stylesheet" href="/assets/cms/css/cashier.css?v=1.0">
+    <!-- CSS Front Template -->
+</head>
+
+<body class="footer-offset" id="body-html">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.1/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+
+<script src="/assets/cms/vendor/hs-navbar-vertical-aside/hs-navbar-vertical-aside-mini-cache.js"></script>
+
+<!-- ========== HEADER ========== -->
+<div th:replace="~{cms/pages/_header.html}"></div>
+<!-- ========== END HEADER ========== -->
+
+<!-- ========== SIDEBAR ========== -->
+<div th:replace="~{cms/pages/_sidebar.html}"></div>
+<!-- ========== END SIDEBAR ========== -->
+<script src="/assets/cms/js/demo.js"></script>
+
+<main id="content" role="main" class="main">
+    <!-- Content -->
+    <div class="content container-fluid">
+        <div class="page-header pb-0">
+            <div class="row align-items-center mb-3">
+                <div class="col-sm mb-2 mb-sm-0">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb breadcrumb-no-gutter">
+                            <li class="breadcrumb-item"><a class="breadcrumb-link" href="/cms/">CMS</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Bán Hàng</li>
+                        </ol>
+                    </nav>
+                    <h1 class="page-header-title">Bán Hàng Tại Quầy</h1>
+                    <div class="mt-2">
+                    </div>
+                </div>
+            </div>
+            <!-- End Row -->
+        </div>
+        <!-- Nav -->
+        <div class="">
+            <ul id="list-item-oder" class="nav nav-segment nav-oder nav-pills mb-7" role="tablist">
+                <li class="nav-item position-relative">
+                    <a class="nav-link nav-show-oder active" id="nav-link-tab-1" data-toggle="pill"
+                       href="#nav-content-tab-1" role="tab"
+                       aria-controls="nav-content-tab-1" aria-selected="true">Hóa Đơn 1</a>
+                    <i class="tio-clear btn-delete-oder"></i>
+                </li>
+            </ul>
+            <ul class="nav nav-segment nav-pills mb-7" role="tablist">
+                <li class="nav-item">
+                    <a id="btn-add-new-bill" class="nav-link active btn-add-new-bill">
+                        <i class="tio-add"></i>
+                        Thêm</a>
+                </li>
+            </ul>
+        </div>
+        <!-- End Nav -->
+
+        <!-- Tab Content -->
+        <div id="tab-content-show" class="tab-content">
+            <div class="tab-pane fade show active" id="nav-content-tab-1" role="tabpanel"
+                 aria-labelledby="nav-link-tab-1">
+                <div id="oder_content_1" class="row oder-wraper-content" data-id-num-hd="1">
+                    <div class="col-lg-3 order-lg-2 mb-5 mb-lg-0">
+                        <div class="checkoutStepOrderSummary">
+                            <!-- Card -->
+                            <div class="card mb-3">
+                                <!-- Header -->
+                                <div class="card-header p-0" style="flex-direction: column;">
+                                    <div class="form-group w-100 d-flex justify-content-between align-items-center">
+                                        <select class="js-select2-custom custom-select customer-selected"
+                                                name="khachHang"
+                                                size="1"
+                                                style="opacity: 0;"
+                                                data-hs-select2-options='{
+                                            "placeholder": "Tìm Khách Hàng...",
+                                            "searchInputPlaceholder": "Tìm Khách Hàng..."}'>
+                                            <option value="#" selected>Khách Lẻ</option>
+                                            <th:block th:each="cus:${customer}">
+                                                <option th:value="${cus.getId()}"
+                                                        th:attr="data-phone=${cus.getSdt()},data-email=${cus.getUser().getEmail()}"
+                                                        th:text="${cus.getHoTen()+'-'+cus.getSdt()}"></option>
+                                            </th:block>
+                                        </select>
+                                        <a data-toggle="tooltip" class="btn-add-customer"
+                                           data-original-title="Thêm Khách Hàng" href="javascript:;">
+                                            <i class="tio-add"></i>
+                                        </a>
+                                    </div>
+                                    <div class="w-100 pl-3">
+                                        <label class="w-100">Họ Tên:<strong class="fullName-customer"></strong></label>
+                                        <label class="w-100">SDT:<strong class="phone-customer"></strong></label>
+                                        <label class="w-100">Email:<strong class="email-customer"></strong></label>
+                                        <label class="w-100">Mã KH:<strong class="code-customer"></strong></label>
+                                    </div>
+                                </div>
+                                <!-- End Header -->
+
+                                <!-- Body -->
+                                <div class="card-body">
+                                    <!-- Input Group -->
+                                    <div class="input-group input-group-merge">
+                                        <input type="text" class="form-control input_voucher" name="name"
+                                               placeholder="Nhập mã"
+                                               aria-label="Promo code">
+                                        <div class="input-group-append">
+                                            <button type="button" class="btn btn-block btn-primary btn-apply-voucher">Áp
+                                                Dụng
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <!-- End Input Group -->
+                                    <small class="form-text mb-2"></small>
+
+                                    <ul id="best_voucher_voucher_hd_1" class="list-voucher">
+                                    </ul>
+                                    <ul id="voucher_not_accept_hd_1" class="list-voucher mt-2">
+                                        <!--                                        <li class="item-voucher">-->
+                                        <!--                                            <div class="wrapper_voucher disabled row m-0">-->
+                                        <!--                                                <div class="col-9 contents p-2">-->
+                                        <!--                                                    <h5 class="text-center voucher_code">VC00004</h5>-->
+                                        <!--                                                    <label class="express_date">Hạn Đến: 15H17 Ngày 30/05/2024</label>-->
+                                        <!--                                                    <label class="express_date">Điều Kiện: Áp dụng cho đơn hàng từ 1.000.000đ</label>-->
+                                        <!--                                                    <label class="express_date">Tối Đa:150.000đ/Khách Hàng</label>-->
+                                        <!--                                                    <label class="express_date w-100">Số Lượng : 95</label>-->
+                                        <!--                                                </div>-->
+                                        <!--                                                <div class="col-3 p-2 row m-0 card__discount position-relative">-->
+                                        <!--                                                    <label class="text-discount">Mã Giảm Giá</label>-->
+                                        <!--                                                    <h2 class="text-value-discount">20%</h2>-->
+                                        <!--                                                </div>-->
+                                        <!--                                            </div>-->
+                                        <!--                                            <label class="text-danger small w-100 text-voucher-not-accept">Mua thêm 500.000đ để sử dụng voucher</label>-->
+                                        <!--                                        </li>-->
+                                    </ul>
+                                    <div class="accordion list_voucher mb-5" id="accordionExample">
+                                        <button class="btn btn-link btn-show-all-voucher btn-block text-right collapsed"
+                                                type="button"
+                                                data-toggle="collapse" data-target="#collapseThree"
+                                                aria-expanded="false"
+                                                aria-controls="collapseThree">Tất cả
+                                        </button>
+                                        <div id="collapseThree" class="collapse" aria-labelledby="headingThree"
+                                             data-parent="#accordionExample">
+                                            <ul id="list_show_voucher_hd_1" class="list-voucher">
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <hr class="my-2">
+
+                                    <div class="row align-items-center mb-3">
+                                        <span class="col-5">Tổng:</span>
+                                        <h4 class="col-7 text-right text-dark mb-0 total-money">0đ</h4>
+                                    </div>
+                                    <!-- End Row -->
+
+                                    <div class="row align-items-center">
+                                        <span class="col-5">Phí Ship:</span>
+                                        <h4 class="col-7 text-right text-dark mb-0 shipping-money">Miễn Phí</h4>
+                                    </div>
+                                    <!-- End Row -->
+                                    <hr class="my-2">
+                                    <div class="row align-items-center">
+                                        <span class="col-5">Giảm Giá:</span>
+                                        <h4 class="col-7 text-right text-dark mb-0 discount-money">0đ</h4>
+                                    </div>
+                                    <!-- End Row -->
+
+                                    <hr class="my-2">
+
+                                    <div class="row align-items-center">
+                                        <span class="col-5 text-dark font-weight-bold">Thực Thu:</span>
+                                        <h3 class="col-7 text-right text-dark mb-0 payment-money">0đ</h3>
+                                    </div>
+                                    <!-- End Row -->
+                                </div>
+                                <div class="card-footer">
+                                    <a id="btn-payment-hd-1" class="btn btn-primary btn-payment-oder w-100">THANH
+                                        TOÁN</a>
+                                </div>
+                                <!-- Body -->
+                            </div>
+                            <!-- End Card -->
+
+                            <!-- Help Link -->
+                            <div class="d-flex justify-content-center">
+                                <div class="media align-items-center">
+                                    <i class="tio-support mr-1"></i>
+
+                                    <div class="media-body">
+                                        <span class="font-weight-bold mr-1">Need Help?</span>
+                                        <a class="link" href="#">Contact us</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Help Link -->
+                        </div>
+                    </div>
+                    <div class="js-add-field h-100 col-lg-9 mb-lg-3" data-hs-add-field-options='{
+                                           "template": "#addVariantsTemplate",
+                                           "container": "#addVariantsContainer",
+                                           "defaultCreated": 0,
+                                           "limit": 100}'>
+                        <div class="card mb-3 ">
+                            <!-- Header -->
+                            <div class="card-header">
+                                <div class="row justify-content-between align-items-center flex-grow-1">
+                                    <div class="col-6 wrapper-form-search">
+                                        <div class="d-flex align-items-center">
+                                            <div class="input-group input-group-merge input-group-flush">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">
+                                                        <i class="tio-search"></i>
+                                                    </div>
+                                                </div>
+                                                <input id="searchProduct_hd_1" type="search"
+                                                       class="js-form-search form-control form-input-search"
+                                                       placeholder="Tìm kiếm hàng hóa." aria-label="Tìm kiếm hàng hóa."
+                                                       data-hs-form-search-options='{
+                                                       "dropMenuElement": ".div-form-search",
+                                                       "dropMenuOffset": 20,
+                                                       "toggleIconOnFocus": true,
+                                                       "activeClass": "focus"
+                                                     }'>
+                                            </div>
+                                            <a class="btn btn-sm btn-ghost-secondary btn-scan-barcode"
+                                               href="javascript:;">
+                                                <i class="tio-barcode"></i> Quét Mã
+                                            </a>
+                                        </div>
+                                        <div class="div-form-search hs-form-search-menu-content card dropdown-menu dropdown-card overflow-hidden">
+                                            <ul class="list-all-product pl-3 pt-3 mt-1 mb-1">
+                                                <th:block th:each="sp:${listsanpham}">
+                                                    <li class="media align-items-center li-item-ctsp-search"
+                                                        th:each="ctsp:${sp.getChiTietSanPham()}"
+                                                        th:attr="data-ctsp-id=${ctsp.getId()}">
+                                                        <img class="avatar avatar-lg mr-3"
+                                                             th:src="${ctsp.getAnh().getUrl()}"
+                                                             alt="Image Description">
+                                                        <div class="media-body">
+                                                            <h5 class="text-hover-primary mb-0"
+                                                                th:text="${sp.getTen()}"></h5>
+                                                            <label class="mb-0"
+                                                                   th:text="${ctsp.getMauSac().getTen()}"></label>-<label
+                                                                class="mb-0"
+                                                                th:text="${ctsp.getKichCo().getTen()}"></label>
+                                                        </div>
+                                                    </li>
+                                                </th:block>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <h4 class="card-header-title header-title">Hóa Đơn 1</h4>
+                                    </div>
+                                </div>
+                                <!-- End Row -->
+                            </div>
+                            <!-- End Header -->
+
+                            <!-- Table -->
+                            <div class="table-responsive datatable-custom">
+                                <table id="datatable_hd_1"
+                                       class="table table-borderless table-thead-bordered table-nowrap table-align-middle card-table"
+                                       data-hs-datatables-options='{
+                         "columnDefs": [{
+                            "targets": [0, 1, 6],
+                            "orderable": false
+                          }],
+                         "order": [],
+                         "pageLength": 15,
+                         "isResponsive": false,
+                         "isShowPaging": false
+                       }'>
+                                    <tbody>
+                                    <tr class="tr-show-no-data">
+                                        <td class="table-column-pr-0" rowspan="4">
+                                            <h5 class="text-center">Chưa có dữ liệu.</h5>
+                                        </td>
+                                    </tr>
+                                    <!--                                    <tr>-->
+                                    <!--                                        <td>-->
+                                    <!--                                            <a class="media align-items-center" href="/cms/view-product?id=16">-->
+                                    <!--                                                <img class="avatar avatar-lg mr-3"-->
+                                    <!--                                                     src="https://firebasestorage.googleapis.com/v0/b/datn-lightbe.appspot.com/o/images%2Fy2hoOV7EZC.png?alt=media&amp;token=2b958da4-c6b9-460a-84bf-9428fc836127"-->
+                                    <!--                                                     alt="Image Description">-->
+                                    <!--                                                <div class="media-body">-->
+                                    <!--                                                    <h5 class="text-hover-primary mb-0">Giày Sneaker Nữ Nike Gamma Force-->
+                                    <!--                                                        (Màu Trắng-32)</h5>-->
+                                    <!--                                                </div>-->
+                                    <!--                                            </a>-->
+                                    <!--                                        </td>-->
+                                    <!--                                        <td class="table-column-pl-0">-->
+                                    <!--                                            <div class="js-quantity-counter input-group-quantity-counter">-->
+                                    <!--                                                <input type="number"-->
+                                    <!--                                                       class="js-result form-quantity form-control input-group-quantity-counter-control"-->
+                                    <!--                                                       value="10">-->
+                                    <!--                                                <div class="input-group-quantity-counter-toggle">-->
+                                    <!--                                                    <a class="js-minus input-group-quantity-counter-btn"-->
+                                    <!--                                                       href="javascript:;">-->
+                                    <!--                                                        <i class="tio-remove"></i>-->
+                                    <!--                                                    </a>-->
+                                    <!--                                                    <a class="js-plus input-group-quantity-counter-btn"-->
+                                    <!--                                                       href="javascript:;">-->
+                                    <!--                                                        <i class="tio-add"></i>-->
+                                    <!--                                                    </a>-->
+                                    <!--                                                </div>-->
+                                    <!--                                            </div>-->
+                                    <!--                                        </td>-->
+                                    <!--                                        <td class="table-column-pl-0">-->
+                                    <!--                                            <div class="input-group input-group-merge">-->
+                                    <!--                                                <input type="text" class="form-control" value="10.000.000" readonly>-->
+                                    <!--                                                <div class="input-group-prepend money-dv">-->
+                                    <!--                                                    <div class="input-group-text">VND</div>-->
+                                    <!--                                                </div>-->
+                                    <!--                                            </div>-->
+                                    <!--                                        </td>-->
+                                    <!--                                        <td class="pl-1 pr-1">-->
+                                    <!--                                            <a class="btn btn-white" href="javascript:;">-->
+                                    <!--                                                <i class="tio-delete-outlined"></i>-->
+                                    <!--                                            </a>-->
+                                    <!--                                        </td>-->
+                                    <!--                                    </tr>-->
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- End Table -->
+
+                            <!-- Footer -->
+                            <div class="card-footer mb-2">
+                                <a class="js-create-field btn btn-sm btn-ghost-secondary"
+                                   href="javascript:;">
+                                    <i class="tio-add"></i>Thêm Sản Phẩm
+                                </a>
+                            </div>
+                        </div>
+                        <div class="card mb-3 ">
+                            <!-- Header -->
+                            <div class="card-header">
+                                <h4 class="card-header-title">Nhận Hàng:</h4>
+                            </div>
+                            <!-- End Header -->
+
+                            <!-- Body -->
+                            <div class="card-body">
+                                <!-- Custom Checkbox -->
+                                <div class="custom-control custom-radio mb-3">
+                                    <input type="radio" id="deliveryOptionCheckbox_hd_1_1"
+                                           name="deliveryOptionCheckbox_hd_1"
+                                           class="custom-control-input option-select-receipt" checked value="TQ">
+                                    <label class="custom-control-label" for="deliveryOptionCheckbox_hd_1_1">
+                                        <span class="d-block font-weight-bold mb-1">Tại Quầy</span>
+                                        <span class="d-block">Có thể nhận hàng từ 7h30 đến 22h30 mọi ngày tại cửa hàng</span>
+                                    </label>
+                                </div>
+                                <!-- End Custom Checkbox -->
+
+                                <!-- Custom Checkbox -->
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" id="deliveryOptionCheckbox_hd_1_2"
+                                           name="deliveryOptionCheckbox_hd_1"
+                                           class="custom-control-input option-select-receipt" value="CP">
+                                    <label class="custom-control-label" for="deliveryOptionCheckbox_hd_1_2">
+                                        <span class="d-block font-weight-bold mb-1">Chuyển Phát</span>
+                                        <span class="d-block">Giao hàng toàn quốc từ 1 đến 2 ngày</span>
+                                    </label>
+                                </div>
+                                <div class="wrapper-address-user ml-4 mt-2 w-100 d-none">
+                                    <div class="show-list-user">
+
+                                    </div>
+                                    <div class="custom-control custom-radio ml-3">
+                                        <input type="radio" id="address_khac_1"
+                                               name="address_khac_1"
+                                               class="custom-control-input option-select-address" value="#">
+                                        <label class="custom-control-label custom-address" for="address_khac_1">
+                                            <span class="d-block font-weight-bold mb-1">địa chỉ mới</span>
+                                        </label>
+                                    </div>
+                                    <div class="w-100 row wrapper-option-address-khac"></div>
+                                </div>
+                            </div>
+                            <!-- Body -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:replace="~{cms/pages/_footer.html}"></div>
+    <!-- End Footer -->
+</main>
+<!-- ========== END MAIN CONTENT ========== -->
+<!-- Card printf-->
+<div id="oder-print" class="card d-none d-print-block card-lg mb-5 w-100 w-lg-50">
+    <div class="card-body p-3">
+        <div class="row justify-content-lg-between">
+            <div class="col-sm order-2 order-sm-1 mb-3">
+                <img class="avatar logo mb-2" width="150" height="100" src="/assets/customer/img/logo-black-nobg.png"
+                     alt="Logo">
+                <h1 class="text-primary">LightBee</h1>
+            </div>
+
+            <div class="col-sm-auto order-1 order-sm-2 text-sm-right mb-3">
+                <div class="mb-3">
+                    <h2 id="id_hoa_don_print">#HD00001</h2>
+                    <!--                    <span class="d-block">id hóa đơn</span>-->
+                </div>
+
+                <address class="text-dark">
+                    24 Nguyễn Cơ Thạch<br>
+                    Mỹ Đình<br>
+                    Nam Từ Liêm<br>
+                    Hà Nội
+                </address>
+            </div>
+        </div>
+        <!-- End Row -->
+
+        <!-- Bill To -->
+        <div class="row justify-content-md-between mb-3">
+            <div class="col-md">
+                <h4>Khách Hàng:</h4>
+                <h4 id="full_name_print">Lù Đẹp Trai</h4>
+
+                <address id="customer_address_print">
+                    Tòa A4 Chung Cư A4<br>
+                    Cầu Diễn , Nam Từ Liêm<br>
+                    Hà Nội
+                </address>
+            </div>
+
+            <div class="col-md text-md-right">
+                <dl class="row">
+                    <dt class="col-sm-4 col-md">Ngày Lập:</dt>
+                    <dd id="createdDate" class="col-sm-8 col-md-auto">03/10/2018</dd>
+                </dl>
+                <dl class="row">
+                    <dt class="col-sm-4 col-md">Thanh Toán:</dt>
+                    <dd id="typePayment" class="col-sm-8 col-md-auto">03/11/2018</dd>
+                </dl>
+            </div>
+        </div>
+        <!-- End Bill To -->
+
+        <!-- Table -->
+        <div class="table-responsive">
+            <table class="table table-borderless table-thead-bordered table-nowrap table-align-middle card-table">
+                <thead class="thead-light">
+                <tr>
+                    <th>STT</th>
+                    <th>Sản Phẩm</th>
+                    <th>Số Lượng</th>
+                    <th class="table-column-right-aligned">Thành Tiền</th>
+                </tr>
+                </thead>
+
+                <tbody id="show_product_print">
+                </tbody>
+            </table>
+        </div>
+        <!-- End Table -->
+
+        <hr class="my-5">
+
+        <div class="row justify-content-md-end mb-3">
+            <div class="col-md-8 col-lg-7">
+                <dl class="row text-sm-right">
+                    <dt class="col-sm-6">Tổng phụ:</dt>
+                    <dd class="col-sm-6" id="tongtien_print">0</dd>
+                    <dt class="col-sm-6">Giảm Giá:</dt>
+                    <dd class="col-sm-6" id="discount_money_print">0</dd>
+                    <dt class="col-sm-6">Phí Ship:</dt>
+                    <dd class="col-sm-6" id="shipping_fee_print">0</dd>
+                    <dt class="col-sm-6">Tổng cộng:</dt>
+                    <dd class="col-sm-6" id="thuc_thu_print">0</dd>
+                    <dt class="col-sm-6">Thuế:</dt>
+                    <dd class="col-sm-6">0đ</dd>
+                    <dt class="col-sm-6">Đã thanh toán:</dt>
+                    <dd class="col-sm-6" id="da_thanh_toan_print">0</dd>
+                </dl>
+                <!-- End Row -->
+            </div>
+        </div>
+        <!-- End Row -->
+
+        <!-- Contacts -->
+        <div class="mb-3">
+            <h3>Cảm Ơn!</h3>
+            <p class="mb-0">Nếu bạn có bất kỳ thắc mắc về hóa đơn này, vui lòng liên hệ:0866755653</p>
+            <p class="mb-0">Cảm ơn bạn đã tin tưởng và sử dụng dịch vụ của chúng tôi.</p>
+        </div>
+        <!-- End Contacts -->
+
+        <p class="font-size-sm mb-0">&copy; 2024 LightBee Team.</p>
+    </div>
+</div>
+<!--------------------------------------------------------------------------------------------------------------------->
+<!--form add hoadon-->
+<div id="oder_content_mau" class="row d-none">
+    <div class="col-lg-3 order-lg-2 mb-5 mb-lg-0">
+        <div class="checkoutStepOrderSummary">
+            <!-- Card -->
+            <div class="card mb-3">
+                <!-- Header -->
+                <div class="card-header p-0" style="flex-direction: column;">
+                    <div class="form-group w-100 d-flex justify-content-between align-items-center">
+                        <select class="custom-select customer-selected" name="khachHang"
+                                size="1"
+                                style="opacity: 0;"
+                                data-hs-select2-options='{
+                                            "placeholder": "Tìm Khách Hàng...",
+                                            "searchInputPlaceholder": "Tìm Khách Hàng..."}'>
+                            <option value="#" selected>Khách Lẻ</option>
+                            <th:block th:each="cus:${customer}">
+                                <option th:value="${cus.getId()}"
+                                        th:attr="data-phone=${cus.getSdt()},data-email=${cus.getUser().getEmail()}"
+                                        th:text="${cus.getHoTen()+'-'+cus.getSdt()}"></option>
+                            </th:block>
+                        </select>
+                        <a class="btn-add-customer" data-toggle="tooltip"
+                           data-original-title="Thêm Khách Hàng" href="javascript:;">
+                            <i class="tio-add"></i>
+                        </a>
+                    </div>
+                    <div class="w-100 pl-3">
+                        <label class="w-100">Họ Tên:<strong class="fullName-customer"></strong></label>
+                        <label class="w-100">SDT:<strong class="phone-customer"></strong></label>
+                        <label class="w-100">Email:<strong class="email-customer"></strong></label>
+                        <label class="w-100">Mã KH:<strong class="code-customer"></strong></label>
+                    </div>
+                </div>
+                <!-- End Header -->
+
+                <!-- Body -->
+                <div class="card-body">
+                    <!-- Input Group -->
+                    <div class="input-group input-group-merge">
+                        <input type="text" class="form-control input_voucher" name="name" placeholder="Nhập mã"
+                               aria-label="Promo code">
+                        <div class="input-group-append">
+                            <button type="button" class="btn btn-block btn-primary btn-apply-voucher">Áp Dụng</button>
+                        </div>
+                    </div>
+                    <!-- End Input Group -->
+
+                    <small class="form-text mb-2"></small>
+                    <ul id="best_voucher_voucher_hd_mau" data-id-hd="best_voucher_voucher_hd_" class="list-voucher">
+                    </ul>
+                    <ul id="voucher_not_accept_hd_mau" data-id-hd="voucher_not_accept_hd_" class="list-voucher mt-2">
+                    </ul>
+                    <div class="accordion list_voucher mb-5" id="accordionExample_mau" data-id-hd="accordionExample_"
+                         data-type="collapse">
+                        <button class="btn btn-link btn-show-all-voucher btn-block text-right collapsed" type="button"
+                                data-toggle="collapse" data-target="#collapseThree"
+                                aria-expanded="false"
+                                aria-controls="collapseThree">Tất cả
+                        </button>
+                        <div id="collapseThree_" data-id-hd="collapseThree_" class="collapse"
+                             aria-labelledby="headingThree"
+                             data-parent="#accordionExample_mau">
+                            <ul id="list_show_voucher_hd_mau" data-id-hd="list_show_voucher_hd_" class="list-voucher">
+                            </ul>
+                        </div>
+                    </div>
+                    <hr class="my-2">
+
+                    <div class="row align-items-center mb-3">
+                        <span class="col-5">Tổng:</span>
+                        <h4 class="col-7 text-right text-dark mb-0 total-money">0đ</h4>
+                    </div>
+                    <!-- End Row -->
+
+                    <div class="row align-items-center">
+                        <span class="col-5">Phí Ship:</span>
+                        <h4 class="col-7 text-right text-dark mb-0 shipping-money">Miễn Phí</h4>
+                    </div>
+                    <!-- End Row -->
+                    <hr class="my-2">
+                    <div class="row align-items-center">
+                        <span class="col-5">Giảm Giá:</span>
+                        <h4 class="col-7 text-right text-dark mb-0 discount-money">0đ</h4>
+                    </div>
+                    <!-- End Row -->
+
+                    <hr class="my-2">
+
+                    <div class="row align-items-center">
+                        <span class="col-5 text-dark font-weight-bold">Thực Thu:</span>
+                        <h3 class="col-7 text-right text-dark mb-0 payment-money">0đ</h3>
+                    </div>
+                    <!-- End Row -->
+                </div>
+                <div class="card-footer">
+                    <a id="btn-payment-hd-mau" data-id-hd="btn-payment-hd"
+                       class="btn btn-primary btn-payment-oder w-100">THANH TOÁN</a>
+                </div>
+                <!-- Body -->
+            </div>
+            <!-- End Card -->
+
+            <!-- Help Link -->
+            <div class="d-flex justify-content-center">
+                <div class="media align-items-center">
+                    <i class="tio-support mr-1"></i>
+
+                    <div class="media-body">
+                        <span class="font-weight-bold mr-1">Need Help?</span>
+                        <a class="link" href="#">Contact us</a>
+                    </div>
+                </div>
+            </div>
+            <!-- End Help Link -->
+        </div>
+    </div>
+    <div class="js-add-field h-100 col-lg-9 mb-lg-3" data-hs-add-field-options='{
+                                           "template": "#addVariantsTemplate",
+                                           "container": "#addVariantsContainer",
+                                           "defaultCreated": 0,
+                                           "limit": 100}'>
+        <div class="card mb-3 ">
+            <!-- Header -->
+            <div class="card-header">
+                <div class="row justify-content-between align-items-center flex-grow-1">
+                    <div class="col-6 wrapper-form-search">
+                        <div class="d-flex align-items-center">
+                            <div class="input-group input-group-merge input-group-flush">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <i class="tio-search"></i>
+                                    </div>
+                                </div>
+                                <input id="searchProduct_hd_mau" data-id-hd="searchProduct_hd_" type="search"
+                                       class="js-form-search form-control form-input-search"
+                                       placeholder="Tìm kiếm hàng hóa." aria-label="Tìm kiếm hàng hóa."
+                                       data-hs-form-search-options='{
+                                                       "dropMenuElement": ".div-form-search",
+                                                       "dropMenuOffset": 20,
+                                                       "toggleIconOnFocus": true,
+                                                       "activeClass": "focus"
+                                                     }'>
+                            </div>
+                            <a class="btn btn-sm btn-ghost-secondary btn-scan-barcode"
+                               href="javascript:;">
+                                <i class="tio-barcode"></i> Quét Mã
+                            </a>
+                        </div>
+                        <div class="div-form-search hs-form-search-menu-content card dropdown-menu dropdown-card overflow-hidden">
+                            <ul class="list-all-product pl-3 pt-3 mt-1 mb-1">
+                                <th:block th:each="sp:${listsanpham}">
+                                    <li class="media align-items-center li-item-ctsp-search"
+                                        th:each="ctsp:${sp.getChiTietSanPham()}"
+                                        th:attr="data-ctsp-id=${ctsp.getId()}">
+                                        <img class="avatar avatar-lg mr-3"
+                                             th:src="${ctsp.getAnh().getUrl()}"
+                                             alt="Image Description">
+                                        <div class="media-body">
+                                            <h5 class="text-hover-primary mb-0" th:text="${sp.getTen()}"></h5>
+                                            <label class="mb-0" th:text="${ctsp.getMauSac().getTen()}"></label>-<label
+                                                class="mb-0" th:text="${ctsp.getKichCo().getTen()}"></label>
+                                        </div>
+                                    </li>
+                                </th:block>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <h4 class="card-header-title header-title"></h4>
+                    </div>
+                </div>
+                <!-- End Row -->
+            </div>
+            <!-- End Header -->
+
+            <!-- Table -->
+            <div class="table-responsive datatable-custom">
+                <table id="datatable_hd_mau" data-id-hd="datatable_hd_"
+                       class="table table-borderless table-thead-bordered table-nowrap table-align-middle card-table"
+                       data-hs-datatables-options='{
+                         "columnDefs": [{
+                            "targets": [0, 1, 6],
+                            "orderable": false
+                          }],
+                         "order": [],
+                         "pageLength": 15,
+                         "isResponsive": false,
+                         "isShowPaging": false
+                       }'>
+                    <tbody>
+                    <tr class="tr-show-no-data">
+                        <td class="table-column-pr-0" rowspan="4">
+                            <h5 class="text-center">Chưa có dữ liệu.</h5>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- End Table -->
+
+            <!-- Footer -->
+            <div class="card-footer mb-2">
+                <a class="js-create-field btn btn-sm btn-ghost-secondary"
+                   href="javascript:;">
+                    <i class="tio-add"></i>Thêm Sản Phẩm
+                </a>
+            </div>
+        </div>
+        <div class="card mb-3 ">
+            <!-- Header -->
+            <div class="card-header">
+                <h4 class="card-header-title">Nhận Hàng:</h4>
+            </div>
+            <!-- End Header -->
+
+            <!-- Body -->
+            <div class="card-body">
+                <!-- Custom Checkbox -->
+                <div class="custom-control custom-radio mb-3">
+                    <input type="radio" id="deliveryOptionCheckbox_hd_mau_1" data-id-hd="deliveryOptionCheckbox_hd_"
+                           name="deliveryOptionCheckbox_hd_mau"
+                           class="custom-control-input option-select-receipt" checked="" value="TQ">
+                    <label class="custom-control-label" for="deliveryOptionCheckbox_hd_mau_1">
+                        <span class="d-block font-weight-bold mb-1">Tại Quầy</span>
+                        <span class="d-block">Có thể nhận hàng từ 7h30 đến 22h30 mọi ngày tại cửa hàng</span>
+                    </label>
+                </div>
+                <!-- End Custom Checkbox -->
+
+                <!-- Custom Checkbox -->
+                <div class="custom-control custom-radio">
+                    <input type="radio" id="deliveryOptionCheckbox_hd_mau_2" data-id-hd="deliveryOptionCheckbox_hd_"
+                           name="deliveryOptionCheckbox_hd_mau"
+                           class="custom-control-input option-select-receipt" value="CP">
+                    <label class="custom-control-label" for="deliveryOptionCheckbox_hd_mau_2">
+                        <span class="d-block font-weight-bold mb-1">Chuyển Phát</span>
+                        <span class="d-block">Giao hàng toàn quốc từ 1 đến 2 ngày</span>
+                    </label>
+                </div>
+                <div class="wrapper-address-user ml-4 mt-2 w-100 d-none">
+                    <div class="show-list-user">
+
+                    </div>
+                    <div class="custom-control custom-radio ml-3">
+                        <input type="radio" id="address_khac_mau" data-id-hd="address_khac_"
+                               name="address_khac_mau"
+                               class="custom-control-input option-select-address" value="#">
+                        <label class="custom-control-label custom-address" for="address_khac_mau">
+                            <span class="d-block font-weight-bold mb-1">địa chỉ mới</span>
+                        </label>
+                    </div>
+                    <div class="w-100 row wrapper-option-address-khac"></div>
+                </div>
+                <!-- End Custom Checkbox -->
+            </div>
+            <!-- Body -->
+        </div>
+    </div>
+</div>
+<!--form add hoadon end-->
+<!--------------------------------------------------------------------------------------------------------------------->
+<!--Form camera-->
+<div class="modal fade" id="form-modal-barcode" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog d-flex justify-content-center" role="document">
+        <div class="modal-content" style="width: 70%">
+            <!-- Header -->
+            <div class="modal-header">
+                <h5 class="modal-title" id="form-add-color-Label">Quét mã sản phẩm !</h5>
+                <button type="button" class="btn btn-icon btn-sm btn-ghost-secondary" data-dismiss="modal"
+                        aria-label="Close">
+                    <i class="tio-clear tio-lg" aria-hidden="true"></i>
+                </button>
+            </div>
+            <!-- End Header -->
+
+            <!-- Body -->
+            <div class="modal-body pt-0 pb-0 row justify-content-center">
+                <div id="show_video_live" style="width: 300px;height: 300px">
+                    <video id="video_show_camera" width="300" height="300" autoplay></video>
+                </div>
+                <audio id="sound_beep" th:src="@{/assets/cms/audio/bleep.mp3}" style="display: none"
+                       preload="auto"></audio>
+            </div>
+            <!-- End Body -->
+            <!-- Footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-white" data-dismiss="modal">Đóng</button>
+            </div>
+            <!-- End Footer -->
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="form-modal-payment" data-backdrop="static" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered setup-modal-size" role="document">
+        <div class="modal-content" style="width: 100%">
+            <!-- Header -->
+            <div class="modal-header">
+                <h5 class="modal-title" id="form-modal-payment-label">Thanh Toán</h5>
+                <button type="button" class="btn btn-icon btn-sm btn-ghost-secondary" data-dismiss="modal"
+                        aria-label="Close">
+                    <i class="tio-clear tio-lg" aria-hidden="true"></i>
+                </button>
+            </div>
+            <!-- End Header -->
+            <!-- Body -->
+            <div class="modal-body pt-0 pb-0">
+                <input hidden="hidden" type="text" id="modal-input-id-oder">
+                <div class="row mt-2">
+                    <div class="col-6 body-modal-payment">
+                        <h3 class="w-100 mb-2">Loại Thanh Toán</h3>
+                        <div class="form-group w-100">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" id="payment-type-cash" name="payment-type"
+                                       class="custom-control-input" value="cash" checked>
+                                <label class="custom-control-label" for="payment-type-cash">Tiền Mặt</label>
+                            </div>
+                        </div>
+                        <div class="form-group w-100">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" id="payment-type-card" name="payment-type" value="card"
+                                       class="custom-control-input">
+                                <label class="custom-control-label" for="payment-type-card">Chuyển Khoản</label>
+                            </div>
+                        </div>
+                        <div class="form-group w-100 d-none">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" id="payment-on-delivery" name="payment-type" value="card"
+                                       class="custom-control-input">
+                                <label class="custom-control-label" for="payment-on-delivery">Thanh toán khi nhận
+                                    hàng</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 body-modal-payment">
+                        <h3 class="w-100 mb-2">Tính Tiền</h3>
+                        <label class="w-100 mb-0" for="total-money">Tổng Tiền</label>
+                        <div class="input-group input-group-merge mb-2">
+                            <input class="form-control money-input-mask" type="text" id="total-money" value="0"
+                                   readonly>
+                            <div class="input-group-prepend money-dv">
+                                <div class="input-group-text">VND</div>
+                            </div>
+                        </div>
+                        <div class="w-100 wrapper-money-tm">
+                            <label class="w-100 mb-0" for="pay-cash-money">Tiền Mặt Khách Đưa</label>
+                            <div class="input-group input-group-merge mb-2">
+                                <input class="form-control money-input-mask" type="text" id="pay-cash-money" value="0"
+                                       autofocus>
+                                <div class="input-group-prepend money-dv">
+                                    <div class="input-group-text">VND</div>
+                                </div>
+                            </div>
+                            <div id="suggests-money" class="w-100">
+                            <span data-value="100.000"
+                                  class="badge badge-pill badge-light badge-suggests-money">100.000</span>
+                            </div>
+                        </div>
+                        <div class="w-100 wrapper-money-ck d-none">
+                            <label class="w-100 mb-0" for="pay-chuyen-khoan-money">Tiền Chuyển Khoản</label>
+                            <div class="input-group input-group-merge mb-2">
+                                <input class="form-control money-input-mask" type="text" id="pay-chuyen-khoan-money"
+                                       value="0" readonly>
+                                <div class="input-group-prepend money-dv">
+                                    <div class="input-group-text">VND</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-group d-none mb-2">
+                            <label class="w-100 mb-0" for="pay-card-money">Mã Giao Dịch</label>
+                            <input class="form-control" type="text" id="pay-card-money" value="">
+                        </div>
+                        <label class="w-100 mb-0" for="change-money">Tiền Thừa</label>
+                        <div class="input-group input-group-merge mb-2">
+                            <input class="form-control money-input-mask" type="text" id="change-money" value="0"
+                                   readonly>
+                            <div class="input-group-prepend money-dv">
+                                <div class="input-group-text">VND</div>
+                            </div>
+                        </div>
+                        <label class="w-100 mb-0" for="lack-of-money">Tiền Thiếu</label>
+                        <div class="input-group input-group-merge mb-2">
+                            <input class="form-control money-input-mask" type="text" id="lack-of-money" value="0"
+                                   readonly>
+                            <div class="input-group-prepend money-dv">
+                                <div class="input-group-text">VND</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4 show-qr-payment d-none">
+                        <h5 class="text-center">Quét QR chuyển khoản</h5>
+                        <img width="184" height="184" src="/assets/cms/img/payment-qr/vnpayqr.jpg" alt="">
+                        <h3>Công Ty TNHH LightBee</h3>
+                        <label>MID:0866755653</label>
+                    </div>
+                </div>
+            </div>
+            <!-- End Body -->
+            <!-- Footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-white" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary payment-success">Hoàn Thành</button>
+            </div>
+            <!-- End Footer -->
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="form-add-customer" data-backdrop="static" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+        <div class="modal-content" style="width: 100%">
+            <!-- Header -->
+            <div class="modal-header">
+                <h5 class="modal-title" id="form-add-customer-label">Thêm thành viên</h5>
+                <button type="button" class="btn btn-icon btn-sm btn-ghost-secondary" data-dismiss="modal"
+                        aria-label="Close">
+                    <i class="tio-clear tio-lg" aria-hidden="true"></i>
+                </button>
+            </div>
+            <!-- End Header -->
+            <!-- Body -->
+            <div class="modal-body pt-0 pb-0">
+                <input hidden="hidden" type="text" id="numoder">
+                <div class="row">
+                    <div class="col-lg-4 mb-3 mb-lg-0">
+                        <h4>Thông Tin Tài Khoản</h4>
+                    </div>
+                    <div class="col-lg-8">
+                        <!-- Card -->
+                        <div class="card">
+                            <!-- Body -->
+                            <div class="card-body">
+                                <input id="id-oder-numnber" type="text" hidden="hidden" readonly>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <!-- Form Group -->
+                                        <div class="form-group">
+                                            <label for="firstName" class="input-label">Họ<span
+                                                    class="input-label-secondary">(*)</span></label>
+                                            <input type="text" class="form-control" name="firstName" id="firstName"
+                                                   placeholder="Họ" aria-label="Họ">
+                                        </div>
+                                        <!-- End Form Group -->
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <!-- Form Group -->
+                                        <div class="form-group">
+                                            <label for="MidName" class="input-label">Tên Đệm<span
+                                                    class="input-label-secondary">(*)</span></label>
+                                            <input type="text" class="form-control" name="lastName" id="MidName"
+                                                   placeholder="Tên đệm" aria-label="Tên đệm">
+                                        </div>
+                                        <!-- End Form Group -->
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <!-- Form Group -->
+                                        <div class="form-group">
+                                            <label for="lastName" class="input-label">Tên<span
+                                                    class="input-label-secondary">(*)</span></label>
+                                            <input type="text" class="form-control" name="lastName" id="lastName"
+                                                   placeholder="Tên" aria-label="Tên">
+                                        </div>
+                                        <!-- End Form Group -->
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <!-- Form Group -->
+                                        <div class="form-group">
+                                            <label for="email" class="input-label">Email<span
+                                                    class="input-label-secondary">(*)</span></label>
+                                            <input type="email" class="form-control" name="email" id="email"
+                                                   placeholder="clarice@example.com" aria-label="clarice@example.com">
+                                            <span id="text-error-email" class="text-danger"></span>
+                                        </div>
+                                        <!-- End Form Group -->
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <!-- Form Group -->
+                                        <div class="form-group">
+                                            <label for="phone" class="input-label">Phone <span
+                                                    class="input-label-secondary">(*)</span></label>
+                                            <input type="text" class="js-masked-input form-control" name="phone"
+                                                   id="phone" placeholder="xxxx xxx xxx"
+                                                   aria-label="xxxx xxx xxx"
+                                                   data-hs-mask-options="{&quot;template&quot;: &quot;0000 000 000&quot;}"
+                                                   maxlength="16">
+                                            <span id="text-error-phone" class="text-danger"></span>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <!-- Form Group -->
+                                        <div class="form-group">
+                                            <label for="ngaySinh" class="input-label">Ngày Sinh<span
+                                                    class="input-label-secondary">(*)</span></label>
+                                            <input type="date" class="form-control" id="ngaySinh">
+                                        </div>
+                                        <!-- End Form Group -->
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <!-- Form Group -->
+                                        <label>Giới Tính<span
+                                                class="input-label-secondary">(*)</span></label>
+                                        <div class="input-group input-group-sm-down-break">
+                                            <!-- Custom Radio -->
+                                            <div class="form-control">
+                                                <div class="custom-control custom-radio">
+                                                    <input type="radio" class="custom-control-input"
+                                                           name="gender_customer" id="userAccountTypeRadio1"
+                                                           value="true" checked>
+                                                    <label class="custom-control-label"
+                                                           for="userAccountTypeRadio1">Nam</label>
+                                                </div>
+                                            </div>
+                                            <!-- End Custom Radio -->
+
+                                            <!-- Custom Radio -->
+                                            <div class="form-control">
+                                                <div class="custom-control custom-radio">
+                                                    <input type="radio" class="custom-control-input"
+                                                           name="gender_customer" id="userAccountTypeRadio2"
+                                                           value="false">
+                                                    <label class="custom-control-label"
+                                                           for="userAccountTypeRadio2">Nữ</label>
+                                                </div>
+                                            </div>
+                                            <!-- End Custom Radio -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Row -->
+
+
+                                <div class="custom-control custom-checkbox form-group">
+                                    <input type="checkbox" class="custom-control-input" id="marketingEmailsCheckbox">
+                                    <label class="custom-control-label" for="marketingEmailsCheckbox">Đồng ý nhận email
+                                        các chương trình khuyến mãi, thông báo và email tiếp thị.</label>
+                                </div>
+                                <!-- End Custom Checkbox -->
+                            </div>
+                            <!-- Body -->
+                        </div>
+                        <!-- End Card -->
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 mb-3 mb-lg-0">
+                        <h4>Địa Chỉ Giao Hàng</h4>
+                    </div>
+                    <div class="col-lg-8">
+                        <!-- Card -->
+                        <div class="card">
+                            <!-- Body -->
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <!-- Form Group -->
+                                        <div class="form-group">
+                                            <label for="soNha" class="input-label">Số Nhà<span
+                                                    class="input-label-secondary">(*)</span></label>
+                                            <input type="text" class="form-control" name="firstName" id="soNha"
+                                                   placeholder="Số Nhà..." aria-label="Số Nhà...">
+                                        </div>
+                                        <!-- End Form Group -->
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <!-- Form Group -->
+                                        <div class="form-group">
+                                            <label for="tinhTP" class="input-label">Tỉnh Thành Phố<span
+                                                    class="input-label-secondary">(*)</span></label>
+                                            <select type="text" class="form-control" id="tinhTP"></select>
+                                        </div>
+                                        <!-- End Form Group -->
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <!-- Form Group -->
+                                        <div class="form-group">
+                                            <label for="quanHuyen" class="input-label">Quận Huyện<span
+                                                    class="input-label-secondary">(*)</span></label>
+                                            <select type="text" class="form-control" id="quanHuyen"></select>
+                                        </div>
+                                        <!-- End Form Group -->
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <!-- Form Group -->
+                                        <div class="form-group">
+                                            <label for="phuongXa" class="input-label">Phường Xã<span
+                                                    class="input-label-secondary">(*)</span></label>
+                                            <select type="text" class="form-control" id="phuongXa"></select>
+                                        </div>
+                                        <!-- End Form Group -->
+                                    </div>
+                                </div>
+                                <!-- End Row -->
+                                <!-- End Custom Checkbox -->
+                            </div>
+                            <!-- Body -->
+                        </div>
+                        <!-- End Card -->
+                    </div>
+                </div>
+            </div>
+            <!-- End Body -->
+            <!-- Footer -->
+            <div class="modal-footer justify-content-between">
+                <div>
+                    <label>(*) Trường bắt buộc</label>
+                </div>
+                <div>
+                    <button type="button" class="btn btn-white" data-dismiss="modal">Đóng</button>
+                    <button id="btn-save-customer" type="button" class="btn btn-primary">Thêm Mới</button>
+                </div>
+            </div>
+            <!-- End Footer -->
+        </div>
+    </div>
+</div>
+<!-- End Card printf -->
+<iframe id="myFrame" style="width:100%; height:100%;display: none"></iframe>
+<!-- ========== SECONDARY CONTENTS ========== -->
+<!-- JS Implementing Plugins -->
+<script src="/assets/cms/js/vendor.min.js"></script>
+<script src="/assets/cms/js/theme.min.js"></script>
+<script src="/assets/cms/js/quagga.min.js"></script>
+<script src="/assets/cms/js/cashier/cashier.js"></script>
+<script src="/assets/cms/js/sweetalert2.all.min.js"></script>
+<script src="/assets/socket/socket-config.js"></script>
+<script src="/assets/cms/js/header/_header.js"></script>
+<!-- JS Plugins Init. -->
+</body>
+</html>

@@ -1,0 +1,177 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required Meta Tags Always Come First -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Title -->
+    <title>Quản Trị | Đăng Nhập</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="favicon.ico">
+
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+
+    <!-- CSS Implementing Plugins -->
+    <link rel="stylesheet" href="/assets/cms/css/vendor.min.css">
+    <link rel="stylesheet" href="/assets/cms/vendor/icon-set/style.css">
+    <!-- CSS Front Template -->
+    <link rel="stylesheet" href="/assets/cms/css/theme.min.css?v=1.0">
+</head>
+
+<body>
+<!-- ========== MAIN CONTENT ========== -->
+<main id="content" role="main" class="main">
+    <div class="position-fixed top-0 right-0 left-0 bg-img-hero"
+         style="height: 32rem; background-image: url('/assets/cms/svg/components/abstract-bg-4.svg');">
+        <!-- SVG Bottom Shape -->
+        <figure class="position-absolute right-0 bottom-0 left-0">
+            <svg preserveaspectratio="none" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewbox="0 0 1921 273">
+                <polygon fill="#fff" points="0,273 1921,273 1921,0 "></polygon>
+            </svg>
+        </figure>
+        <!-- End SVG Bottom Shape -->
+    </div>
+
+    <!-- Content -->
+    <div class="container py-5 py-sm-7">
+        <a class="d-flex justify-content-center mb-5" href="index.html">
+            <img class="z-index-2" src="/assets/customer/img/Logo 2.png" alt="Image Description" style="width: 13rem;">
+        </a>
+
+        <div class="row justify-content-center">
+            <div class="col-md-7 col-lg-5">
+                <!-- Card -->
+                <div class="card card-lg mb-5">
+                    <div class="card-body">
+                        <!-- Form -->
+                        <form class="js-validate" id="form-login" th:action="@{/login-handle}" th:object="${loginDto}"
+                              method="post">
+                            <div class="text-center">
+                                <div class="mb-5">
+                                    <h1 class="display-4">Đăng Nhập</h1>
+                                </div>
+                            </div>
+                            <!-- Form Group -->
+                            <div class="js-form-message form-group">
+                                <label class="input-label" for="signinSrEmail">Email</label>
+                                <input type="email" class="form-control form-control-lg" name="email" id="signinSrEmail"
+                                       tabindex="1" placeholder="email@address.com" aria-label="email@address.com"
+                                       required="" data-msg="Email không hợp lệ.">
+                                <span class="text-danger" th:if="${#fields.hasErrors()}" th:errors="*{email}"></span>
+                            </div>
+                            <!-- End Form Group -->
+
+                            <!-- Form Group -->
+                            <div class="js-form-message form-group">
+                                <label class="input-label" for="signupSrPassword" tabindex="0">
+                        <span class="d-flex justify-content-between align-items-center">
+                          Mật Khẩu
+                          <a class="input-label-secondary" href="#">Quên Mật Khẩu?</a>
+                        </span>
+                                </label>
+
+                                <div class="input-group input-group-merge">
+                                    <input type="password" class="js-toggle-password form-control form-control-lg"
+                                           name="password" id="signupSrPassword" placeholder="Mật khẩu phải từ 8 ký tự."
+                                           aria-label="Mật khẩu phải từ 8 ký tự." required=""
+                                           data-msg="Mật khẩu không hợp lệ."
+                                           data-hs-toggle-password-options='{
+                                 "target": "#changePassTarget",
+                                 "defaultClass": "tio-hidden-outlined",
+                                 "showClass": "tio-visible-outlined",
+                                 "classChangeTarget": "#changePassIcon"
+                               }'>
+                                    <div id="changePassTarget" class="input-group-append">
+                                        <a class="input-group-text" href="javascript:;">
+                                            <i id="changePassIcon" class="tio-visible-outlined"></i>
+                                        </a>
+                                    </div>
+                                    <span class="text-danger" th:if="${#fields.hasErrors()}"
+                                          th:errors="*{password}"></span>
+                                </div>
+                            </div>
+                            <!-- End Form Group -->
+                            <!--                            <p class="text-danger" th:text="${message}"></p>-->
+                            <!-- Checkbox -->
+                            <div class="form-group">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="termsCheckbox"
+                                           name="termsCheckbox">
+                                    <label class="custom-control-label text-muted" for="termsCheckbox">Nhớ Mật
+                                        Khẩu</label>
+                                </div>
+                            </div>
+                            <!-- End Checkbox -->
+
+                            <button type="submit" class="btn btn-lg btn-block btn-primary">Đăng Nhập</button>
+                        </form>
+                        <!-- End Form -->
+                    </div>
+                </div>
+                <!-- End Card -->
+
+                <!-- Footer -->
+                <div class="text-center">
+                    <small class="text-cap mb-4">Trusted by the world's best teams</small>
+
+                    <div class="w-85 mx-auto">
+                        <div class="row justify-content-between">
+                            <div class="col">
+                                <img class="img-fluid" src="/assets/cms/svg/brands/gitlab-gray.svg"
+                                     alt="Image Description">
+                            </div>
+                            <div class="col">
+                                <img class="img-fluid" src="/assets/cms/svg/brands/fitbit-gray.svg"
+                                     alt="Image Description">
+                            </div>
+                            <div class="col">
+                                <img class="img-fluid" src="/assets/cms/svg/brands/flow-xo-gray.svg"
+                                     alt="Image Description">
+                            </div>
+                            <div class="col">
+                                <img class="img-fluid" src="/assets/cms/svg/brands/layar-gray.svg"
+                                     alt="Image Description">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Footer -->
+            </div>
+        </div>
+    </div>
+    <!-- End Content -->
+</main>
+<!-- ========== END MAIN CONTENT ========== -->
+
+<!-- JS Implementing Plugins -->
+<script src="/assets/cms/js/vendor.min.js"></script>
+<!-- JS Front -->
+<script src="/assets/cms/js/theme.min.js"></script>
+<!-- JS Plugins Init. -->
+<script>
+    $(document).on('ready', function () {
+        // INITIALIZATION OF SHOW PASSWORD
+        // =======================================================
+        $('.js-toggle-password').each(function () {
+            new HSTogglePassword(this).init()
+        });
+
+
+        // INITIALIZATION OF FORM VALIDATION
+        // =======================================================
+        $('.js-validate').each(function () {
+            $.HSCore.components.HSValidation.init($(this));
+        });
+    });
+</script>
+
+<!-- IE Support -->
+<script>
+    if (/MSIE \d|Trident.*rv:/.test(navigator.userAgent)) document.write('<script src="./assets/vendor/babel-polyfill/polyfill.min.js"><\/script>');
+</script>
+</body>
+</html>

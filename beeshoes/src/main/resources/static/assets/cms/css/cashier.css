@@ -1,0 +1,287 @@
+
+
+.btn-add-new-bill {
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.nav-oder .nav-item a {
+    font-weight: 600;
+}
+
+.form-quantity {
+    padding: 0.4rem 0.4rem;
+
+}
+
+.show-qr-payment {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.custom-address {
+    display: flex;
+    flex-direction: row;
+}
+
+.logo {
+    width: 10.625rem !important;
+    height: 3.625rem !important;
+}
+
+.input-group-quantity-counter {
+    width: 6.5rem !important;
+}
+
+.btn-scan-barcode {
+    white-space: nowrap;
+    margin-left: 5px;
+}
+
+.card-header-title {
+    float: right;
+}
+
+.money-dv {
+    right: 10px !important;
+}
+
+.input-group-merge input {
+    width: 150px !important;
+}
+
+.avatar-lg {
+    background-color: #f3f3f3;
+}
+
+/*.custom-select {*/
+/*    border: none !important;*/
+/*}*/
+.btn-add-customer {
+    width: 38px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    border: solid 1px #e5e5e5;
+    margin-top: -1px;
+    margin-left: 3px;
+}
+
+.btn-add-customer:hover {
+    background-color: #cccccc;
+}
+
+.btn-delete-oder {
+    color: #adadad;
+}
+
+.btn-delete-oder:hover {
+    color: #000000;
+    background-color: #807272;
+    font-weight: 500;
+}
+
+@media print {
+    #oder-print {
+        display: block !important;
+    }
+}
+
+.btn-delete-oder {
+    position: absolute;
+    top: 7px;
+    right: 6px;
+    padding: 3px;
+    border-radius: 20px;
+    background-color: #e1e1e1;
+    cursor: pointer;
+}
+
+.nav-show-oder {
+    padding-right: 35px !important;
+}
+
+.wrapper-form-search {
+    position: relative;
+}
+
+.div-form-search {
+    z-index: 9;
+    background-color: #ffffff;
+    position: absolute;
+    width: 100%;
+    height: 300px;
+    border: 0.0625rem solid rgba(231, 234, 243, .7);
+    border-radius: 0.75rem;
+    box-shadow: 0 6px 12px rgba(140, 152, 164, .075);
+}
+
+.div-form-search ul {
+    overflow-y: auto;
+    height: 100%;
+}
+
+.div-form-search ul::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background-color: transparent;
+    margin-bottom: 5px;
+    margin-right: 5px;
+    border-radius: 10px;
+}
+
+.div-form-search ul::-webkit-scrollbar {
+    width: 15px;
+    background-color: transparent;
+    border-radius: 10px;
+}
+
+.div-form-search ul::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #989898;
+}
+
+.div-form-search ul li {
+    border-bottom: 0.0625rem solid rgba(209, 209, 211, 0.7);
+    padding-bottom: 5px;
+    padding-top: 5px;
+    cursor: pointer;
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.5);
+        height: 0;
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+        height: 127px;
+    }
+}
+
+@keyframes scaleOut {
+    from {
+        opacity: 1;
+        transform: scale(1);
+        height: 127px;
+    }
+    to {
+        opacity: 0;
+        transform: scale(0.5);
+        height: 0;
+    }
+}
+
+.list-voucher li.scaleIn {
+    animation-name: scaleIn;
+    margin-bottom: 0.5rem !important;
+}
+
+.list-voucher li.scaleOut {
+    animation-name: scaleOut;
+    margin-bottom: 0 !important;
+}
+
+.list-voucher {
+    padding: 0;
+    margin-bottom: 0;
+    max-height: 515px;
+    overflow-y: auto;
+}
+
+/* custom scrollbar */
+.list-voucher::-webkit-scrollbar {
+    width: 2px;
+    /*display: none;*/
+}
+
+.list-voucher::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+.list-voucher::-webkit-scrollbar-thumb {
+    background-color: #000000;
+    border-radius: 20px;
+    border: 0;
+    background-clip: content-box;
+}
+
+.list-voucher::-webkit-scrollbar-thumb:hover {
+    background-color: #a8bbbf;
+}
+
+.list-voucher li {
+    list-style: none;
+    cursor: pointer;
+    animation-duration: 0.5s;
+    animation-timing-function: ease-in-out;
+}
+
+.text-voucher-not-accept {
+    background-color: #dcdcdc;
+}
+
+.btn-show-all-voucher {
+    border-bottom: solid 1px #e5e5e5;
+    border-radius: 0;
+    margin-bottom: 10px;
+}
+
+.list-voucher li .wrapper_voucher {
+    border-radius: 10px;
+    border: solid 1px #ededed;
+}
+
+.badge-suggests-money {
+    font-size: 14px;
+    cursor: pointer;
+    border: .0625rem solid #e7eaf3;
+}
+
+.list-voucher li .wrapper_voucher.active {
+    border: solid 1px #000000;
+}
+
+.list-voucher li .wrapper_voucher .card__discount {
+    background-color: #ededed;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.list-voucher li .wrapper_voucher .contents {
+    font-size: 11px;
+    border-right: solid 1px #ededed;
+}
+
+.list-voucher li .wrapper_voucher .contents .voucher_code {
+    font-size: 25px;
+    font-weight: 600;
+}
+
+.text-discount {
+    display: flex;
+    position: absolute;
+    transform: rotate(270deg);
+    justify-content: center;
+    top: 67px;
+    right: 2px;
+    width: 168%;
+}
+
+.text-value-discount {
+    position: absolute;
+    transform: rotate(270deg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    top: 60px;
+    font-size: 30px;
+    font-weight: 800;
+}

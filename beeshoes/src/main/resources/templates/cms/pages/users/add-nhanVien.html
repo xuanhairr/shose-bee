@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required Meta Tags Always Come First -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Title -->
+    <title>LightBee | Thêm nhân viên</title>
+    <!-- Favicon -->
+    <!--    <link rel="shortcut icon" href="favicon.ico">-->
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <!-- CSS Implementing Plugins -->
+    <link rel="stylesheet" href="/assets/cms/css/vendor.min.css">
+    <link rel="stylesheet" href="/assets/cms/vendor/icon-set/style.css">
+    <!-- CSS Front Template -->
+    <link rel="stylesheet" href="/assets/cms/css/theme.min.css?v=1.0">
+    <link href="/assets/cms/css/sweetalert2.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/cms/css/sweetalert2.min.css">
+</head>
+<body class="footer-offset">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.1/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+<script src="/assets/cms/vendor/hs-navbar-vertical-aside/hs-navbar-vertical-aside-mini-cache.js"></script>
+
+<!-- ========== HEADER ========== -->
+<div th:replace="~{cms/pages/_header.html}"></div>
+<!-- ========== END HEADER ========== -->
+
+<!-- ========== SIDEBAR ========== -->
+<div th:replace="~{cms/pages/_sidebar.html}"></div>
+<!-- ========== END SIDEBAR ========== -->
+<script src="/assets/cms/js/demo.js"></script>
+
+<!-- ========== MAIN CONTENT ========== -->
+<main id="content" role="main" class="main">
+    <!-- Content -->
+    <div class="content container-fluid">
+        <form th:action="@{/cms/nhan-vien/add}" method="post" th:object="${nhanVien}" id="btn-submit-nhan-vien"
+              class="js-step-form py-md-1" data-hs-step-form-options='{
+                "progressSelector": "#addUserStepFormProgress",
+                "stepsSelector": "#addUserStepFormContent",
+                "endSelector": "#addUserFinishBtn",
+                "isValidate": false
+              }'>
+            <div class="row justify-content-lg-center">
+                <div class="col">
+                    <!-- Step -->
+                    <div class="page-header">
+                        <div class="row align-items-end">
+                            <div class="col-sm mb-2 mb-sm-0">
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb breadcrumb-no-gutter">
+                                        <li class="breadcrumb-item"><a class="breadcrumb-link" href="javascript:;">Tài
+                                            Khoản</a></li>
+                                        <li class="breadcrumb-item"><a class="breadcrumb-link" href="javascript:;">Nhân
+                                            viên</a>
+                                        </li>
+                                    </ol>
+                                </nav>
+
+                                <h1 class="page-header-title">Thêm Nhân viên</h1>
+                            </div>
+
+                            <div class="col-sm-auto">
+                            </div>
+                        </div>
+                        <!-- End Row -->
+                    </div>
+                    <!-- End Step -->
+
+                    <!-- Content Step Form -->
+                    <div id="addUserStepFormContent">
+                        <!-- Card -->
+                        <div id="addUserStepProfile" class="card card-lg active">
+                            <div class="card-header d-flex justify-content-between">
+                                <div></div>
+                                <div>
+                                    <a class="btn btn-info" data-toggle="modal"
+                                       data-target="#form-qr-code">QR Code
+                                        <i class="tio tio-qr-code"></i>
+                                    </a>
+                                </div>
+
+                            </div>
+                            <!-- Body -->
+                            <div class="card-body row">
+                                <div class="col-sm-6">
+                                    <!-- Form Group -->
+                                    <div class="form-group mb-0">
+                                        <label class="col col-form-label input-label">Ảnh</label>
+
+                                        <div class="col">
+                                            <div class="d-flex align-items-center justify-content-center">
+                                                <!-- Avatar -->
+                                                <label class="avatar avatar-xl avatar-circle avatar-uploader mr-5"
+                                                       for="avatarUploader">
+                                                    <img id="avatarImg" class="avatar-img  w-100"
+                                                         th:src="${nhanVien.getAvatar()==null?'/assets/cms/img/160x160/img1.jpg':nhanVien.getAvatar()}"
+                                                         alt="Image Description">
+
+                                                    <input type="file" class="js-file-attach avatar-uploader-input"
+                                                           id="avatarUploader" data-hs-file-attach-options='{
+                                                                      "textTarget": "#avatarImg",
+                                                                      "mode": "image",
+                                                                      "targetAttr": "src",
+                                                                      "resetTarget": ".js-file-attach-reset-img",
+                                                                      "resetImg": "/assets/cms/img/160x160/img1.jpg",
+                                                                      "allowTypes": [".png", ".jpeg", ".jpg"]
+                                                                   }'>
+                                                    <th:block th:if="${nhanVien.getAvatar()!=null}">
+                                                        <input id="url-avatar-user" type="hidden" name="avatar"
+                                                               th:value="${nhanVien.getAvatar()}" hidden>
+                                                    </th:block>
+                                                    <span class="avatar-uploader-trigger">
+                                                              <i class="tio-edit avatar-uploader-icon shadow-soft"></i>
+                                                            </span>
+                                                </label>
+                                                <!-- End Avatar -->
+
+                                                <button type="button" class="js-file-attach-reset-img btn btn-white">
+                                                    Delete
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- End Form Group -->
+
+                                    <!-- Form Group -->
+                                    <div class="form-group">
+                                        <label for="hoTen" class="col col-form-label input-label">Họ tên
+                                            <i
+                                                    class="tio-help-outlined text-body ml-1" data-toggle="tooltip"
+                                                    data-placement="top"
+                                                    title="Displayed on public forums, such as Front."></i></label>
+
+                                        <div class="col">
+                                            <div class="input-group input-group-sm-down-break">
+                                                <input type="text" class="form-control" name="hoTen"
+                                                       id="hoTen"
+                                                       placeholder="Vui lòng nhập họ tên" aria-label="Nguyễn"
+                                                       th:field="*{hoTen}" th:value="${nhanVien.getHoTen()}">
+                                            </div>
+                                        </div>
+                                        <i id="hoTen_emty" style="color: red;display: none">Vui lòng nhập tên</i>
+                                        <i th:if="${errorHoTen!=null}" style="color: red;" th:text="${errorHoTen}"></i>
+                                    </div>
+                                    <!-- End Form Group -->
+
+                                    <!-- Form Group -->
+                                    <div class="form-group">
+                                        <label for="sdt" class="col col-form-label input-label">Số điện thoại</label>
+
+                                        <div class="col">
+                                            <div class="input-group input-group-sm-down-break align-items-center">
+                                                <input type="text" class="js-masked-input form-control" name="phone"
+                                                       id="sdt" placeholder="0359xxxxxx" aria-label="0359xxxxxx"
+                                                       data-hs-mask-options='{
+                                     "template": "0000000000"
+                                   }' th:field="*{sdt}" th:value="${nhanVien.getSdt()}">
+                                            </div>
+                                        </div>
+                                        <i id="sdt_emty" style="color: red;"></i>
+                                        <i th:if="${errorSdt!=null}" style="color: red;" th:text="${errorSdt}"></i>
+                                        <i th:if="${messageSdt!=null}" style="color: red;" th:text="${messageSdt}"></i>
+                                    </div>
+
+                                    <!-- Form Group -->
+                                    <div class="form-group">
+                                        <label class="col col-form-label input-label">Chức vụ</label>
+                                        <!-- Select -->
+                                        <div class="col">
+                                            <select class="js-select2-custom custom-select form-control"
+                                                    th:field="*{idCV}">
+                                                <option th:each="cv:${listCV}" th:value="${cv.getId()}"
+                                                        th:text="${cv.getTen()}"></option>
+                                            </select>
+                                            <!-- End Select -->
+                                        </div>
+                                    </div>
+                                    <!-- End Form Group -->
+
+                                    <div class="form-group">
+                                        <label for="cccd" class="col col-form-label input-label">CCCD</label>
+
+                                        <div class="col">
+                                            <input type="text" class="form-control" name="cccd"
+                                                   id="cccd" placeholder="Vui lòng nhập CCCD"
+                                                   aria-label="Htmlstream" th:field="*{cccd}"
+                                                   th:value="${nhanVien.getCccd()}">
+                                        </div>
+                                        <i id="cccd_emty" style="color: red;display: none">Vui lòng nhập vào cccd</i>
+                                        <i th:if="${errorCCCD!=null}" style="color: red;" th:text="${errorCCCD}"></i>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col col-form-label input-label">Giới tính</label>
+                                        <div class="col">
+                                            <div class="input-group input-group-sm-down-break">
+                                                <!-- Custom Radio -->
+                                                <div class="form-control">
+                                                    <div class="custom-control custom-radio">
+                                                        <input type="radio" class="custom-control-input"
+                                                               name="userAccountTypeRadio"
+                                                               id="gioi_tinh_nam" th:field="*{gioiTinh}"
+                                                               th:value="true">
+                                                        <label class="custom-control-label"
+                                                               for="gioi_tinh_nam">Nam</label>
+                                                    </div>
+                                                </div>
+                                                <!-- End Custom Radio -->
+
+                                                <!-- Custom Radio -->
+                                                <div class="form-control">
+                                                    <div class="custom-control custom-radio">
+                                                        <input type="radio" class="custom-control-input"
+                                                               name="userAccountTypeRadio"
+                                                               id="gioi_tinh_nu" th:field="*{gioiTinh}"
+                                                               th:value="false">
+                                                        <label class="custom-control-label"
+                                                               for="gioi_tinh_nu">Nữ</label>
+                                                    </div>
+                                                </div>
+                                                <!-- End Custom Radio -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Form Group -->
+                                <div class="col-sm-6">
+                                    <!-- Form Group -->
+                                    <div class="form-group">
+                                        <label for="email" class="col col-form-label input-label">Email</label>
+
+                                        <div class="col">
+                                            <input type="text" class="js-email-input form-control" name="email"
+                                                   id="email" placeholder="example@gmail.com"
+                                                   aria-label="Htmlstream" th:field="*{email}"
+                                                   th:value="${nhanVien.getEmail()}">
+                                        </div>
+                                        <i id="email_emty" style="color: red;"></i>
+                                        <i id="email_error" style="color: red;"></i>
+                                        <i th:if="${errorEmail!=null}" style="color: red;" th:text="${errorEmail}"></i>
+                                        <i th:if="${errorEmail_!=null}" style="color: red;"
+                                           th:text="${errorEmail_}"></i>
+
+                                    </div>
+                                    <!-- End Form Group -->
+
+                                    <!-- Form Group -->
+                                    <div class="form-group">
+                                        <label for="ngaySinh" class="col col-form-label input-label">Ngày sinh</label>
+
+                                        <div class="col">
+                                            <input type="date" class="form-control" name="ngaySinh"
+                                                   id="ngaySinh" pattern="\d{2}-\d{2}-\d{4}\"
+                                                   aria-label="Htmlstream" th:field="*{ngaySinh}">
+                                        </div>
+                                        <i id="ngaySinh_emty" style="color: red;display: none">Vui lòng nhập vào ngày
+                                            sinh</i>
+                                    </div>
+                                    <!-- End Form Group -->
+
+                                    <div class="form-group">
+                                        <label for="soNha" class="col col-form-label input-label">Số nhà</label>
+
+                                        <div class="col">
+                                            <input type="text" class="form-control" name="soNha"
+                                                   id="soNha" placeholder="Vui lòng nhập số nhà"
+                                                   aria-label="Htmlstream" th:field="*{soNha}"
+                                                   th:value="${nhanVien.getSoNha()}">
+                                        </div>
+                                        <i id="soNha_emty" style="color: red;display: none">Vui lòng nhập vào số nhà</i>
+                                        <i th:if="${errorSoNha!=null}" style="color: red;" th:text="${errorSoNha}"></i>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="tinhTP" class="col col-form-label input-label">Tỉnh/thành
+                                            phố</label>
+                                        <div class="col">
+                                            <select id="tinhTP" class="js-select2-custom custom-select"
+                                                    data-hs-select2-options='{
+                                            "placeholder": "Chọn Tỉnh Thành...",
+                                            "searchInputPlaceholder": "Tìm Tỉnh Thành..."}'
+                                                    th:field="*{tinhThanhPho}" th:value="${nhanVien.getTinhThanhPho()}">
+                                                <option value="">Chọn Tỉnh Thành</option>
+                                            </select>
+                                        </div>
+                                        <i id="tinhTP_emty" style="color: red;display: none">Vui lòng nhập vào tỉnh
+                                            thành phố</i>
+                                        <i th:if="${errorTinhTP!=null}" style="color: red;"
+                                           th:text="${errorTinhTP}"></i>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="quanHuyen" class="col col-form-label input-label">Quận huyện</label>
+                                        <div class="col">
+                                            <select id="quanHuyen" class="js-select2-custom custom-select"
+                                                    data-hs-select2-options='{
+                                            "placeholder": "Chọn Quận Huyện...",
+                                            "searchInputPlaceholder": "Tìm Quận Huyện..."}'
+                                                    th:field="*{quanHuyen}" th:value="${nhanVien.getQuanHuyen()}">
+                                                <option value="">Chọn Quận Huyện</option>
+                                            </select>
+                                        </div>
+                                        <i id="quanHuyen_emty" style="color: red;display: none">Vui lòng nhập vào quận
+                                            huyện</i>
+                                        <i th:if="${errorQuanHuyen!=null}" style="color: red;"
+                                           th:text="${errorQuanHuyen}"></i>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="phuongXa" class="col col-form-label input-label">Phường xã</label>
+                                        <div class="col">
+                                            <select id="phuongXa" class="js-select2-custom custom-select"
+                                                    data-hs-select2-options='{
+                                            "placeholder": "Chọn Phường Xã...",
+                                            "searchInputPlaceholder": "Tìm Phường Xã..."}'
+                                                    th:field="*{phuongXa}" th:value="${nhanVien.getPhuongXa()}">
+                                                <option value="">Chọn Phường Xã</option>
+                                            </select>
+                                        </div>
+                                        <i id="phuongXa_emty" style="color: red;display: none">Vui lòng nhập vào phường
+                                            xã</i>
+                                        <i th:if="${errorPhuongXa!=null}" style="color: red;"
+                                           th:text="${errorPhuongXa}"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Body -->
+
+                            <div class="d-flex justify-content-center">
+                                <div class="card-footer d-sm-flex align-items-sm-center">
+                                    <button id="submitBtn" type="button" class="btn btn-primary">Thêm nhân viên</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Row -->
+        </form>
+        <!-- End Step Form -->
+    </div>
+
+
+    <div class="footer">
+        <div class="row justify-content-between align-items-center">
+            <div class="col">
+                <p class="font-size-sm mb-0">&copy; Front. <span
+                        class="d-none d-sm-inline-block">2020 Htmlstream.</span></p>
+            </div>
+            <div class="col-auto">
+                <div class="d-flex justify-content-end">
+                    <!-- List Dot -->
+                    <ul class="list-inline list-separator">
+                        <li class="list-inline-item">
+                            <a class="list-separator-link" href="#">FAQ</a>
+                        </li>
+
+                        <li class="list-inline-item">
+                            <a class="list-separator-link" href="#">License</a>
+                        </li>
+
+                        <li class="list-inline-item">
+                            <!-- Keyboard Shortcuts Toggle -->
+                            <div class="hs-unfold">
+                                <a class="js-hs-unfold-invoker btn btn-icon btn-ghost-secondary rounded-circle"
+                                   href="javascript:;" data-hs-unfold-options='{
+                              "target": "#keyboardShortcutsSidebar",
+                              "type": "css-animation",
+                              "animationIn": "fadeInRight",
+                              "animationOut": "fadeOutRight",
+                              "hasOverlay": true,
+                              "smartPositionOff": true
+                             }'>
+                                    <i class="tio-command-key"></i>
+                                </a>
+                            </div>
+                            <!-- End Keyboard Shortcuts Toggle -->
+                        </li>
+                    </ul>
+                    <!-- End List Dot -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- End Footer -->
+</main>
+
+<div class="modal fade" id="form-qr-code" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog d-flex justify-content-center" role="document">
+        <div class="modal-content" style="width: 70%">
+            <!-- Header -->
+            <div class="modal-header">
+                <h5 class="modal-title" id="form-add-color-Label">Vui lòng đưa mã QR vào khung camera !</h5>
+                <button type="button" class="btn btn-icon btn-sm btn-ghost-secondary" data-dismiss="modal"
+                        aria-label="Close">
+                    <i class="tio-clear tio-lg" aria-hidden="true"></i>
+                </button>
+            </div>
+            <!-- End Header -->
+
+            <!-- Body -->
+            <div class="modal-body pt-0 pb-0 row justify-content-center">
+                <div style="width: 300px;height: 300px">
+                    <video id="video_show_camera" width="300" height="300" autoplay></video>
+                    <canvas id="canvas_context" width="200" height="200" style="display: none"></canvas>
+                    <audio id="sound_beep" th:src="@{/assets/cms/audio/bleep.mp3}" style="display: none"
+                           preload="auto"></audio>
+                </div>
+            </div>
+            <!-- End Body -->
+            <!-- Footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-white" data-dismiss="modal">Đóng</button>
+            </div>
+            <!-- End Footer -->
+        </div>
+    </div>
+</div>
+<!-- ========== SECONDARY CONTENTS ========== -->
+<!-- Keyboard Shortcuts -->
+<!-- ========== END SECONDARY CONTENTS ========== -->
+
+<!-- JS Implementing Plugins -->
+<script src="/assets/cms/js/sweetalert2.all.min.js"></script>
+<script src="/assets/cms/js/vendor.min.js"></script>
+<!-- JS Front -->
+<script src="/assets/cms/js/theme.min.js"></script>
+<!-- JS Plugins Init. -->
+<script src="/assets/cms/css/jsQR.min.js"></script>
+<script src="/assets/cms/js/khachHangJS/upload-img.js" type="module"></script>
+<script src="/assets/cms/js/khachHangJS/nhanVien.js"></script>
+<script src="/assets/socket/socket-config.js"></script>
+<script src="/assets/cms/js/header/_header.js"></script>
+<div th:replace="~{cms/pages/_IE-suport.html}"></div>
+</body>
+</html>
